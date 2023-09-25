@@ -1,0 +1,11 @@
+code-block-style:
+  style: fenced
+
+code-fence-style:
+  style: backtick
+
+MD033:
+  allowed_elements:
+    - font
+    - small
+    - span

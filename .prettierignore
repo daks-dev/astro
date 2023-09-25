@@ -1,0 +1,15 @@
+node_modules/
+
+__tmp__/
+
+.astro/
+.next/
+.svelte-kit/
+build/
+dist/
+dist-ssr/
+
+public/
+static/
+
+.master/
