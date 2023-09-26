@@ -1,0 +1,20 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import twMerge from '../tailwind/tailwind-merge';
+
+type Props = HTMLAttributes<'a'>;
+
+const { class: className, href, ...props } = Astro.props;
+
+const { pathname } = Astro.url;
+const current =
+  href === pathname ? 'page' : pathname.indexOf(`/${href}/`) !== -1 ? 'step' : undefined;
+---
+
+<a
+  {href}
+  class={twMerge('page:disabled', className)}
+  aria-current={current}
+  {...props}>
+  <slot />
+</a>

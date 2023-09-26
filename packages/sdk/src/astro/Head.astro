@@ -1,0 +1,182 @@
+---
+import pkg from 'package.json';
+const { version } = pkg;
+
+interface Props {
+  title: string;
+  description: string;
+  app?: Record<string, string>;
+  rss?: string;
+  // image: string;
+}
+const {
+  title,
+  description,
+  app,
+  rss
+  // image = '/icons/logo.svg'
+} = Astro.props;
+---
+
+<meta charset='UTF-8' />
+<meta
+  name='viewport'
+  content='width=device-width'
+/>
+<meta
+  name='robots'
+  content='index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'
+/>
+<link
+  rel='canonical'
+  href={new URL(Astro.url.pathname, Astro.site)}
+/>
+<title>{title}</title>
+<meta
+  name='title'
+  content={title}
+/>
+<meta
+  name='description'
+  content={description}
+/>
+{
+  rss && (
+    <link
+      rel='alternate'
+      type='application/rss+xml'
+      title='RSS'
+      href={new URL(rss, Astro.site)}
+    />
+  )
+}
+{
+  /*
+  <link
+    rel='preload'
+    href='/fonts/open-sans/open-sans-cyrillic-variable-wghtOnly-normal.woff2'
+    as='font'
+    type='font/woff2'
+    crossorigin
+  />
+  <link
+    rel='preload'
+    href='/fonts/open-sans/open-sans-latin-variable-wghtOnly-normal.woff2'
+    as='font'
+    type='font/woff2'
+    crossorigin
+  />
+  */
+}
+<link
+  rel='alternate icon'
+  href=`/favicon.ico?v=${version}`
+  sizes='any'
+/>
+<link
+  rel='apple-touch-icon'
+  href=`/favicon/maskable/192.png?v=${version}`
+/>
+<link
+  rel='icon'
+  href=`/favicon/icon.svg?v=${version}`
+  type='image/svg+xml'
+/>
+<link
+  rel='manifest'
+  href='/manifest.webmanifest'
+/>
+<meta
+  name='msapplication-config'
+  content='/browserconfig.xml'
+/>
+{
+  app?.themeColor && (
+    <meta
+      name='theme-color'
+      content={app.themeColor}
+    />
+  )
+}
+{
+  app?.tileColor && (
+    <meta
+      name='msapplication-TileColor'
+      content={app.tileColor}
+    />
+  )
+}
+{
+  app?.shortName && (
+    <>
+      <meta
+        name='application-name'
+        content={app.shortName}
+      />
+      <meta
+        name='apple-mobile-web-app-title'
+        content={app.shortName}
+      />
+    </>
+  )
+}
+<link
+  rel='yandex-tableau-widget'
+  href='/tableau.json'
+/>
+{
+  /*
+<meta
+  property='og:type'
+  content='website'
+/>
+<meta
+  property='og:url'
+  content={Astro.url}
+/>
+<meta
+  property='og:title'
+  content={title}
+/>
+<meta
+  property='og:description'
+  content={description}
+/>
+{
+  image && (
+    <meta
+      property='og:image'
+      content={new URL(image, Astro.url)}
+    />
+  )
+}
+<meta
+  property='twitter:card'
+  content='summary_large_image'
+/>
+<meta
+  property='twitter:url'
+  content={Astro.url}
+/>
+<meta
+  property='twitter:title'
+  content={title}
+/>
+<meta
+  property='twitter:description'
+  content={description}
+/>
+{
+  image && (
+    <meta
+      property='twitter:image'
+      content={new URL(image, Astro.url)}
+    />
+  )
+}
+  */
+}
+<meta
+  name='generator'
+  content={Astro.generator}
+/>

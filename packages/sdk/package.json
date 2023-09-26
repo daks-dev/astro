@@ -1,0 +1,101 @@
+{
+  "name": "@daks.dev/sdk",
+  "version": "0.1.0",
+  "description": "DAKS.DEV software development kit",
+  "type": "module",
+  "scripts": {
+    "package": "pnpm check && publint",
+    "prepublishOnly": "pnpm package",
+    "check:astro": "astro check",
+    "check:svelte": "svelte-check --tsconfig ./tsconfig.svelte.json",
+    "check:ts": "tsc -p ./tsconfig.tsc.json --diagnostics",
+    "check": "astro check && pnpm check:svelte && pnpm check:ts",
+    "check:watch": "astro check --watch",
+    "test": "vitest",
+    "lint": "prettier --plugin=prettier-plugin-astro --check . && eslint .",
+    "format": "prettier --plugin=prettier-plugin-astro --write .",
+    "update": "pnpm up"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.2.0",
+    "@astrojs/ts-plugin": "^1.1.3",
+    "@types/node": "^20.7.0",
+    "@types/react": "^18.2.23",
+    "@types/react-dom": "^18.2.7",
+    "astro": "^3.1.4",
+    "canvas-confetti": "^1.6.0",
+    "esm-env": "^1.0.0",
+    "publint": "^0.2.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "svelte": "^4.2.1",
+    "svelte-check": "^3.5.2",
+    "tailwind-merge": "^1.14.0",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.2.2",
+    "vite": "^4.4.9",
+    "vite-imagetools": "^5.0.8",
+    "vitest": "^0.34.5"
+  },
+  "peerDependencies": {
+    "astro": "^3.1.3",
+    "svelte": "^4.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.3.3"
+  },
+  "exports": {
+    ".": "./src/index.d.ts",
+    "./astro": "./src/astro/index.ts",
+    "./native": "./src/native/index.ts",
+    "./react": "./src/react/index.ts",
+    "./svelte": "./src/svelte/index.ts",
+    "./tailwind": "./src/tailwind/index.ts",
+    "./styles/*": "./src/styles/*.css",
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    ">4.0": {
+      "tailwind": [
+        "./src/tailwind/index.ts"
+      ]
+    }
+  },
+  "files": [
+    "src",
+    "!src/**/*.test.*",
+    "!src/**/*.spec.*"
+  ],
+  "engines": {
+    "node": ">=16.20.2",
+    "pnpm": "^8.7.0"
+  },
+  "browserslist": [
+    "last 2 version",
+    "not dead"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daks-dev/astro",
+    "directory": "packages/sdk"
+  },
+  "author": {
+    "name": "DVA",
+    "email": "mail@daks.dev",
+    "url": "https://daks.dev"
+  },
+  "bugs": "https://github.com/daks-dev/astro/issues",
+  "homepage": "https://daks.dev/",
+  "keywords": [
+    "astro",
+    "astro-component",
+    "astrojs",
+    "react",
+    "svelte",
+    "sveltejs",
+    "tailwind",
+    "tailwindcss",
+    "vite",
+    "withastro"
+  ]
+}

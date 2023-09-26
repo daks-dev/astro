@@ -1,0 +1,7 @@
+img:not([src]):not([srcset]) {
+  @apply invisible;
+}
+
+img.lazy-loaded {
+  @apply bg-none;
+}
