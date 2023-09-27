@@ -1,16 +1,14 @@
 {
   "name": "@daks.dev/sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "DAKS.DEV software development kit",
   "type": "module",
   "scripts": {
+    "check": "astro check && svelte-check --tsconfig ./tsconfig.svelte.json",
+    "check:watch": "astro check --watch",
+    "check:watch:svelte": "svelte-check --tsconfig ./tsconfig.svelte.json --watch",
     "package": "pnpm check && publint",
     "prepublishOnly": "pnpm package",
-    "check:astro": "astro check",
-    "check:svelte": "svelte-check --tsconfig ./tsconfig.svelte.json",
-    "check:ts": "tsc -p ./tsconfig.tsc.json --diagnostics",
-    "check": "astro check && pnpm check:svelte && pnpm check:ts",
-    "check:watch": "astro check --watch",
     "test": "vitest",
     "lint": "prettier --plugin=prettier-plugin-astro --check . && eslint .",
     "format": "prettier --plugin=prettier-plugin-astro --write .",
@@ -21,7 +19,7 @@
     "@astrojs/ts-plugin": "^1.1.3",
     "@types/node": "^20.7.0",
     "@types/react": "^18.2.23",
-    "@types/react-dom": "^18.2.7",
+    "@types/react-dom": "^18.2.8",
     "astro": "^3.1.4",
     "canvas-confetti": "^1.6.0",
     "esm-env": "^1.0.0",
@@ -39,20 +37,22 @@
   },
   "peerDependencies": {
     "astro": "^3.1.3",
-    "svelte": "^4.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "svelte": "^4.2.1",
     "tailwindcss": "^3.3.3"
   },
   "exports": {
-    ".": "./src/index.d.ts",
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/native/index.ts"
+    },
     "./astro": "./src/astro/index.ts",
-    "./native": "./src/native/index.ts",
     "./react": "./src/react/index.ts",
     "./svelte": "./src/svelte/index.ts",
     "./tailwind": "./src/tailwind/index.ts",
-    "./styles/*": "./src/styles/*.css",
-    "./package.json": "./package.json"
+    "./styles/*": "./src/styles/*"
   },
   "typesVersions": {
     ">4.0": {
@@ -61,6 +61,7 @@
       ]
     }
   },
+  "types": "src/index.d.ts",
   "files": [
     "src",
     "!src/**/*.test.*",

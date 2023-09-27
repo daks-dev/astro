@@ -1,4 +1,6 @@
 ---
+import twMerge from '../tailwind/tailwind-merge';
+
 interface Props {
   date: Date;
   locale?: 'ru-ru' | 'en-us';
@@ -10,12 +12,12 @@ const { date, locale = 'ru-ru', month = 'long', class: className = 'text-base' }
 ---
 
 <time
-  class:list={[className]}
+  class={twMerge(className)}
   datetime={date.toISOString()}>
   {
     date.toLocaleDateString(locale, {
       year: 'numeric',
-      month: month,
+      month,
       day: 'numeric'
     })
   }

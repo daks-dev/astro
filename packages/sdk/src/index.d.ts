@@ -1,3 +1,6 @@
+/// <reference types="svelte" />
+/// <reference types="vite/client" />
+
 declare type Timeout = string | undefined | number | NodeJS.Timeout;
 
 declare interface Metadata {

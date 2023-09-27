@@ -1,16 +1,9 @@
-<script
-  context="module"
-  lang="ts">
-  export type YandexMapInstance = Record<
-    string,
-    Record<string, (...x: unknown[]) => Record<string, () => unknown>>
-  >;
-</script>
-
 <script lang="ts">
   import { BROWSER } from 'esm-env';
   import { onMount } from 'svelte';
+  import twMerge from '../../tailwind/tailwind-merge';
   import { uuid } from '../../native';
+  import type { YandexMapInstance } from '.';
 
   let className: ClassName = undefined;
   export { className as class };
@@ -89,6 +82,6 @@
   on:touchstart|passive|stopPropagation
   on:touchend|passive|stopPropagation
   {id}
-  class:list={[className]}
+  class={twMerge(className)}
   role="button"
   tabindex="-1" />
