@@ -5,3 +5,6 @@ export { default as YandexMetrikaInit } from './yandex/yandex-metrika/YandexMetr
 
 export { default as Confetti } from './Confetti.svelte';
 export { default as Counter } from './Counter.svelte';
+export { default as Timer } from './Timer.svelte';
+
+export * as store from './store';

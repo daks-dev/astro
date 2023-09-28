@@ -1,13 +1,13 @@
 import Animate, { ANIMATION_DURATION, ANIMATION_DELAY } from './Animate.js';
 
 interface Options {
-  offset?: number;
-  duration?: number;
+  offset: number;
+  duration: number;
 }
 
 type Callback = (x?: Window) => void;
 
-export function to(x: number, y: number, options?: Options, callback?: Callback): void {
+export function to(x: number, y: number, options?: Partial<Options>, callback?: Callback): void {
   let steps = (options?.duration ?? ANIMATION_DURATION) / ANIMATION_DELAY;
   const stepX = (document.documentElement.scrollLeft - x) / steps;
   const stepY = (document.documentElement.scrollTop - y) / steps;
@@ -26,17 +26,15 @@ export function to(x: number, y: number, options?: Options, callback?: Callback)
   }
 }
 
-export function toObj(target: string | Element, options?: Options, callback?: Callback): void {
+export function toObj(
+  target: string | Element,
+  options?: Partial<Options>,
+  callback?: Callback
+): void {
   const node = typeof target === 'string' ? document.querySelector(target) : target;
   node && to(0, (node as HTMLElement).offsetTop + (options?.offset ?? 0), options, callback);
 }
 
-export function toTop(options?: Options, callback?: Callback): void {
+export function toTop(options?: Partial<Options>, callback?: Callback): void {
   to(0, 0, options, callback);
 }
-
-export default {
-  to,
-  toObj,
-  toTop
-};

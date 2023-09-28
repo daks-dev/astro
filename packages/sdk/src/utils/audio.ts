@@ -27,8 +27,3 @@ export function beep(
   oscillator.start(audioCtx.currentTime);
   oscillator.stop(audioCtx.currentTime + duration / 1000);
 }
-
-export default {
-  beep,
-  peep
-};

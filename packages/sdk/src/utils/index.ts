@@ -11,10 +11,12 @@ export const isTouch = () =>
   navigator?.maxTouchPoints > 0 ||
   (document && 'ontouchstart' in document.documentElement);
 
-export { default as Animate } from './Animate.js';
-export { default as Swipe, swipe } from './Swipe.js';
-export { default as Wheel, wheel } from './Wheel.js';
+export { default as Animate } from './Animate';
+export { default as Swipe, swipe } from './Swipe';
+export { default as Wheel, wheel } from './Wheel';
 
-export { default as audio } from './audio.js';
-export { default as outside } from './outside.js';
-export { default as scroll } from './scroll.js';
+export { default as outside } from './outside';
+
+export * as audio from './audio';
+export * as nanostore from './nanostore';
+export * as scroll from './scroll';

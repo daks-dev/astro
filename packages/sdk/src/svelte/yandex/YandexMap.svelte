@@ -2,7 +2,7 @@
   import { BROWSER } from 'esm-env';
   import { onMount } from 'svelte';
   import twMerge from '../../tailwind/tailwind-merge';
-  import { uuid } from '../../native';
+  import { uuid } from '../../utils';
   import type { YandexMapInstance } from '.';
 
   let className: ClassName = undefined;
