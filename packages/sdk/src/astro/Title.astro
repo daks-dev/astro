@@ -1,0 +1,35 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import twMerge from '../tailwind/tailwind-merge';
+
+type Props = HTMLAttributes<'h1'> & {
+  class?: ClassName;
+  itemprop?: string;
+  header?: HTMLAttributes<'header'> & {
+    class?: ClassName;
+    itemscope?: string;
+    itemprop?: string;
+  };
+};
+
+const {
+  class: className,
+  itemprop = 'name',
+  header: { class: classNameH, itemprop: itempropH = 'headline', ...propsH } = {},
+  ...props
+} = Astro.props;
+---
+
+<header
+  class={twMerge(classNameH)}
+  itemprop={itempropH}
+  {...propsH}>
+  <slot name='before' />
+  <h1
+    class={twMerge(className)}
+    {itemprop}
+    {...props}>
+    <slot />
+  </h1>
+  <slot name='after' />
+</header>

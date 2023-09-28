@@ -1,27 +1,33 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
 
-interface Props {
+type Props = HTMLAttributes<'a'> & {
   class?: ClassName;
   title?: string;
   path?: string;
+  href?: string;
   size?: number;
-}
+  itemprop?: string;
+};
 const {
   class: className,
   title = "Go to Astro's GitHub repo",
   path = '/withastro/astro',
-  size = 24
+  href = new URL(path, 'https://github.com'),
+  size = 24,
+  itemprop = 'relatedLink',
+  ...props
 } = Astro.props;
-
-const href = new URL(path, 'https://github.com');
 ---
 
 <a
   class={twMerge('text-gray-900 hover:text-sky-500', className)}
   {href}
   target='_blank'
-  aria-label={title}>
+  aria-label={title}
+  {itemprop}
+  {...props}>
   {title && <span class='sr-only'>{title}</span>}
   <svg
     width={size}

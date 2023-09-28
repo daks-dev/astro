@@ -4,7 +4,7 @@ import twMerge from '../tailwind/tailwind-merge';
 
 type Props = HTMLAttributes<'a'>;
 
-const { class: className, href, ...props } = Astro.props;
+const { href, class: className, ...props } = Astro.props;
 
 const { pathname } = Astro.url;
 const current =
