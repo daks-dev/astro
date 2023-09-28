@@ -9,13 +9,7 @@ type Props = HTMLAttributes<'time'> & {
   class?: ClassName;
 };
 
-const {
-  date,
-  locale = 'ru-ru',
-  month = 'long',
-  class: className = 'text-base',
-  ...props
-} = Astro.props;
+const { date, locale = 'ru-ru', month = 'long', class: className, ...props } = Astro.props;
 ---
 
 <time

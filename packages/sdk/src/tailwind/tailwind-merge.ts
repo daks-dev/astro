@@ -1,4 +1,10 @@
-import { getDefaultConfig, mergeConfigs, extendTailwindMerge, type Config } from 'tailwind-merge';
+import {
+  getDefaultConfig,
+  mergeConfigs,
+  extendTailwindMerge,
+  type Config,
+  type ClassNameValue
+} from 'tailwind-merge';
 
 export const getTwClassGroup = (key?: string): void => {
   const config: Config = getDefaultConfig();
@@ -19,4 +25,8 @@ export const getTwConfig = (...configs: Array<Partial<Config>>) =>
     ...configs
   ].reduce((acc: Config, val) => mergeConfigs(acc, val), getDefaultConfig());
 
-export default extendTailwindMerge((config: Config): Config => mergeConfigs(config, getTwConfig()));
+const twMerge = extendTailwindMerge(
+  (config: Config): Config => mergeConfigs(config, getTwConfig())
+);
+
+export default (...classLists: ClassNameValue[]) => twMerge(...classLists) || undefined;

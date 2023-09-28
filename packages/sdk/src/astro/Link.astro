@@ -7,13 +7,12 @@ type Props = HTMLAttributes<'a'>;
 const { href, class: className, ...props } = Astro.props;
 
 const { pathname } = Astro.url;
-const current =
-  href === pathname ? 'page' : pathname.indexOf(`/${href}/`) !== -1 ? 'step' : undefined;
+const current = href === pathname ? 'page' : pathname.indexOf(`${href}/`) >= 0 ? 'step' : undefined;
 ---
 
 <a
   {href}
-  class={twMerge('page:disabled', className)}
+  class={twMerge('page:disabled step:text-cyan-700', className)}
   aria-current={current}
   {...props}>
   <slot />

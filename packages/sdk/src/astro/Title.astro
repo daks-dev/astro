@@ -5,25 +5,34 @@ import twMerge from '../tailwind/tailwind-merge';
 type Props = HTMLAttributes<'h1'> & {
   class?: ClassName;
   itemprop?: string;
-  header?: HTMLAttributes<'header'> & {
+  frame?: HTMLAttributes<'header'> & {
     class?: ClassName;
-    itemscope?: string;
+    itemscope?: true;
+    itemtype?: string;
     itemprop?: string;
   };
 };
 
 const {
-  class: className,
-  itemprop = 'name',
-  header: { class: classNameH, itemprop: itempropH = 'headline', ...propsH } = {},
+  class: className = undefined,
+  itemprop = 'headline',
+  frame: {
+    class: classNameFrame,
+    itemscope,
+    itemtype,
+    itemprop: itempropFrame = 'header',
+    ...propsFrame
+  } = {},
   ...props
 } = Astro.props;
 ---
 
 <header
-  class={twMerge(classNameH)}
-  itemprop={itempropH}
-  {...propsH}>
+  class={twMerge(classNameFrame)}
+  {itemscope}
+  {itemtype}
+  itemprop={itempropFrame}
+  {...propsFrame}>
   <slot name='before' />
   <h1
     class={twMerge(className)}
