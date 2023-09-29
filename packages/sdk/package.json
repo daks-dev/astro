@@ -9,7 +9,7 @@
     "check:watch:svelte": "svelte-check --tsconfig ./tsconfig.svelte.json --watch",
     "package": "pnpm check && publint",
     "prepublishOnly": "pnpm package",
-    "tsc": "tsc --noEmit false --declaration --emitDeclarationOnly",
+    "tsc": "tsc -p ./src --noEmit false --declaration --emitDeclarationOnly",
     "test": "vitest",
     "lint": "prettier --plugin=prettier-plugin-astro --check . && eslint .",
     "format": "prettier --plugin=prettier-plugin-astro --write .",

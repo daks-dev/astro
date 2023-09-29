@@ -8,3 +8,8 @@ declare interface Metadata {
 }
 
 declare type ClassName = string | string[] | null | undefined;
+
+declare module '*.astro' {
+  const value: unknown;
+  export default value;
+}
