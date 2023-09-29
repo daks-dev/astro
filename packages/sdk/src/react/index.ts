@@ -1,2 +1,2 @@
-export { default as Counter } from './Counter';
-export { default as Timer } from './Timer';
+export { default as Counter } from './counter/Counter';
+export { default as Timer } from './timer/Timer';

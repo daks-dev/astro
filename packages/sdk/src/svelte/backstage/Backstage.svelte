@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import twMerge from '../tailwind/tailwind-merge';
+  import twMerge from '../../tailwind/tailwind-merge';
 
   let className: ClassName = 'bg-neutral-100 dark:bg-gray-800';
   export { className as class };

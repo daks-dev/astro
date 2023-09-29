@@ -1,8 +1,8 @@
 <script lang="ts">
   import { BROWSER } from 'esm-env';
   import { onMount } from 'svelte';
-  import twMerge from '../tailwind/tailwind-merge';
-  import { settings } from '../utils/nanostore';
+  import twMerge from '../../tailwind/tailwind-merge';
+  import { settings } from '../../utils/nanostore';
 
   let className: ClassName = undefined;
   export { className as class };
