@@ -1,5 +1,5 @@
 import { useStore } from '@nanostores/react';
-import { timer, timerFormat as format } from '../../utils/nanostore';
+import { timer, timerFormat as format } from '../../utils/nanostores';
 import twMerge from '../../tailwind/tailwind-merge';
 
 export default function Timer({ className }: { className: ClassName }) {
