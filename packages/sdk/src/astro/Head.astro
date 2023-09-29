@@ -7,15 +7,9 @@ interface Props {
   description: string;
   app?: Record<string, string>;
   rss?: string;
-  // image: string;
+  image?: string;
 }
-const {
-  title,
-  description,
-  app,
-  rss
-  // image = '/icons/logo.svg'
-} = Astro.props;
+const { title, description, app, rss, image = '/icons/logo.svg' } = Astro.props;
 ---
 
 <meta charset='UTF-8' />
@@ -124,8 +118,6 @@ const {
   rel='yandex-tableau-widget'
   href='/tableau.json'
 />
-{
-  /*
 <meta
   property='og:type'
   content='website'
@@ -150,6 +142,8 @@ const {
     />
   )
 }
+{
+  /*
 <meta
   property='twitter:card'
   content='summary_large_image'

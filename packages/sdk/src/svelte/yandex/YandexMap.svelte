@@ -22,16 +22,15 @@
     }
   };
 
+  export let tag = 'div';
+  export let id = uuid();
   export let apikey: string | undefined = undefined;
   export let lang = 'ru_RU';
+
   const params = new URLSearchParams({
     lang,
     ...(apikey ? { apikey } : {})
   }).toString();
-
-  export let tag = 'div';
-
-  const id = uuid();
 
   function upload(): boolean {
     return typeof ymaps !== 'undefined' && ymaps?.Map && ymaps?.Placemark;
@@ -63,11 +62,11 @@
       if (upload()) mount();
       else {
         const src = `https://api-maps.yandex.ru/2.1/?${params}`;
-        if (!document.head.querySelector(`script[src="${src}"]`)) {
+        if (!document.body.querySelector(`script[src="${src}"]`)) {
           const el = document.createElement('script');
           el.src = src;
           el.async = true;
-          document.head.appendChild(el);
+          document.body.appendChild(el);
           el.addEventListener('load', mount, { once: true });
         } else mount();
       }
@@ -82,6 +81,6 @@
   on:touchstart|passive|stopPropagation
   on:touchend|passive|stopPropagation
   {id}
-  class={twMerge(className)}
+  class={twMerge('relative', className)}
   role="button"
   tabindex="-1" />

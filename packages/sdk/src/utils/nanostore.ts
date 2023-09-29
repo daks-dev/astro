@@ -18,6 +18,18 @@ export const settings = persistentMap<Settings>(
   }
 );
 
+export const settingsTheme = () => {
+  function set() {
+    const t = settings.get().theme;
+    const l = document.documentElement.classList;
+    if (t === 'dark' || (t === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches))
+      l.add('dark');
+    else l.remove('dark');
+  }
+  set();
+  document.addEventListener('astro:after-swap', set);
+};
+
 export const metadata = persistentAtom<Metadata>(
   'metadata',
   {},

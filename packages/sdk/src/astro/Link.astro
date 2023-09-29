@@ -12,7 +12,7 @@ const current = href === pathname ? 'page' : pathname.indexOf(`${href}/`) >= 0 ?
 
 <a
   {href}
-  class={twMerge('page:disabled step:text-cyan-700', className)}
+  class={twMerge('page:disabled', className)}
   aria-current={current}
   {...props}>
   <slot />
