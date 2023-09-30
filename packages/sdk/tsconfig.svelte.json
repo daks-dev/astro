@@ -1,5 +1,5 @@
 {
   "extends": "./tsconfig.json",
   "include": ["src/**/*.js", "src/**/*.ts", "src/**/*.svelte"],
-  "exclude": ["node_modules/**", "src/astro/**", "src/react/**"]
+  "exclude": ["node_modules/**", "dist/**", "src/astro/**", "src/react/**"]
 }

@@ -6,7 +6,7 @@
     "jsxImportSource": "react",
     "strictNullChecks": true,
     "checkJs": true,
-    "sourceMap": true,
+    // "sourceMap": true,
     "lib": ["esnext", "DOM", "DOM.Iterable"],
     "plugins": [
       {
@@ -24,5 +24,5 @@
     "src/**/*.astro",
     "src/**/*.svetle"
   ],
-  "exclude": ["node_modules/**"]
+  "exclude": ["node_modules/**", "dist/**"]
 }

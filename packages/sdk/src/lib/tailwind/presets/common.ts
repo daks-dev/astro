@@ -75,5 +75,5 @@ export default {
     }
   },
 
-  plugins: [base, components, utilities, aria, onscroll, animationPlayState, vectorEffect]
+  plugins: [animationPlayState, aria, base, components, onscroll, utilities, vectorEffect]
 } satisfies Config;
