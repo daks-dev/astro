@@ -17,6 +17,7 @@
     accurateTrackBounce: true,
     trackHash: true
   };
+  export let partytown = false;
 
   function init() {
     ym(counter, 'init', options);
@@ -37,6 +38,7 @@
         const el = document.createElement('script');
         el.src = src;
         el.async = true;
+        if (partytown) el.type = 'text/partytown';
         el.addEventListener('load', init, { once: true });
         document.head.appendChild(el);
       }

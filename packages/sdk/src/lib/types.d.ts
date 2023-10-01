@@ -3,9 +3,17 @@
 /// <reference types="vite/client" />
 
 declare module '*.astro' {
-  const value: unknown;
-  export default value;
+  import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+  const Component: AstroComponentFactory;
+  export default Component;
 }
+
+/*
+declare module '*.astro' {
+  const component: unknown;
+  export default component;
+}
+*/
 
 declare type Timeout = string | undefined | number | NodeJS.Timeout;
 

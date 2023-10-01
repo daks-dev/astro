@@ -32,6 +32,8 @@
     ...(apikey ? { apikey } : {})
   }).toString();
 
+  export let partytown = false;
+
   function upload(): boolean {
     return typeof ymaps !== 'undefined' && ymaps?.Map && ymaps?.Placemark;
   }
@@ -66,6 +68,7 @@
           const el = document.createElement('script');
           el.src = src;
           el.async = true;
+          if (partytown) el.type = 'text/partytown';
           document.body.appendChild(el);
           el.addEventListener('load', mount, { once: true });
         } else mount();

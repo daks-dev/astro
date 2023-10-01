@@ -16,7 +16,7 @@ const sort = (obj: Record<string, unknown>) =>
     .reduce((acc, key) => ((acc[key] = obj[key]), acc), <Record<string, unknown>>{});
 
 export default {
-  content: ['./node_modules/@daks.dev/sdk/src/**/*.{html,js,jsx,ts,tsx,md,mdx,astro,svelte,vue}'],
+  content: ['./node_modules/@daks.dev/sdk/dist/**/*.{html,js,jsx,ts,tsx,md,mdx,astro,svelte,vue}'],
 
   darkMode: 'class',
 
