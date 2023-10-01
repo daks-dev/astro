@@ -39,8 +39,6 @@
   on:click={toggle}
   class={twMerge(className)}
   type="button"
-  aria-hidden="true"
-  aria-label="color theme"
   {...$$restProps}>
   {#if dark}
     <svg

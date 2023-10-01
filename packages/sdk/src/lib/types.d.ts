@@ -8,17 +8,10 @@ declare module '*.astro' {
   export default Component;
 }
 
-/*
-declare module '*.astro' {
-  const component: unknown;
-  export default component;
-}
-*/
-
-declare type Timeout = string | undefined | number | NodeJS.Timeout;
+declare type Timeout = string | number | NodeJS.Timeout | undefined;
 
 declare interface Metadata {
   [x: string]: string | null | undefined;
 }
 
-declare type ClassName = string | string[] | null | undefined;
+declare type ClassName = string | false | 0 | ClassName[] | null | undefined;

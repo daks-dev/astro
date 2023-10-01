@@ -1,9 +1,9 @@
 <script lang="ts">
   import { BROWSER } from 'esm-env';
   import { onMount } from 'svelte';
-  import twMerge from '../../tailwind/tailwind-merge';
   import { uuid } from '../../utils';
   import type { YandexMapInstance } from '.';
+  import twMerge from '../../tailwind/tailwind-merge';
 
   let className: ClassName = undefined;
   export { className as class };
@@ -26,13 +26,12 @@
   export let id = uuid();
   export let apikey: string | undefined = undefined;
   export let lang = 'ru_RU';
+  export let type = '';
 
   const params = new URLSearchParams({
     lang,
     ...(apikey ? { apikey } : {})
   }).toString();
-
-  export let partytown = false;
 
   function upload(): boolean {
     return typeof ymaps !== 'undefined' && ymaps?.Map && ymaps?.Placemark;
@@ -68,7 +67,7 @@
           const el = document.createElement('script');
           el.src = src;
           el.async = true;
-          if (partytown) el.type = 'text/partytown';
+          if (type) el.type = type;
           document.body.appendChild(el);
           el.addEventListener('load', mount, { once: true });
         } else mount();

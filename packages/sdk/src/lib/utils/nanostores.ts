@@ -1,12 +1,13 @@
+import { atom } from 'nanostores';
 import { persistentAtom, persistentMap } from '@nanostores/persistent';
 import { onMount } from 'nanostores';
 
-export interface Settings {
+export const twmerge = atom<Record<string, Record<string, string[]>[]>>({});
+
+export const settings = persistentMap<{
   sidebar: boolean;
   theme: 'dark' | 'light' | 'auto';
-}
-
-export const settings = persistentMap<Settings>(
+}>(
   'settings',
   {
     sidebar: false,

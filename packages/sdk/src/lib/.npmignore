@@ -1,1 +1,3 @@
 svelte/figure/
+vite/plugin-minify.ts
+vite/plugin-yaml.ts

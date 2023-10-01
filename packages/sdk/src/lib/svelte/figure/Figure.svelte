@@ -4,8 +4,9 @@
 
   let className: ClassName = undefined;
   export { className as class };
-  export let style: string | undefined = undefined;
   export let custom: Record<string, ClassName> = {};
+
+  export let style: string | undefined = undefined;
 
   let meta: ImageMetadata;
   export { meta as src };

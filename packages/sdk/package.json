@@ -1,6 +1,6 @@
 {
   "name": "@daks.dev/sdk",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "DAKS.DEV software development kit",
   "type": "module",
   "scripts": {
@@ -9,9 +9,9 @@
     "check:watch:svelte": "svelte-check --watch",
     "package": "svelte-package && publint",
     "prepublishOnly": "pnpm check && pnpm package",
-    "prettier": "prettier --plugin=prettier-plugin-astro --plugin=prettier-plugin-svelte --ignore-path=../../.prettierignore .",
+    "prettier": "prettier --plugin=prettier-plugin-astro --plugin=prettier-plugin-svelte --ignore-path=../../.prettierignore",
     "lint": "pnpm prettier --check . && eslint .",
-    "format": "pnpm prettier --write",
+    "format": "pnpm prettier --write .",
     "test": "vitest --ui",
     "update": "pnpm -r up"
   },
@@ -22,7 +22,7 @@
     "@nanostores/react": "^0.7.1",
     "@sveltejs/package": "^2.2.2",
     "@types/node": "^20.8.0",
-    "@types/react": "^18.2.23",
+    "@types/react": "^18.2.24",
     "@types/react-dom": "^18.2.8",
     "@vitest/ui": "^0.34.6",
     "astro": "^3.2.0",
@@ -79,6 +79,16 @@
       "types": "./dist/svelte/*/index.d.ts",
       "import": "./dist/svelte/*/index.js"
     },
+    "./tailwind": {
+      "types": "./dist/tailwind/index.d.ts",
+      "import": "./dist/tailwind/index.js",
+      "require": "./dist/tailwind/index.js"
+    },
+    "./tailwind/*": {
+      "types": "./dist/tailwind/*.d.ts",
+      "import": "./dist/tailwind/*.js",
+      "require": "./dist/tailwind/*.js"
+    },
     "./utils": {
       "types": "./dist/utils/index.d.ts",
       "import": "./dist/utils/index.js"
@@ -87,14 +97,8 @@
       "types": "./dist/utils/*.d.ts",
       "import": "./dist/utils/*.js"
     },
-    "./tailwind": {
-      "types": "./dist/tailwind/index.d.ts",
-      "default": "./dist/tailwind/index.js"
-    },
-    "./tailwind/*": {
-      "types": "./dist/tailwind/*.d.ts",
-      "default": "./dist/tailwind/*.js"
-    },
+    "./icons/*": "./dist/assets/icons/*",
+    "./images/*": "./dist/assets/images/*",
     "./styles/*": "./dist/styles/*"
   },
   "typesVersions": {
