@@ -7,12 +7,13 @@
     "check": "astro check && svelte-check",
     "check:watch": "astro check --watch",
     "check:watch:svelte": "svelte-check --watch",
-    "package": "svelte-package && publint",
-    "prepublishOnly": "pnpm check && pnpm package",
     "prettier": "prettier --plugin=prettier-plugin-astro --plugin=prettier-plugin-svelte --ignore-path=../../.prettierignore",
     "lint": "pnpm prettier --check . && eslint .",
     "format": "pnpm prettier --write .",
     "test": "vitest --ui",
+    "package": "svelte-package && publint",
+    "prepublishOnly": "pnpm check && pnpm package",
+    "publish": "pnpm publish",
     "update": "pnpm -r up"
   },
   "devDependencies": {
