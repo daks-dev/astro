@@ -4,7 +4,7 @@
 
   let className: ClassName = undefined;
   export { className as class };
-  export let custom: Record<string, ClassName> = {};
+  export let custom: ClassMap = {};
 
   export let style: string | undefined = undefined;
 

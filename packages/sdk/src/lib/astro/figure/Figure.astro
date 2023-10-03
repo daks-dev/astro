@@ -12,7 +12,7 @@ type Props = HTMLAttributes<'figure'> & {
   subtitle?: string;
   description?: string;
   class?: ClassName;
-  inner?: Record<string, ClassName>;
+  custom?: ClassMap;
 };
 
 const {
@@ -24,7 +24,7 @@ const {
   subtitle = '',
   description = '',
   class: className,
-  inner,
+  custom,
   ...props
 } = Astro.props;
 
@@ -36,7 +36,7 @@ const caption = title || subtitle || description;
   {...props}>
   <slot name='before' />
   <Image
-    class={twMerge('bg-neutral-300', inner?.image)}
+    class={twMerge('bg-neutral-300', custom?.image)}
     {src}
     {width}
     {height}
@@ -45,10 +45,10 @@ const caption = title || subtitle || description;
   />
   {
     (caption || Astro.slots.has('default')) && (
-      <figcaption class={twMerge('flex flex-col', inner?.caption)}>
-        {title && <span class={twMerge('font-semibold', inner?.title)}>{title}</span>}
-        {subtitle && <span class={twMerge(inner?.subtitle)}>{subtitle}</span>}
-        {description && <small class={twMerge(inner?.description)}>{description}</small>}
+      <figcaption class={twMerge('flex flex-col', custom?.caption)}>
+        {title && <span class={twMerge('font-semibold', custom?.title)}>{title}</span>}
+        {subtitle && <span class={twMerge(custom?.subtitle)}>{subtitle}</span>}
+        {description && <small class={twMerge(custom?.description)}>{description}</small>}
         <slot />
       </figcaption>
     )

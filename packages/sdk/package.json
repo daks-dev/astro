@@ -1,20 +1,20 @@
 {
   "name": "@daks.dev/sdk",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "DAKS.DEV software development kit",
   "type": "module",
   "scripts": {
     "check": "astro check && svelte-check",
     "check:watch": "astro check --watch",
     "check:watch:svelte": "svelte-check --watch",
-    "prettier": "prettier --plugin=prettier-plugin-astro --plugin=prettier-plugin-svelte --ignore-path=../../.prettierignore",
-    "lint": "pnpm prettier --check . && eslint .",
-    "format": "pnpm prettier --write .",
+    "run:prettier": "prettier --plugin=prettier-plugin-astro --plugin=prettier-plugin-svelte --ignore-path=../../.prettierignore",
+    "lint": "pnpm run:prettier --check . && eslint .",
+    "format": "pnpm run:prettier --write .",
     "test": "vitest --ui",
     "package": "svelte-package && publint",
     "prepublishOnly": "pnpm check && pnpm package",
-    "publish": "pnpm publish",
-    "update": "pnpm -r up"
+    "run:publish": "pnpm publish",
+    "run:update": "pnpm -r up"
   },
   "devDependencies": {
     "@astrojs/check": "^0.2.0",
@@ -26,8 +26,8 @@
     "@types/react": "^18.2.24",
     "@types/react-dom": "^18.2.8",
     "@vitest/ui": "^0.34.6",
-    "astro": "^3.2.0",
-    "canvas-confetti": "^1.6.1",
+    "astro": "^3.2.1",
+    "canvas-confetti": "^1.7.0",
     "esm-env": "^1.0.0",
     "nanostores": "^0.9.3",
     "publint": "^0.2.3",
@@ -43,7 +43,7 @@
     "vitest": "^0.34.6"
   },
   "peerDependencies": {
-    "astro": "^3.2.0",
+    "astro": "^3.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "svelte": "^4.2.1",

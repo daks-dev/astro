@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { BROWSER } from 'esm-env';
+  // import { BROWSER } from 'esm-env';
   import { onMount } from 'svelte';
   import twMerge from '../../tailwind/tailwind-merge';
   import { settings } from '../../utils/nanostores';
@@ -15,24 +15,22 @@
     dark = document.documentElement.classList.toggle('dark');
     settings.setKey('theme', dark ? 'dark' : 'light');
   }
-
-  const theme = () => {
-    function set() {
-      if (
-        $settings.theme === 'dark' ||
-        ($settings.theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)
-      )
-        document.documentElement.classList.add('dark');
-      else if ($settings.theme === 'light') document.documentElement.classList.remove('dark');
-    }
-    set();
-    document.addEventListener('astro:after-swap', set);
-  };
-
-  if (BROWSER) {
-    theme();
-    onMount(() => (dark = document.documentElement.classList.contains('dark')));
-  }
+  /*
+  if (BROWSER)
+    (() => {
+      function set() {
+        if (
+          $settings.theme === 'dark' ||
+          ($settings.theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        )
+          document.documentElement.classList.add('dark');
+        else if ($settings.theme === 'light') document.documentElement.classList.remove('dark');
+      }
+      set();
+      document.addEventListener('astro:after-swap', set);
+    })();
+  */
+  onMount(() => (dark = document.documentElement.classList.contains('dark')));
 </script>
 
 <button

@@ -1,8 +1,25 @@
-import { atom } from 'nanostores';
-import { persistentAtom, persistentMap } from '@nanostores/persistent';
-import { onMount } from 'nanostores';
+import { atom, onMount } from 'nanostores';
+
+export const page = atom<{
+  url: URL;
+  request: Request;
+}>({
+  url: new URL('http://www.example.com'),
+  request: new Request('http://www.example.com')
+});
 
 export const twmerge = atom<Record<string, Record<string, string[]>[]>>({});
+
+import { persistentAtom, persistentMap } from '@nanostores/persistent';
+
+export const metadata = persistentAtom<Metadata>(
+  'metadata',
+  {},
+  {
+    encode: JSON.stringify,
+    decode: JSON.parse
+  }
+);
 
 export const settings = persistentMap<{
   sidebar: boolean;
@@ -30,15 +47,6 @@ export const settingsTheme = () => {
   set();
   document.addEventListener('astro:after-swap', set);
 };
-
-export const metadata = persistentAtom<Metadata>(
-  'metadata',
-  {},
-  {
-    encode: JSON.stringify,
-    decode: JSON.parse
-  }
-);
 
 export const timer = persistentAtom<number>('timer', 0, {
   encode: (val) => val.toString(),

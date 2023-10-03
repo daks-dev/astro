@@ -15,3 +15,5 @@ declare interface Metadata {
 }
 
 declare type ClassName = string | false | 0 | ClassName[] | null | undefined;
+declare type ClassMap = Record<string, ClassName>;
+declare type ClassList = Record<string, ClassName | ClassMap | ClassList>;
