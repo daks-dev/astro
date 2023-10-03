@@ -2,7 +2,7 @@
   // import { BROWSER } from 'esm-env';
   import { onMount } from 'svelte';
   import twMerge from '../../tailwind/tailwind-merge';
-  import { settings } from '../../stores/persistent';
+  import { settings } from '../../app/stores/persistent';
 
   let className: ClassName = undefined;
   export { className as class };

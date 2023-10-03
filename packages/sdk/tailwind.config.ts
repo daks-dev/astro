@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss';
 import typography from '@tailwindcss/typography';
-import common from './src/styles/tailwind/presets/common';
-import fontFamily from './src/styles/tailwind/font-family';
+import common from './src/lib/tailwind/presets/common';
+import { fontSans } from './src/lib/tailwind/font-family';
 
 export default {
   content: ['./src/**/*.{html,js,jsx,ts,tsx,md,mdx,astro,svelte,vue}'],
@@ -10,7 +10,7 @@ export default {
 
   theme: {
     extend: {
-      fontFamily: fontFamily()
+      fontFamily: fontSans()
     }
   },
 

@@ -23,6 +23,7 @@
     "@nanostores/react": "^0.7.1",
     "@neoconfetti/svelte": "^1.0.0",
     "@sveltejs/package": "^2.2.2",
+    "@tailwindcss/typography": "^0.5.10",
     "@types/node": "^20.8.2",
     "@types/react": "^18.2.24",
     "@types/react-dom": "^18.2.8",
@@ -73,12 +74,12 @@
       "import": "./dist/react/*/index.js"
     },
     "./stores": {
-      "types": "./dist/stores/index.d.ts",
-      "import": "./dist/stores/index.js"
+      "types": "./dist/app/stores/index.d.ts",
+      "import": "./dist/app/stores/index.js"
     },
     "./stores/*": {
-      "types": "./dist/stores/*.d.ts",
-      "import": "./dist/stores/*.js"
+      "types": "./dist/app/stores/*.d.ts",
+      "import": "./dist/app/stores/*.js"
     },
     "./svelte": {
       "types": "./dist/svelte/index.d.ts",
@@ -108,7 +109,7 @@
     },
     "./icons/*": "./dist/assets/icons/*",
     "./images/*": "./dist/assets/images/*",
-    "./styles/*": "./dist/styles/*"
+    "./styles/*": "./dist/assets/styles/*"
   },
   "typesVersions": {
     ">4.0": {
@@ -123,6 +124,7 @@
   "types": "dist/index.d.ts",
   "svelte": "./dist/index.js",
   "files": [
+    "assets",
     "dist",
     "!dist/**/*.test.*",
     "!dist/**/*.spec.*"
