@@ -1,30 +1,41 @@
 <script lang="ts">
-  import { BROWSER } from 'esm-env';
   import { onMount } from 'svelte';
-  import confetti from 'canvas-confetti';
+  import { confetti } from '@neoconfetti/svelte';
 
-  export let count = 320;
-  export let velocity = 32;
-  export let spread = 0;
-  export let random = false;
-  export let origin = random
-    ? {
-        x: Math.random(),
-        y: Math.random() - 0.2
-      }
-    : undefined;
+  export let delay = 750;
+  export let count = 256;
+  export let size = 10;
+  export let width = 0.8;
+  export let height = 0.75;
+  export let duration = 3500;
+  export let force = 0.3;
+  export let destroy = true;
 
-  if (BROWSER)
-    onMount(() =>
-      setTimeout(
-        () =>
-          confetti({
-            particleCount: count,
-            startVelocity: velocity,
-            spread: spread || Math.min(window.innerWidth, window.innerHeight),
-            origin
-          }),
-        500
-      )
-    );
+  let innerWidth: number;
+  let innerHeight: number;
+  let render = false;
+
+  onMount(() => {
+    console.log(innerHeight);
+    setTimeout(() => (render = true), delay);
+  });
 </script>
+
+<svelte:window
+  bind:innerWidth
+  bind:innerHeight />
+
+{#if render}
+  <div
+    use:confetti={{
+      particleCount: count,
+      particleSize: size,
+      stageWidth: innerWidth * width,
+      stageHeight: innerHeight * height,
+      destroyAfterDone: destroy,
+      duration,
+      force
+    }}
+    class=" left-[50vw] top-[25vh] z-0"
+    style:position="absolute" />
+{/if}

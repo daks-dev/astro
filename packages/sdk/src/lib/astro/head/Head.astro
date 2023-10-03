@@ -36,7 +36,7 @@ const { title, description, app, rss, image = '/icons/logo.svg' } = Astro.props;
 />
 <script is:inline>
   function set() {
-    const t = localStorage.getItem('settingstheme');
+    const t = localStorage.getItem('set::theme');
     const l = document.documentElement.classList;
     t?.includes('dark') ? l.add('dark') : t?.includes('light') && l.remove('dark');
   }

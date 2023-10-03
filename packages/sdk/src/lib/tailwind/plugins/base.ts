@@ -7,7 +7,7 @@ export default plugin(({ addBase }) => {
     [':root']: {
       '--scrollbar-size': '8px',
       '--scrollbar-track-bg-color': 'transparent', // colors.slate[700],
-      '--scrollbar-thumb-bg-color': colors.slate[300],
+      '--scrollbar-thumb-bg-color': colors.slate[500],
       '--progress-height': '4px',
       '--progress-color': colors.slate[300],
       '--progress-bg-color': colors.slate[700]

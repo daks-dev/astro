@@ -1,5 +1,5 @@
 import { getDefaultConfig, mergeConfigs, extendTailwindMerge, type Config } from 'tailwind-merge';
-import { twmerge as external } from '../utils/nanostores';
+import { twmerge as external } from '../stores';
 
 export const getTwClassGroup = (key?: string): void => {
   const config: Config = getDefaultConfig();

@@ -1,19 +1,11 @@
-import { atom, onMount } from 'nanostores';
-
-export const page = atom<{
-  url: URL;
-  request: Request;
-}>({
-  url: new URL('http://www.example.com'),
-  request: new Request('http://www.example.com')
-});
-
-export const twmerge = atom<Record<string, Record<string, string[]>[]>>({});
-
+import { onMount } from 'nanostores';
 import { persistentAtom, persistentMap } from '@nanostores/persistent';
 
-export const metadata = persistentAtom<Metadata>(
-  'metadata',
+type Metadata = string | string[] | number | boolean | null | undefined;
+export const meta = persistentMap<
+  Record<string, Metadata | Metadata[] | Record<string, Metadata | Metadata[]>>
+>(
+  'meta::',
   {},
   {
     encode: JSON.stringify,
@@ -25,7 +17,7 @@ export const settings = persistentMap<{
   sidebar: boolean;
   theme: 'dark' | 'light' | 'auto';
 }>(
-  'settings',
+  'set::',
   {
     sidebar: false,
     theme: 'auto'
@@ -35,18 +27,6 @@ export const settings = persistentMap<{
     decode: JSON.parse
   }
 );
-
-export const settingsTheme = () => {
-  function set() {
-    const t = settings.get().theme;
-    const l = document.documentElement.classList;
-    if (t === 'dark' || (t === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches))
-      l.add('dark');
-    else l.remove('dark');
-  }
-  set();
-  document.addEventListener('astro:after-swap', set);
-};
 
 export const timer = persistentAtom<number>('timer', 0, {
   encode: (val) => val.toString(),
