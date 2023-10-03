@@ -8,7 +8,7 @@
 
   const referer = typeof request.referrer === 'string' ? request.referrer : request.referrer.href;
 
-  if (BROWSER) {
+  if (BROWSER && counter) {
     let interval: Timeout;
     const hit = () =>
       (interval = setInterval(() => {

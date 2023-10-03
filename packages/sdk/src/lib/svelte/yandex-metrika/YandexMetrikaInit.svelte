@@ -23,7 +23,7 @@
     ym(counter, 'init', options);
   }
 
-  if (BROWSER)
+  if (BROWSER && counter)
     onMount(() => {
       // TODO:
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -56,11 +56,13 @@
   {/if}
 </svelte:head-->
 
-<noscript>
-  <div>
-    <img
-      src="https://mc.yandex.ru/watch/{counter}"
-      style="position:absolute; left:-9999px;"
-      alt="" />
-  </div>
-</noscript>
+{#if counter}
+  <noscript>
+    <div>
+      <img
+        src="https://mc.yandex.ru/watch/{counter}"
+        style="position:absolute; left:-9999px;"
+        alt="" />
+    </div>
+  </noscript>
+{/if}

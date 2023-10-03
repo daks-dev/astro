@@ -11,6 +11,8 @@
   export let force = 0.3;
   export let destroy = true;
 
+  const action = confetti;
+
   let innerWidth: number;
   let innerHeight: number;
   let render = false;
@@ -27,7 +29,7 @@
 
 {#if render}
   <div
-    use:confetti={{
+    use:action={{
       particleCount: count,
       particleSize: size,
       stageWidth: innerWidth * width,
