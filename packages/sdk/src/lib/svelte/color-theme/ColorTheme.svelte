@@ -7,6 +7,7 @@
   let className: ClassName = undefined;
   export { className as class };
 
+  export let label = 'color theme';
   export let size: number | string = '24';
 
   let dark: boolean;
@@ -37,6 +38,7 @@
   on:click={toggle}
   class={twMerge(className)}
   type="button"
+  aria-label={label}
   {...$$restProps}>
   {#if dark}
     <svg
