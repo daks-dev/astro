@@ -27,10 +27,8 @@
     onMount(() => {
       // TODO:
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (function (w: any, y) {
-        w[y] = function () {
-          (w[y].a = w[y].a || []).push(arguments);
-        };
+      ((w: any, y) => {
+        w[y] = (...rest: unknown[]) => (w[y].a = w[y].a || []).push(rest);
         w[y].l = Number(new Date());
       })(window, 'ym');
       const src = `https://mc.yandex.ru/metrika/tag.js`;

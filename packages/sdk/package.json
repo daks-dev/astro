@@ -25,10 +25,10 @@
     "@sveltejs/package": "^2.2.2",
     "@tailwindcss/typography": "^0.5.10",
     "@types/node": "^20.8.2",
-    "@types/react": "^18.2.24",
-    "@types/react-dom": "^18.2.8",
+    "@types/react": "^18.2.25",
+    "@types/react-dom": "^18.2.10",
     "@vitest/ui": "^0.34.6",
-    "astro": "^3.2.2",
+    "astro": "^3.2.3",
     "esm-env": "^1.0.0",
     "nanostores": "^0.9.3",
     "publint": "^0.2.3",
@@ -39,8 +39,7 @@
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.2.2",
-    "vite": "^4.4.10",
-    "vite-imagetools": "^5.0.8",
+    "vite": "^4.4.11",
     "vitest": "^0.34.6"
   },
   "peerDependencies": {
@@ -73,14 +72,6 @@
       "types": "./dist/react/*/index.d.ts",
       "import": "./dist/react/*/index.js"
     },
-    "./stores": {
-      "types": "./dist/app/stores/index.d.ts",
-      "import": "./dist/app/stores/index.js"
-    },
-    "./stores/*": {
-      "types": "./dist/app/stores/*.d.ts",
-      "import": "./dist/app/stores/*.js"
-    },
     "./svelte": {
       "types": "./dist/svelte/index.d.ts",
       "import": "./dist/svelte/index.js"
@@ -88,6 +79,14 @@
     "./svelte/*": {
       "types": "./dist/svelte/*/index.d.ts",
       "import": "./dist/svelte/*/index.js"
+    },
+    "./stores": {
+      "types": "./dist/app/stores/index.d.ts",
+      "import": "./dist/app/stores/index.js"
+    },
+    "./stores/*": {
+      "types": "./dist/app/stores/*.d.ts",
+      "import": "./dist/app/stores/*.js"
     },
     "./tailwind": {
       "types": "./dist/tailwind/index.d.ts",

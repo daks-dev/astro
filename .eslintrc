@@ -46,6 +46,7 @@
     {
       "files": ["**/*.astro/*.{js,jsx,ts,tsx}"],
       "rules": {
+        "no-undef": "off"
         // "prettier/prettier": "off"
       }
     },

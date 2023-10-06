@@ -1,6 +1,4 @@
-import { atom, map } from 'nanostores';
-
-export * as persisten from './persistent';
+import { atom, deepMap, map } from 'nanostores';
 
 type Metadata =
   | string
@@ -10,16 +8,14 @@ type Metadata =
   | ((...x: unknown[]) => unknown)
   | null
   | undefined;
-export const meta = map<
-  Record<string, Metadata | Metadata[] | Record<string, Metadata | Metadata[]>>
->({});
+export const meta = deepMap<Record<string, Metadata | Record<string, Metadata>>>({});
 
-export const page = atom<{
-  url: URL;
-  request: Request;
+export const page = map<{
+  url: Partial<URL>;
+  request: Partial<Request>;
 }>({
-  url: new URL('http:/x.y'),
-  request: new Request('http:/x.y')
+  url: {},
+  request: {}
 });
 
 export const twmerge = atom<Record<string, Record<string, string[]>[]>>({});

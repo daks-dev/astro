@@ -2,9 +2,7 @@ import { onMount } from 'nanostores';
 import { persistentAtom, persistentMap } from '@nanostores/persistent';
 
 type Metadata = string | string[] | number | boolean | null | undefined;
-export const meta = persistentMap<
-  Record<string, Metadata | Metadata[] | Record<string, Metadata | Metadata[]>>
->(
+export const meta = persistentMap<Record<string, Metadata | Record<string, Metadata>>>(
   'meta::',
   {},
   {
