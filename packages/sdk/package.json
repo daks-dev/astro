@@ -1,6 +1,6 @@
 {
   "name": "@daks.dev/sdk",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "DAKS.DEV software development kit",
   "type": "module",
   "scripts": {
@@ -14,7 +14,7 @@
     "package": "svelte-package && publint",
     "prepublishOnly": "pnpm check && pnpm package",
     "run:publish": "pnpm publish",
-    "run:update": "pnpm -r up"
+    "run:update": "pnpm up"
   },
   "devDependencies": {
     "@astrojs/check": "^0.2.0",
@@ -24,9 +24,9 @@
     "@neoconfetti/svelte": "^1.0.0",
     "@sveltejs/package": "^2.2.2",
     "@tailwindcss/typography": "^0.5.10",
-    "@types/node": "^20.8.2",
+    "@types/node": "^20.8.3",
     "@types/react": "^18.2.25",
-    "@types/react-dom": "^18.2.10",
+    "@types/react-dom": "^18.2.11",
     "@vitest/ui": "^0.34.6",
     "astro": "^3.2.3",
     "esm-env": "^1.0.0",

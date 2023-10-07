@@ -1,4 +1,4 @@
-import { atom, deepMap, map } from 'nanostores';
+import { atom, deepMap, map, onMount } from 'nanostores';
 
 type Metadata =
   | string
@@ -10,12 +10,14 @@ type Metadata =
   | undefined;
 export const meta = deepMap<Record<string, Metadata | Record<string, Metadata>>>({});
 
+export const twmerge = atom<Record<string, Record<string, string[]>[]>>({});
+
 export const page = map<{
-  url: Partial<URL>;
-  request: Partial<Request>;
+  url: URL;
 }>({
-  url: {},
-  request: {}
+  url: {} as URL
 });
 
-export const twmerge = atom<Record<string, Record<string, string[]>[]>>({});
+onMount(page, () => {
+  typeof location !== 'undefined' && page.set({ url: location as unknown as URL });
+});
