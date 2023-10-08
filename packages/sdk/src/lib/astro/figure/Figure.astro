@@ -35,14 +35,16 @@ const caption = title || subtitle || description;
   class={twMerge('flex flex-col', className)}
   {...props}>
   <slot name='before' />
-  <Image
-    class={twMerge('bg-neutral-300', custom?.image)}
-    {src}
-    {width}
-    {height}
-    alt={(alt || caption).toLowerCase()}
-    itemprop='image'
-  />
+  <slot>
+    <Image
+      class={twMerge('bg-neutral-300', custom?.image)}
+      {src}
+      {width}
+      {height}
+      alt={(alt || caption).toLowerCase()}
+      itemprop='image'
+    />
+  </slot>
   {
     (caption || Astro.slots.has('default')) && (
       <figcaption class={twMerge('flex flex-col', custom?.caption)}>

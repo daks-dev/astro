@@ -10,3 +10,11 @@ export const isTouch = () =>
   window?.matchMedia('(pointer: coarse)').matches ||
   navigator?.maxTouchPoints > 0 ||
   (document && 'ontouchstart' in document.documentElement);
+
+export { default as Animate } from './Animate';
+export { default as Swipe, swipe } from './Swipe';
+export { default as Wheel, wheel } from './Wheel';
+
+export * as audio from './audio';
+export { default as outside } from './outside';
+export * as scroll from './scroll';

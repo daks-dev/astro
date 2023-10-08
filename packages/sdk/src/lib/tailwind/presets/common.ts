@@ -21,7 +21,7 @@ export default {
   darkMode: 'class',
 
   theme: {
-    screens: <Record<string, string | { max: string }>>sort({
+    screens: {
       '-3xl': { max: '1679px' },
       '-2xl': { max: '1535px' },
       '-xl': { max: '1279px' },
@@ -32,7 +32,7 @@ export default {
       xs: '480px',
       ...defaultTheme.screens,
       '3xl': '1680px'
-    }),
+    },
     fontSize: <Record<string, string>>sort({
       '3xs': '0.5rem',
       '2xs': '0.625rem',
@@ -40,11 +40,6 @@ export default {
       '2.5xl': '1.6875rem',
       '3.5xl': '2rem',
       '4.5xl': '2.5rem',
-      ...defaultTheme.fontSize
-    }),
-    listStyleType: <Record<string, string>>sort({
-      circle: 'circle',
-      square: 'square',
       ...defaultTheme.fontSize
     }),
     backgroundSize: <Record<string, string>>sort({
@@ -64,13 +59,25 @@ export default {
       A4l: '877 / 620',
       ...defaultTheme.aspectRatio
     }),
-    content: <Record<string, string>>sort({
-      null: '""',
-      ...defaultTheme.content
-    }),
     extend: {
       container: {
         center: true
+      },
+      listStyleType: {
+        circle: 'circle',
+        square: 'square'
+      },
+      spacing: {
+        inherit: 'inherit'
+      },
+      minWidth: {
+        auto: 'auto'
+      },
+      minHeight: {
+        auto: 'auto'
+      },
+      content: {
+        null: '""'
       }
     }
   },

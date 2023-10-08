@@ -5,6 +5,11 @@ export { default as ColorTheme } from './color-theme/ColorTheme.svelte';
 export { default as Confetti } from './confetti/Confetti.svelte';
 export { default as Counter } from './counter/Counter.svelte';
 
+export { default as Lightbox } from './lightbox/Lightbox.svelte';
+export { default as LightboxList } from './lightbox/LightboxList.svelte';
+export { default as LightboxModal } from './lightbox/LightboxModal.svelte';
+export { default as LightboxThumbnail } from './lightbox/LightboxThumbnail.svelte';
+
 export { default as Link } from './nav/Link.svelte';
 export { default as NavHome } from './nav/NavHome.svelte';
 export { default as NavToTop } from './nav/NavToTop.svelte';

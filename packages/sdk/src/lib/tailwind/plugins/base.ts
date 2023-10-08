@@ -78,6 +78,11 @@ export default plugin(({ addBase }) => {
       'min-height': '100vh',
       'overflow-y': 'scroll',
       'scroll-behavior': 'smooth'
+    },
+    ['@supports not (-moz-appearance: none)']: {
+      ['body.overflow-y-hidden, body.overflow-y-hidden .overflow-y-offset']: {
+        'padding-right': 'var(--scrollbar-size) !important'
+      }
     }
   });
 });
