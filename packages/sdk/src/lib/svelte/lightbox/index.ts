@@ -1,4 +1,4 @@
-export type Behaviour = '' | 'hide' | 'loop';
+export type Behaviour = 'loop' | 'hide';
 
 export interface Options {
   behaviour: Behaviour;
@@ -13,8 +13,10 @@ export interface Options {
 }
 
 export type Custom = {
-  [x in 'overlay' | 'header' | 'footer' | 'item']: ClassName;
-} & {
+  overlay: ClassName;
+  header: ClassName;
+  footer: ClassName;
+  item: ClassName;
   inner: Record<string, ClassName>;
 };
 
@@ -26,13 +28,13 @@ export interface Item {
 }
 
 export type Status =
-  | undefined
   | {
       countItems: number;
       activeItem: number;
-    };
+    }
+  | undefined;
 
-export type Loader = undefined | (() => void);
+export type Loader = (() => void) | undefined;
 
 export { default as Lightbox } from './Lightbox.svelte';
 export { default as LightboxList } from './LightboxList.svelte';

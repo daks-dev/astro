@@ -1,12 +1,12 @@
 <script lang="ts">
   import { page } from '../../app/stores';
-  import twMerge from '../../tailwind';
+  import twMerge from '../../tailwind/tailwind-merge';
 
   let className: ClassName = undefined;
   export { className as class };
 
   export let href: string;
-  export let label: string | undefined = undefined;
+  export let label: Attribute = undefined;
   export let handle: ((x?: Event) => unknown) | undefined = undefined;
   export let size: number | string | undefined = undefined;
 

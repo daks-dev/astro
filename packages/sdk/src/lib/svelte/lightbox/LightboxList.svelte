@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, setContext } from 'svelte';
   import { writable, type Writable } from 'svelte/store';
-  import twMerge from '../../tailwind';
+  import twMerge from '../../tailwind/tailwind-merge';
   import Overlay from './components/Overlay.svelte';
   import Header from './components/Header.svelte';
   import Footer from './components/Footer.svelte';
@@ -124,7 +124,9 @@
   <svelte:element
     this={tag}
     class={twMerge(className)}>
-    <slot name="thumbnail" />
+    <slot
+      name="thumbnail"
+      {custom} />
   </svelte:element>
 {/if}
 

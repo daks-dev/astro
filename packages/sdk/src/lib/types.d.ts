@@ -2,18 +2,34 @@
 /// <reference types="svelte" />
 /// <reference types="vite/client" />
 
+type Astro = import('astro').AstroGlobal;
+declare const Astro: Readonly<Astro>;
+
 declare module '*.astro' {
-  import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+  type AstroComponentFactory = import('astro/runtime/server/index.js').AstroComponentFactory;
   const Component: AstroComponentFactory;
   export default Component;
 }
 
 declare type Timeout = string | number | NodeJS.Timeout | undefined;
 
+declare type ClassName = string | false | 0 | ClassName[] | null | undefined;
+
+declare type Meta = string | number | boolean | null | undefined;
 declare interface Metadata {
-  [x: string]: string | null | undefined;
+  [x: string]: Meta;
 }
 
-declare type ClassName = string | false | 0 | ClassName[] | null | undefined;
-declare type ClassMap = Record<string, ClassName>;
-declare type ClassList = Record<string, ClassName | ClassMap | ClassList>;
+declare interface ImageMetadata {
+  src: string;
+  width: number;
+  height: number;
+  format: 'heic' | 'heif' | 'avif' | 'jpeg' | 'jpg' | 'png' | 'tiff' | 'webp' | 'gif' | 'svg';
+  orientation?: number;
+}
+declare interface ImageResult {
+  src: string;
+  attributes: Metadata;
+}
+
+declare type Attribute = string | null | undefined;

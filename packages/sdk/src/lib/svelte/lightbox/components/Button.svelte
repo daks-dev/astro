@@ -1,5 +1,5 @@
 <script lang="ts">
-  import twMerge from '../../../tailwind';
+  import twMerge from '../../../tailwind/tailwind-merge';
   import type { Options } from '..';
 
   export let options: Partial<Options>;

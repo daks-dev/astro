@@ -3,7 +3,7 @@
   import Menu from './Menu.svelte';
   import Toggle from './Toggle.svelte';
   import Wrapper from './Wrapper.svelte';
-  import twMerge from '../../tailwind';
+  import twMerge from '../../tailwind/tailwind-merge';
 
   let className: ClassName = undefined;
   export { className as class };

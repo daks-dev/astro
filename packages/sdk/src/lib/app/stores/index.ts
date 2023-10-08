@@ -14,10 +14,16 @@ export const twmerge = atom<Record<string, Record<string, string[]>[]>>({});
 
 export const page = map<{
   url: URL;
+  request: Request;
 }>({
-  url: {} as URL
+  url: {} as URL,
+  request: {} as Request
 });
 
 onMount(page, () => {
-  typeof location !== 'undefined' && page.set({ url: location as unknown as URL });
+  typeof Astro === 'object' &&
+    page.set({
+      url: Astro.url,
+      request: Astro.request
+    });
 });

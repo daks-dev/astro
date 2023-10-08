@@ -3,7 +3,7 @@
   import { sineIn, sineOut } from 'svelte/easing';
   import { toTop } from '../../utils/scroll';
   import { meta } from '../../app/stores';
-  import twMerge from '../../tailwind';
+  import twMerge from '../../tailwind/tailwind-merge';
 
   let className: ClassName = undefined;
   export { className as class };

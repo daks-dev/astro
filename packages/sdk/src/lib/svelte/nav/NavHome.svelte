@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from '../../app/stores';
+  import twMerge from '../../tailwind/tailwind-merge';
   import Link from './Link.svelte';
-  import twMerge from '../../tailwind';
 
   let className: ClassName = undefined;
   export { className as class };

@@ -1,6 +1,6 @@
 {
   "name": "@daks.dev/sdk",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "DAKS.DEV software development kit",
   "type": "module",
   "scripts": {

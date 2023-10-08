@@ -1,11 +1,12 @@
 // import type { MiddlewareResponseHandler } from 'astro';
 import { defineMiddleware } from 'astro:middleware';
-import { page } from '../stores';
+import { page } from '../../app/stores';
 
 export default () =>
-  defineMiddleware(async ({ url }, next) => {
+  defineMiddleware(({ url, request }, next) => {
     page.set({
-      url
+      url,
+      request
     });
     return next();
   });
