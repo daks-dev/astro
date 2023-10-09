@@ -102,7 +102,7 @@
     $countItemsStore = items.length;
     return $countItemsStore - 1;
   });
-  setContext('counterThumbnails', () => ++countThumbnails);
+  setContext('counterThumbnails', () => countThumbnails++);
   setContext('openImage', openImage);
 
   $: activeItemTitle = items[$activeItemStore]?.title || title || '';

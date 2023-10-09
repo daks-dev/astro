@@ -3,6 +3,8 @@ export { default as FormattedDate } from './formatted-date/FormattedDate.astro';
 export { default as Head } from './head/Head.astro';
 export { default as Link } from './link/Link.astro';
 
+export { default as Navbar } from './navbar/Navbar.astro';
+
 export { default as BagePlaceholder } from './skeleton/BagePlaceholder.astro';
 export { default as CardPlaceholder } from './skeleton/CardPlaceholder.astro';
 export { default as ImagePlaceholder } from './skeleton/ImagePlaceholder.astro';

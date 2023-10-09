@@ -37,7 +37,7 @@
       rel="prefetch"
       class={twMerge('flex items-center', custom.link)}
       {href}
-      tabindex={hide && '-1'}>
+      tabindex={hide ? -1 : undefined}>
       {label}
     </Link>
   {/each}

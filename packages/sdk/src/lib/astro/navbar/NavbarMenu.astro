@@ -1,0 +1,64 @@
+---
+import twMerge from '../../tailwind/tailwind-merge';
+import Link from '../link/Link.astro';
+
+type Props = {
+  class?: ClassName;
+  custom?: Record<string, ClassName>;
+  links: Record<string, string>;
+};
+const { class: className, custom, links = {} } = Astro.props;
+---
+
+<svelte:window bind:innerWidth></svelte:window>
+
+<nav
+  class={twMerge(
+    'absolute left-0 top-full z-0 lg:static',
+    // 'grid grid-cols-1 lg:auto-cols-max lg:grid-flow-col lg:gap-x-3 2xl:gap-x-5',
+    'flex flex-col lg:flex-row lg:flex-nowrap lg:gap-x-3 2xl:gap-x-5',
+    'ml-1 mt-1 max-w-xs sm:max-w-md lg:m-0 lg:max-w-none',
+    /* hidden && */ 'aria-hidden:disabled aria-hidden:scale-75 aria-hidden:opacity-0',
+    /* duration && */ 'origin-top-left transition ease-in-out lg:origin-center',
+    // 'first:rounded-t-md last:rounded-b-md',
+    custom?.menu,
+    className
+  )}
+  aria-owns='[data-navbar-toggle]'
+  aria-hidden='true'
+  data-navbar-menu>
+  {
+    Object.entries(links).map(([href, label]) => (
+      <Link
+        rel='prefetch'
+        class={twMerge('flex items-center', custom?.link)}
+        {href}
+        tabindex='-1'>
+        {label}
+      </Link>
+    ))
+  }
+</nav>
+
+<script>
+  import { site } from '../../app/stores';
+
+  const node = document.querySelector('[data-navbar-menu]');
+
+  if (node) {
+    const links = node.querySelectorAll('a');
+
+    const close = () => {
+      node.setAttribute('aria-hidden', 'true');
+      links.forEach((el) => el.setAttribute('tabindex', '-1'));
+    };
+    const open = () => {
+      node.removeAttribute('aria-hidden');
+      links.forEach((el) => el.removeAttribute('tabindex'));
+    };
+
+    site.listen((val, key) => {
+      if (key === 'navbar.hidden') val.navbar.hidden ? close() : open();
+    });
+  }
+</script>

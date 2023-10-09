@@ -1,7 +1,7 @@
 // @ts-nocheck
 import type { Plugin } from 'vite';
-import { createFilter, dataToEsm } from '@rollup/pluginutils';
-import { load } from 'js-yaml';
+// import { createFilter, dataToEsm } from '@rollup/pluginutils';
+// import { load } from 'js-yaml';
 
 const defaultOptions = {
   include: /\.ya?ml$/,

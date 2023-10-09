@@ -1,6 +1,6 @@
 // @ts-nocheck
 import type { Plugin } from 'vite';
-import { imagetools as fn } from 'vite-imagetools';
+// import { imagetools as fn } from 'vite-imagetools';
 
 export default (format: string | number = 'webp', quality: number = 80): Plugin =>
   fn({

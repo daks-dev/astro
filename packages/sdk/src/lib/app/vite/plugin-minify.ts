@@ -1,6 +1,6 @@
 // @ts-nocheck
 import type { Plugin } from 'vite';
-import { minify, type Options } from 'html-minifier-terser';
+// import { minify, type Options } from 'html-minifier-terser';
 
 const minification: Options = {
   caseSensitive: true,

@@ -2,8 +2,6 @@ export type { YandexMapInstance } from './yandex-map';
 
 export { default as Backstage } from './backstage/Backstage.svelte';
 export { default as ColorTheme } from './color-theme/ColorTheme.svelte';
-export { default as Confetti } from './confetti/Confetti.svelte';
-export { default as Counter } from './counter/Counter.svelte';
 
 export { default as Lightbox } from './lightbox/Lightbox.svelte';
 export { default as LightboxList } from './lightbox/LightboxList.svelte';

@@ -3,10 +3,10 @@ import { defineMiddleware } from 'astro:middleware';
 import { page } from '../../app/stores';
 
 export default () =>
-  defineMiddleware(({ url, request }, next) => {
+  defineMiddleware(async ({ url, request }, next) => {
     page.set({
       url,
       request
     });
-    return next();
+    return await next();
   });

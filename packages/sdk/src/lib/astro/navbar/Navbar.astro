@@ -1,0 +1,60 @@
+---
+import twMerge from '../../tailwind/tailwind-merge';
+import ColorTheme from '../color-theme/ColorTheme.astro';
+import NavbarHome from './NavbarHome.astro';
+import NavbarMenu from './NavbarMenu.astro';
+import NavbarToggle from './NavbarToggle.astro';
+
+type Props = {
+  class?: ClassName;
+  custom?: Record<string, ClassName>;
+  links: Record<string, string>;
+};
+const { class: className, custom, links, ...props } = Astro.props;
+---
+
+<div
+  class={twMerge(
+    'fixed left-0 top-0 z-10 w-full',
+    'onscroll:bg-slate-500/50',
+    'vector-non-scaling-stroke text-lg',
+    'origin-center transition-colors ease-in-out',
+    className
+  )}
+  {...props}
+  data-navbar>
+  <div class='wrapper flex items-center justify-end'>
+    <NavbarHome {custom} />
+    <NavbarMenu
+      {custom}
+      {links}
+    />
+    <ColorTheme
+      class='ml-auto'
+      {custom}
+    />
+    <NavbarToggle
+      class='order-last ml-4 lg:hidden'
+      {custom}
+    />
+  </div>
+</div>
+
+<script>
+  import { siteNavbaHidden as check } from '../../app/stores';
+
+  document.addEventListener('astro:page-load', check);
+  document.addEventListener('astro:after-swap', check);
+  window.addEventListener('load', check);
+
+  window.addEventListener('resize', () => check(true));
+
+  const node = document.querySelector('[data-navbar]');
+
+  if (node) {
+    const handle = (event: Event) => {
+      event?.target && !event.defaultPrevented && !node.contains(event.target as Node) && check();
+    };
+    document.addEventListener('click', handle, true);
+  }
+</script>

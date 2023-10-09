@@ -4,29 +4,26 @@
 
   let className: ClassName = undefined;
   export { className as class };
-  export let style: string | undefined = undefined;
 
   export let custom: Record<string, ClassName> = {};
 
+  export let style = '';
+  export let width: number | string = 0;
+  export let height: number | string = 0;
+
   export let image: ImageResult = {} as ImageResult;
-  export let src: Attribute = image.src;
+  export let src = image.src;
+  export let alt = '';
+
   export let attributes: Metadata = image.attributes;
-
-  export let width: Meta = undefined;
-  if (typeof width !== 'undefined') attributes.width = width;
-  export let height: Meta = undefined;
-  if (typeof height !== 'undefined') attributes.height = height;
-
-  export let alt: Attribute = undefined;
-
   attributes.loading ??= 'lazy';
   attributes.decoding ??= 'async';
 
-  export let title: string | undefined = undefined;
-  export let subtitle: string | undefined = undefined;
-  export let description: string | undefined = undefined;
+  export let title = '';
+  export let subtitle = '';
+  export let description = '';
 
-  export let native: true | undefined = undefined;
+  export let native = false;
 
   export let loaded: ((x?: Event | HTMLElement) => void) | undefined = undefined;
 
@@ -35,15 +32,17 @@
 
 <figure
   class={twMerge('flex flex-col', className)}
-  {style}>
+  {style}
+  style:width={width ? `${width}px` : undefined}
+  style:height={height ? `${height}px` : undefined}
+  {...$$restProps}>
   <img
     on:load={handleLoad}
     class={twMerge(!native && 'lazy bg-neutral-300', custom?.image)}
     src={native ? src : placeholder}
     data-src={native ? undefined : src}
-    {...attributes}
     alt={(alt ?? title ?? '').toLowerCase()}
-    {...$$restProps} />
+    {...attributes} />
   {#if title || subtitle || description}
     <figcaption class={twMerge('flex flex-col', custom?.caption)}>
       {#if title}

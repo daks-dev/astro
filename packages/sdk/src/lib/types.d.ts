@@ -2,8 +2,8 @@
 /// <reference types="svelte" />
 /// <reference types="vite/client" />
 
-type Astro = import('astro').AstroGlobal;
-declare const Astro: Readonly<Astro>;
+// type Astro = import('astro').AstroGlobal;
+// declare const Astro: Readonly<Astro>;
 
 declare module '*.astro' {
   type AstroComponentFactory = import('astro/runtime/server/index.js').AstroComponentFactory;
@@ -19,6 +19,8 @@ declare type Meta = string | number | boolean | null | undefined;
 declare interface Metadata {
   [x: string]: Meta;
 }
+
+declare type ClassName = false | 0 | string[] | null | undefined;
 
 declare interface ImageMetadata {
   src: string;

@@ -7,8 +7,15 @@
 
   export let href: string;
   export let label: Attribute = undefined;
+
+  export let target: Attribute = undefined;
+  export let tabindex: number | null | undefined = undefined;
+  export let title: Attribute = undefined;
+  export let rel: Attribute = undefined;
+  export let role: Attribute = undefined;
+  export let itemprop: Attribute = undefined;
+
   export let handle: ((x?: Event) => unknown) | undefined = undefined;
-  export let size: number | string | undefined = undefined;
 
   $: current = (
     $page.url.pathname === href || $page.url.pathname === `${href}/`
@@ -25,18 +32,17 @@
   on:keydown
   class={twMerge('page:disabled', className)}
   {href}
+  {target}
+  {tabindex}
+  {title}
+  {rel}
+  {role}
+  {itemprop}
   aria-label={label}
-  aria-current={current}
-  {...$$restProps}>
-  <slot
-    name="before"
-    {current} />
-  <slot
-    {current}
-    {size}>
+  aria-current={current}>
+  <slot name="before" />
+  <slot>
     {@html label}
   </slot>
-  <slot
-    name="after"
-    {current} />
+  <slot name="after" />
 </a>

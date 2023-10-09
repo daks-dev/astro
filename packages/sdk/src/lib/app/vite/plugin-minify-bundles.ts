@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { minify, type Options as MinifierOptions } from 'html-minifier-terser';
 import type { Plugin } from 'vite';
+// import { minify, type Options as MinifierOptions } from 'html-minifier-terser';
 
 const defaultOptions: MinifierOptions = {
   collapseWhitespace: true,

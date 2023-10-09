@@ -1,6 +1,6 @@
 import { readable } from 'svelte/store';
 
-export const sessionTime = readable(0, (set) => {
+export const page = readable(0, (set) => {
   const date = Date.now();
   const interval = setInterval(() => {
     set(Date.now() - date);

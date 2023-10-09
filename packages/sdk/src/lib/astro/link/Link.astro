@@ -4,15 +4,15 @@ import twMerge from '../../tailwind/tailwind-merge';
 
 type Props = HTMLAttributes<'a'> & {
   class?: ClassName;
+  label?: string;
 };
 
-const { href, class: className, ...props } = Astro.props;
+const { href, class: className, label, ...props } = Astro.props;
 
-const { pathname } = Astro.url;
 const current =
-  href === pathname || href === pathname.replace(/\/$/, '')
+  href === Astro.url.pathname || href === `${Astro.url.pathname}/`
     ? 'page'
-    : pathname.indexOf(`${href}/`) >= 0
+    : Astro.url.pathname.indexOf(`${href}/`) >= 0
     ? 'step'
     : undefined;
 ---
@@ -20,6 +20,7 @@ const current =
 <a
   {href}
   class={twMerge('page:disabled', className)}
+  aria-label={label}
   aria-current={current}
   {...props}>
   <slot />
