@@ -1,7 +1,10 @@
 export { default as Figure } from './figure/Figure.astro';
 export { default as FormattedDate } from './formatted-date/FormattedDate.astro';
 export { default as Head } from './head/Head.astro';
-export { default as Link } from './link/Link.astro';
+
+export { default as Link } from './nav/Link.astro';
+export { default as NavHome } from './nav/NavHome.astro';
+export { default as NavToTop } from './nav/NavToTop.astro';
 
 export { default as Navbar } from './navbar/Navbar.astro';
 

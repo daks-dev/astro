@@ -1,26 +1,33 @@
 ---
-// import { BROWSER } from 'esm-env';
+import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
-// import { settings } from '../../app/stores/persistent';
 
-type Props = {
+type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   class?: ClassName;
   custom?: Record<string, ClassName>;
   size?: number;
 };
-const { class: className, custom, size = 28 } = Astro.props;
+const { class: className, custom, size = 28, ...props } = Astro.props;
 ---
 
 <button
   class={twMerge(custom?.button, custom?.theme, className)}
   type='button'
-  aria-label='color theme'>
+  aria-label='color theme'
+  {...props}
+  data-color-theme>
   <svg
+    class='disabled linecap-round linejoin-round vector-non-scaling-stroke'
+    xmlns='http://www.w3.org/2000/svg'
     width={size}
     height={size}
     viewBox='0 0 24 24'
     fill='currentColor'>
-    <g class='transition-opacity duration-200 ease-in-out'>
+    <g
+      class:list={[
+        'hidden dark:inline' // 'opacity-0 dark:opacity-100'
+        // 'transition-opacity duration-300 ease-in-out'
+      ]}>
       <circle
         cx='12'
         cy='12'
@@ -32,8 +39,10 @@ const { class: className, custom, size = 28 } = Astro.props;
       ></path>
     </g>
     <g
-      class='transition-opacity duration-200 ease-in-out'
-      style='opacity: 0'>
+      class:list={[
+        'dark:hidden' // 'dark:opacity-0'
+        // 'transition-opacity duration-300 ease-in-out'
+      ]}>
       <path
         d='M9.37 5.51A7.35 7.35 0 0 0 9.1 7.5c0 4.08 3.32 7.4 7.4 7.4c.68 0 1.35-.09 1.99-.27A7.014 7.014 0 0 1 12 19c-3.86 0-7-3.14-7-7c0-2.93 1.81-5.45 4.37-6.49z'
         opacity='.3'
@@ -44,3 +53,26 @@ const { class: className, custom, size = 28 } = Astro.props;
     </g>
   </svg>
 </button>
+
+<script>
+  import { settings } from '../../app/stores/persistent';
+
+  const node = document.querySelector('[data-color-theme]');
+
+  if (node) {
+    node.addEventListener('click', (ev: Event) => {
+      ev.preventDefault();
+      const dark = document.documentElement.classList.toggle('dark');
+      settings.setKey('theme', dark ? 'dark' : 'light');
+    });
+
+    settings.listen((val, key) => {
+      if (key === 'theme') {
+        console.log('theme: ', val.theme);
+        val.theme === 'dark'
+          ? document.documentElement.classList.add('dark')
+          : document.documentElement.classList.remove('dark');
+      }
+    });
+  }
+</script>

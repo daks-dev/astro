@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 
+import compress from 'astro-compress';
 import prefetch from '@astrojs/prefetch';
 import react from '@astrojs/react';
 import svelte from '@astrojs/svelte';
@@ -33,6 +34,9 @@ export default defineConfig({
     tailwind(),
     prefetch({
       throttle: 3
+    }),
+    compress({
+      Logger: 1
     })
   ]
 });

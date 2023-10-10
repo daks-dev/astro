@@ -1,1 +1,1 @@
-export { default as ColorTheme } from './ColorTheme.svelte';
+export { default as ColorTheme } from './ColorTheme.astro';

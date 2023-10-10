@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
 
-type Props = HTMLAttributes<'a'> & {
+type Props = Omit<HTMLAttributes<'a'>, 'class'> & {
   class?: ClassName;
   label?: string;
 };
@@ -23,5 +23,7 @@ const current =
   aria-label={label}
   aria-current={current}
   {...props}>
-  <slot />
+  <slot>
+    {label}
+  </slot>
 </a>

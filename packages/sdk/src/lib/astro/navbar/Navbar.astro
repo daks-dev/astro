@@ -1,11 +1,19 @@
 ---
+declare global {
+  interface Document {
+    NAVBAR_BREAKPOINT: number;
+  }
+}
+
+import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
 import ColorTheme from '../color-theme/ColorTheme.astro';
-import NavbarHome from './NavbarHome.astro';
+import NavbarHome from '../nav/NavHome.astro';
 import NavbarMenu from './NavbarMenu.astro';
 import NavbarToggle from './NavbarToggle.astro';
+import NavToTop from '../nav/NavToTop.astro';
 
-type Props = {
+type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
   class?: ClassName;
   custom?: Record<string, ClassName>;
   links: Record<string, string>;
@@ -16,45 +24,43 @@ const { class: className, custom, links, ...props } = Astro.props;
 <div
   class={twMerge(
     'fixed left-0 top-0 z-10 w-full',
-    'onscroll:bg-slate-500/50',
-    'vector-non-scaling-stroke text-lg',
-    'origin-center transition-colors ease-in-out',
+    'text-lg',
+    'origin-center transition-colors duration-0 ease-in-out',
     className
   )}
   {...props}
+  aria-atomic
   data-navbar>
   <div class='wrapper flex items-center justify-end'>
-    <NavbarHome {custom} />
+    <slot name='before'>
+      <NavbarHome class={[custom?.icon, 'mr-auto', custom?.home]} />
+    </slot>
+
     <NavbarMenu
       {custom}
-      {links}
-    />
-    <ColorTheme
-      class='ml-auto'
-      {custom}
-    />
+      {links}>
+      <slot />
+    </NavbarMenu>
+
+    <slot name='after'>
+      <ColorTheme class={[custom?.icon, 'ml-auto', custom?.theme]} />
+      <NavToTop class={[custom?.icon, custom?.totop]} />
+    </slot>
     <NavbarToggle
-      class='order-last ml-4 lg:hidden'
+      class={[custom?.icon, 'order-last ml-8 lg:hidden', custom?.toggle]}
       {custom}
     />
   </div>
 </div>
 
 <script>
-  import { siteNavbaHidden as check } from '../../app/stores';
-
-  document.addEventListener('astro:page-load', check);
-  document.addEventListener('astro:after-swap', check);
-  window.addEventListener('load', check);
-
-  window.addEventListener('resize', () => check(true));
-
-  const node = document.querySelector('[data-navbar]');
-
-  if (node) {
-    const handle = (event: Event) => {
-      event?.target && !event.defaultPrevented && !node.contains(event.target as Node) && check();
-    };
-    document.addEventListener('click', handle, true);
-  }
+  const fn = () => {
+    const node = document.querySelector('[data-navbar]') as HTMLElement;
+    if (node) {
+      node.style.transitionDuration = '';
+      setTimeout(() => (node.style.transitionDuration = '300ms'), 300);
+    }
+  };
+  document.addEventListener('astro:page-load', fn);
+  document.addEventListener('astro:after-swap', fn);
 </script>

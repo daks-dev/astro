@@ -1,0 +1,49 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import twMerge from '../../tailwind/tailwind-merge';
+
+type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
+  class?: ClassName;
+  duration?: number;
+  size?: string | number;
+  speed?: number;
+};
+const { class: className, duration = 500, size = 32, speed: move, ...props } = Astro.props;
+
+const speed = move ?? duration * 3;
+---
+
+<button
+  class={twMerge(
+    'flex absolute top-full z-10',
+    'disabled opacity-0 hover:opacity-100',
+    'onscroll:enabled onscroll:opacity-50',
+    'transition delay-200 ease-in-out',
+    className
+  )}
+  style={`transition-duration: ${duration}ms`}
+  {...props}
+  data-nav-totop={speed}>
+  <slot>
+    <svg
+      class='disabled linecap-round linejoin-round vector-non-scaling-stroke'
+      xmlns='http://www.w3.org/2000/svg'
+      width={size}
+      height={size}
+      viewBox='0 0 24 24'
+      fill='currentColor'>
+      <path d='M8 21v-2h8v2H8m0-4v-2h8v2H8m0-4v-2h8v2H8m11-4H5l7-7l7 7Z'></path>
+    </svg>
+  </slot>
+</button>
+
+<script>
+  import { toTop } from '../../utils/scroll';
+
+  const node = document.querySelector('[data-nav-totop]') as HTMLElement;
+  if (node) {
+    node.addEventListener('click', () =>
+      toTop({ duration: node.dataset.navTotop ? parseInt(node.dataset.navTotop) : 300 })
+    );
+  }
+</script>

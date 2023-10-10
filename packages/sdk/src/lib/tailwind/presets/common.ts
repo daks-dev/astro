@@ -8,6 +8,8 @@ import { default as utilities } from '../plugins/utilities';
 import { default as aria } from '../plugins/aria';
 import { default as onscroll } from '../plugins/onscroll';
 import { default as animationPlayState } from '../plugins/animation-play-state';
+import { default as strokeLinecap } from '../plugins/svg/stroke-linecap';
+import { default as strokeLinejoin } from '../plugins/svg/stroke-linejoin';
 import { default as vectorEffect } from '../plugins/svg/vector-effect';
 
 const sort = (obj: Record<string, unknown>) =>
@@ -82,5 +84,15 @@ export default {
     }
   },
 
-  plugins: [animationPlayState, aria, base, components, onscroll, utilities, vectorEffect]
+  plugins: [
+    animationPlayState,
+    aria,
+    base,
+    components,
+    onscroll,
+    utilities,
+    strokeLinecap,
+    strokeLinejoin,
+    vectorEffect
+  ]
 } satisfies Config;

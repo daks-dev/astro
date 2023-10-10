@@ -35,3 +35,7 @@ declare interface ImageResult {
 }
 
 declare type Attribute = string | null | undefined;
+
+declare interface Window {
+  NAVBAR_BREAKPOINT: number;
+}

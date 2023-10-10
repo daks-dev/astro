@@ -10,12 +10,14 @@ export default plugin(({ addUtilities }) => {
     ['.revert']: {
       all: 'revert'
     },
-    ['.disabled, :disabled, [disabled]']: {
+    ['.disabled']: {
+      // .disabled, :disabled, [disabled]
       'pointer-events': 'none',
       'touch-action': 'none',
       'user-select': 'none'
     },
-    ['.enabled, :enabled, [enabled]']: {
+    ['.enabled']: {
+      // .enabled, :enabled, [enabled]
       'pointer-events': 'auto',
       'touch-action': 'auto',
       'user-select': 'auto'

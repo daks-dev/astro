@@ -1,6 +1,6 @@
 ---
 import twMerge from '../../tailwind/tailwind-merge';
-import Link from '../link/Link.astro';
+import Link from '../nav/Link.astro';
 
 type Props = {
   class?: ClassName;
@@ -18,30 +18,48 @@ const { class: className, custom, links = {} } = Astro.props;
     // 'grid grid-cols-1 lg:auto-cols-max lg:grid-flow-col lg:gap-x-3 2xl:gap-x-5',
     'flex flex-col lg:flex-row lg:flex-nowrap lg:gap-x-3 2xl:gap-x-5',
     'ml-1 mt-1 max-w-xs sm:max-w-md lg:m-0 lg:max-w-none',
-    /* hidden && */ 'aria-hidden:disabled aria-hidden:scale-75 aria-hidden:opacity-0',
-    /* duration && */ 'origin-top-left transition ease-in-out lg:origin-center',
-    // 'first:rounded-t-md last:rounded-b-md',
-    custom?.menu,
-    className
+    '-lg:aria-hidden:disabled -lg:aria-hidden:scale-75 -lg:aria-hidden:opacity-0',
+    'origin-top-left transition duration-0 ease-in-out lg:origin-center',
+    'overflow-hidden',
+    className,
+    custom?.menu
   )}
   aria-owns='[data-navbar-toggle]'
-  aria-hidden='true'
   data-navbar-menu>
   {
     Object.entries(links).map(([href, label]) => (
       <Link
         rel='prefetch'
-        class={twMerge('flex items-center', custom?.link)}
-        {href}
-        tabindex='-1'>
+        class={twMerge('flex items-center leading-none', custom?.link)}
+        {href}>
         {label}
       </Link>
     ))
   }
+  <slot />
 </nav>
 
+<script is:inline>
+  const node = document.querySelector('[data-navbar-menu]');
+  if (node && window.innerWidth < document.NAVBAR_BREAKPOINT) {
+    node.setAttribute('aria-hidden', 'true');
+    node.querySelectorAll('a').forEach((el) => el.setAttribute('tabindex', '-1'));
+    setTimeout(() => node.setAttribute('style', '300ms'), 300);
+  }
+</script>
+
 <script>
-  import { site } from '../../app/stores';
+  import { status } from '../../app/stores';
+
+  document.NAVBAR_BREAKPOINT ??= 1024;
+
+  const fn = (force = false) => {
+    if (window.innerWidth < document.NAVBAR_BREAKPOINT) status.setKey('navbar.hidden', true);
+    else if (force) status.setKey('navbar.hidden', false);
+  };
+
+  window.addEventListener('resize', () => fn(true));
+  document.addEventListener('astro:after-swap', () => fn());
 
   const node = document.querySelector('[data-navbar-menu]');
 
@@ -57,8 +75,16 @@ const { class: className, custom, links = {} } = Astro.props;
       links.forEach((el) => el.removeAttribute('tabindex'));
     };
 
-    site.listen((val, key) => {
+    status.listen((val, key) => {
       if (key === 'navbar.hidden') val.navbar.hidden ? close() : open();
     });
+
+    const handle = (ev: Event) => {
+      ev?.target &&
+        !ev.defaultPrevented &&
+        !node.parentElement?.contains(ev.target as Node) &&
+        fn();
+    };
+    document.addEventListener('click', handle, true);
   }
 </script>

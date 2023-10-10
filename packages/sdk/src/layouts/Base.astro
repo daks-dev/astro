@@ -8,20 +8,24 @@ interface Props {
 const { title } = Astro.props;
 
 const custom = {
-  home: 'mr-auto',
-  menu: 'mx-8',
-  toggle: 'ml-8',
+  home: 'page:text-cyan-700 dark:page:text-cyan-500',
+  menu: [
+    '-lg:dark:bg-gray-700/95 -lg:bg-neutral-100/95',
+    '-lg:rounded -lg:shadow-md'
+    // 'first:rounded-t-md last:rounded-b-md'
+  ],
+  // theme: 'ml-4',
+  totop: '-mr-2 lg:-mr-2.5 mt-4 rounded-full bg-slate-500/50 p-2',
+  // toggle: 'ml-8',
   link: [
-    '-lg:px-4 -lg:py-2',
+    'p-1 -lg:px-8 -lg:py-2',
     'text-slate-500 dark:text-slate-400',
     'page:text-cyan-700 dark:page:text-gray-200 step:underline',
     'lg:hover:text-sky-500',
-    '-lg:hover:bg-neutral-400/95 -lg:dark:hover:bg-gray-500/95'
+    '-lg:hover:bg-neutral-400/95 -lg:dark:hover:bg-gray-500/95',
+    '-lg:first:pt-3 -lg:last:pb-4'
   ],
-  icon: [
-    'text-slate-500 dark:text-slate-300',
-    'page:text-cyan-700 dark:page:text-gray-200 step:underline'
-  ]
+  icon: ['text-slate-500 dark:text-slate-300']
 };
 
 const links = {
@@ -39,6 +43,16 @@ const links = {
       content='width=device-width'
     />
     <title>{title}</title>
+    <script is:inline>
+      function set() {
+        const t = localStorage.getItem('set::theme');
+        const l = document.documentElement.classList;
+        t?.includes('dark') ? l.add('dark') : t?.includes('light') && l.remove('dark');
+      }
+      set();
+      document.addEventListener('astro:after-swap', set);
+      document.NAVBAR_BREAKPOINT = 1024;
+    </script>
     <link
       rel='icon'
       href='/favicon.svg'
@@ -47,12 +61,19 @@ const links = {
     <ViewTransitions />
   </head>
 
-  <body>
+  <body
+    class:list={[
+      '-lg:snap-start',
+      'relative flex min-h-screen flex-col',
+      'text-gray-800 dark:bg-gray-800 dark:text-neutral-200',
+      'bg-neutral-200 bg-[url(/astro.bg.svg)] bg-fixed bg-clip-content bg-center bg-no-repeat'
+    ]}>
     <Navbar
       class={[
         'flex h-16 items-center',
         'text-1.5xl tracking-wide',
-        'bg-neutral-50/95 shadow-md dark:bg-gray-700/95',
+        'bg-neutral-50/95 shadow-md dark:bg-transparent',
+        'onscroll:bg-slate-500/50 dark:onscroll:bg-slate-500/50',
         'shadow-md'
       ]}
       {custom}
