@@ -1,5 +1,5 @@
 <script lang="ts">
-  import twMerge from '../../../tailwind';
+  import twMerge from '../../../tailwind/tailwind-merge';
 
   let className: ClassName;
   export { className as class };

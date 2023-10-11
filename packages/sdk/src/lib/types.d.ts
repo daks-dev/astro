@@ -1,6 +1,5 @@
 /// <reference types="astro/client" />
 /// <reference types="svelte" />
-/// <reference types="vite/client" />
 
 // type Astro = import('astro').AstroGlobal;
 // declare const Astro: Readonly<Astro>;
@@ -36,6 +35,6 @@ declare interface ImageResult {
 
 declare type Attribute = string | null | undefined;
 
-declare interface Window {
-  NAVBAR_BREAKPOINT: number;
+declare namespace App {
+  // interface Locals {}
 }

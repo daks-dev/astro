@@ -1,2 +1,1 @@
-import Spinner from './Spinner.svelte';
-export default Spinner;
+export { default as Spinner } from './Spinner.astro';

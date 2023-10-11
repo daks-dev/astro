@@ -18,12 +18,41 @@ const current =
 ---
 
 <a
-  {href}
+  is='app-link'
   class={twMerge('page:disabled', className)}
+  {href}
   aria-label={label}
   aria-current={current}
   {...props}>
+  <slot name='before' />
   <slot>
     {label}
   </slot>
+  <slot name='after' />
 </a>
+
+<script>
+  class AppLink extends HTMLAnchorElement {
+    constructor() {
+      super();
+    }
+
+    connectedCallback() {
+      document.addEventListener('astro:after-swap', this.current);
+    }
+
+    disconnectedCallback() {
+      document.removeEventListener('astro:after-swap', this.current, true);
+    }
+
+    current = () => {
+      this.pathname === location.pathname || this.pathname === `${location.pathname}/`
+        ? this.setAttribute('aria-current', 'page')
+        : location.pathname.indexOf(`${this.pathname}/`) >= 0
+        ? this.setAttribute('aria-current', 'step')
+        : this.removeAttribute('aria-current');
+    };
+  }
+
+  customElements.define('app-link', AppLink, { extends: 'a' });
+</script>

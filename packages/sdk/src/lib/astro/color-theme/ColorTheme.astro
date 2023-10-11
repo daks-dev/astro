@@ -11,11 +11,11 @@ const { class: className, custom, size = 28, ...props } = Astro.props;
 ---
 
 <button
+  is='app-color-theme'
   class={twMerge(custom?.button, custom?.theme, className)}
   type='button'
   aria-label='color theme'
-  {...props}
-  data-color-theme>
+  {...props}>
   <svg
     class='disabled linecap-round linejoin-round vector-non-scaling-stroke'
     xmlns='http://www.w3.org/2000/svg'
@@ -57,22 +57,25 @@ const { class: className, custom, size = 28, ...props } = Astro.props;
 <script>
   import { settings } from '../../app/stores/persistent';
 
-  const node = document.querySelector('[data-color-theme]');
+  class AppColorTheme extends HTMLButtonElement {
+    constructor() {
+      super();
+    }
 
-  if (node) {
-    node.addEventListener('click', (ev: Event) => {
-      ev.preventDefault();
-      const dark = document.documentElement.classList.toggle('dark');
-      settings.setKey('theme', dark ? 'dark' : 'light');
-    });
+    connectedCallback() {
+      this.addEventListener('click', (ev: Event) => {
+        ev.preventDefault();
+        const dark = document.documentElement.classList.toggle('dark');
+        settings.setKey('theme', dark ? 'dark' : 'light');
+      });
 
-    settings.listen((val, key) => {
-      if (key === 'theme') {
-        console.log('theme: ', val.theme);
-        val.theme === 'dark'
+      settings.listen((val, key) =>
+        key === 'theme' && val.theme === 'dark'
           ? document.documentElement.classList.add('dark')
-          : document.documentElement.classList.remove('dark');
-      }
-    });
+          : document.documentElement.classList.remove('dark')
+      );
+    }
   }
+
+  customElements.define('app-color-theme', AppColorTheme, { extends: 'button' });
 </script>

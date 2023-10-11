@@ -11,10 +11,12 @@ const { class: className, custom, size = 32, ...props } = Astro.props;
 ---
 
 <button
+  is='app-navbar-toggle'
+  id='app-navbar-toggle'
   class={twMerge(custom?.icon, className, custom?.toggle)}
   aria-label='menu toggle'
   aria-expanded='false'
-  aria-controls='[data-navbar-menu]'
+  aria-controls='app-navbar-menu'
   {...props}
   data-navbar-toggle>
   <slot>
@@ -46,19 +48,25 @@ const { class: className, custom, size = 32, ...props } = Astro.props;
 <script>
   import { status } from '../../app/stores';
 
-  const node = document.querySelector('[data-navbar-toggle]');
+  class AppNavbarToggle extends HTMLButtonElement {
+    constructor() {
+      super();
+    }
 
-  if (node) {
-    node.addEventListener('click', (ev: Event) => {
-      ev.preventDefault();
-      status.setKey('navbar.hidden', !status.get().navbar.hidden);
-    });
+    connectedCallback() {
+      this.addEventListener('click', (ev: Event) => {
+        ev.preventDefault();
+        status.setKey('navbar.hidden', !status.get().navbar.hidden);
+      });
 
-    status.listen((val, key) => {
-      if (key === 'navbar.hidden') {
-        console.log('hidden: ', val.navbar.hidden);
-        node.setAttribute('aria-expanded', `${!val.navbar.hidden}`);
-      }
-    });
+      status.listen((val, key) => {
+        if (key === 'navbar.hidden') {
+          console.log('hidden: ', val.navbar.hidden);
+          this.setAttribute('aria-expanded', `${!val.navbar.hidden}`);
+        }
+      });
+    }
   }
+
+  customElements.define('app-navbar-toggle', AppNavbarToggle, { extends: 'button' });
 </script>

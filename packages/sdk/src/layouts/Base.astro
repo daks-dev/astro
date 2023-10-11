@@ -1,6 +1,6 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
-import { Navbar } from '../lib/astro';
+import { Navbar, Timer } from '../lib/astro';
 
 interface Props {
   title: string;
@@ -15,7 +15,7 @@ const custom = {
     // 'first:rounded-t-md last:rounded-b-md'
   ],
   // theme: 'ml-4',
-  totop: '-mr-2 lg:-mr-2.5 mt-4 rounded-full bg-slate-500/50 p-2',
+  totop: '-mr-2 lg:-mr-2.5 mt-8 rounded-full bg-slate-500/50 p-2',
   // toggle: 'ml-8',
   link: [
     'p-1 -lg:px-8 -lg:py-2',
@@ -51,7 +51,6 @@ const links = {
       }
       set();
       document.addEventListener('astro:after-swap', set);
-      document.NAVBAR_BREAKPOINT = 1024;
     </script>
     <link
       rel='icon'
@@ -63,24 +62,24 @@ const links = {
 
   <body
     class:list={[
-      '-lg:snap-start',
       'relative flex min-h-screen flex-col',
-      'text-gray-800 dark:bg-gray-800 dark:text-neutral-200',
-      'bg-neutral-200 bg-[url(/astro.bg.svg)] bg-fixed bg-clip-content bg-center bg-no-repeat'
+      'text-gray-800 dark:text-neutral-200',
+      'bg-neutral-100 bg-fixed bg-clip-content bg-center bg-no-repeat dark:bg-gray-800', // bg-[url(/astro.bg.svg)]
+      '-lg:snap-start'
     ]}>
     <Navbar
       class={[
         'flex h-16 items-center',
         'text-1.5xl tracking-wide',
-        'bg-neutral-50/95 shadow-md dark:bg-transparent',
-        'onscroll:bg-slate-500/50 dark:onscroll:bg-slate-500/50',
+        'bg-neutral-100 shadow-md dark:bg-gray-800', // dark:bg-transparent
+        'onscroll:bg-neutral-100/90 dark:onscroll:bg-slate-700/90',
         'shadow-md'
       ]}
       {custom}
       {links}
-      transition:persist
     />
     <main class='prose-xl prose-slate mb-8 pt-20'>
+      <Timer class='mx-auto mb-4 block w-fit text-sm' />
       <slot />
     </main>
     <script>

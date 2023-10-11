@@ -11,7 +11,10 @@ export const isTouch = () =>
   navigator?.maxTouchPoints > 0 ||
   (document && 'ontouchstart' in document.documentElement);
 
+export type { LazyLoad } from './lazyload';
+
 export { default as Animate } from './Animate';
+export { default as lazyload } from './lazyload';
 export { default as Swipe, swipe } from './Swipe';
 export { default as Wheel, wheel } from './Wheel';
 

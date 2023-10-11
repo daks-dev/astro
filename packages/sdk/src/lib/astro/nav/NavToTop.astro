@@ -1,29 +1,30 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
+/* import type { HTMLAttributes } from 'astro/types'; */
 import twMerge from '../../tailwind/tailwind-merge';
 
-type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
+type Props = /* Omit<HTMLAttributes<'button'>, 'class'> & */ {
   class?: ClassName;
   duration?: number;
   size?: string | number;
   speed?: number;
 };
-const { class: className, duration = 500, size = 32, speed: move, ...props } = Astro.props;
+const { class: className, duration = 300, size = 32, speed: move, ...props } = Astro.props;
 
 const speed = move ?? duration * 3;
 ---
 
 <button
+  is='app-to-top'
   class={twMerge(
     'flex absolute top-full z-10',
-    'disabled opacity-0 hover:opacity-100',
-    'onscroll:enabled onscroll:opacity-50',
-    'transition delay-200 ease-in-out',
+    'disabled scale-0 origin-center opacity-50 hover:opacity-100',
+    'onscroll:enabled onscroll:scale-100',
+    'transition-transform delay-150 ease-in-out dura',
     className
   )}
   style={`transition-duration: ${duration}ms`}
   {...props}
-  data-nav-totop={speed}>
+  data-speed={speed}>
   <slot>
     <svg
       class='disabled linecap-round linejoin-round vector-non-scaling-stroke'
@@ -40,10 +41,22 @@ const speed = move ?? duration * 3;
 <script>
   import { toTop } from '../../utils/scroll';
 
-  const node = document.querySelector('[data-nav-totop]') as HTMLElement;
-  if (node) {
-    node.addEventListener('click', () =>
-      toTop({ duration: node.dataset.navTotop ? parseInt(node.dataset.navTotop) : 300 })
-    );
+  class AppToTop extends HTMLButtonElement {
+    constructor() {
+      super();
+    }
+
+    get speed() {
+      return this.dataset.speed ? parseInt(this.dataset.speed) : 1000;
+    }
+
+    connectedCallback() {
+      this.addEventListener('click', (ev: MouseEvent | ToggleEvent) => {
+        ev.preventDefault();
+        toTop({ duration: this.speed });
+      });
+    }
   }
+
+  customElements.define('app-to-top', AppToTop, { extends: 'button' });
 </script>

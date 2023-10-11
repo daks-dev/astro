@@ -6,7 +6,7 @@ document.addEventListener('astro:page-load', () => {
   document.body.classList.add('loaded');
   navbar = document.querySelector('[data-navbar]');
 });
-
+/*
 document.addEventListener('astro:after-swap', () =>
   document.querySelectorAll('[data-navbar] a').forEach((el) => {
     const href = el.getAttribute('href');
@@ -17,7 +17,7 @@ document.addEventListener('astro:after-swap', () =>
       else el.removeAttribute('aria-current');
   })
 );
-
+*/
 window.addEventListener(
   'scroll',
   () => navbar && meta.setKey('scrolled', window.scrollY > navbar.clientHeight)

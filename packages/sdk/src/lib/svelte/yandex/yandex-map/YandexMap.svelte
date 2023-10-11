@@ -1,9 +1,9 @@
 <script lang="ts">
   import { BROWSER } from 'esm-env';
   import { onMount } from 'svelte';
-  import { uuid } from '../../utils';
+  import { uuid } from '../../../utils';
+  import twMerge from '../../../tailwind/tailwind-merge';
   import type { YandexMapInstance } from '.';
-  import twMerge from '../../tailwind/tailwind-merge';
 
   let className: ClassName = undefined;
   export { className as class };

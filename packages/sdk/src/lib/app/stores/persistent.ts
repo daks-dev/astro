@@ -26,8 +26,8 @@ export const settings = persistentMap<{
 );
 
 export const timer = persistentAtom<number>('timer', 0, {
-  encode: (val) => val.toString(),
-  decode: (val) => (val ? Number(val) : 0)
+  encode: (val) => (val ? `${val}` : '0'),
+  decode: (val) => (val ? parseInt(val) : 0)
 });
 
 onMount(timer, () => {
@@ -40,6 +40,7 @@ onMount(timer, () => {
 });
 
 export const timerFormat = (s: number) => {
+  if (isNaN(s)) return '--:--';
   const d = Math.floor(s / (3600 * 24));
   const h = Math.floor((s % (3600 * 24)) / 3600);
   const m = Math.floor((s % 3600) / 60);

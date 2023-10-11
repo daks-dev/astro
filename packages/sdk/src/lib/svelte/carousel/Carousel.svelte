@@ -2,13 +2,12 @@
   import { onMount } from 'svelte';
   import { tweened } from 'svelte/motion';
   import { linear, quadInOut } from 'svelte/easing';
-  import { Figure } from '@daks.dev/sdk/svelte/figure';
-  import { swipe, wheel } from '@daks.dev/sdk/utils';
-  import lazyload, { type LazyLoad } from '@daks.dev/sdk/utils/lazyload';
-  import twMerge from '../../tailwind';
+  import { Figure } from '../figure';
+  import { lazyload, swipe, wheel, type LazyLoad } from '../../utils';
+  import twMerge from '../../tailwind/tailwind-merge';
   import ButtonMove from './components/ButtonMove.svelte';
   import ButtonPlay from './components/ButtonPlay.svelte';
-  import type { Image, Custom, Show, Easing, Controls, Loaded } from './index.d.ts';
+  import type { Image, Custom, Show, Easing, Controls, Loaded } from '.';
 
   let className: ClassName = undefined;
   export { className as class };

@@ -22,4 +22,6 @@ export { default as GithubLink } from './social/GithubLink.astro';
 export { default as TwitterLink } from './social/TwitterLink.astro';
 export { default as WebtooLink } from './social/WebtooLink.astro';
 
+export { default as Timer } from './timer/Timer.astro';
+
 export { default as Title } from './title/Title.astro';

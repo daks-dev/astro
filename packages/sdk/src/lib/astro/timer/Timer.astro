@@ -1,0 +1,31 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import twMerge from '../../tailwind/tailwind-merge';
+
+type Props = Omit<HTMLAttributes<'time'>, 'class'> & {
+  class?: ClassName;
+};
+const { class: className, ...props } = Astro.props;
+---
+
+<time
+  is='app-timer'
+  class={twMerge(className)}
+  {...props}>
+  --:--
+</time>
+
+<script>
+  import { timer, timerFormat as format } from '../../app/stores/persistent';
+
+  class AppTimer extends HTMLTimeElement {
+    constructor() {
+      super();
+
+      //const node = this.children[0];
+      //timer.subscribe((val) => (node.innerHTML = format(val)));
+      timer.subscribe((val) => (this.innerHTML = format(val)));
+    }
+  }
+  customElements.define('app-timer', AppTimer, { extends: 'time' });
+</script>
