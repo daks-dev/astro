@@ -58,7 +58,7 @@ const { class: className, custom, links = {} } = Astro.props;
     }
 
     connectedCallback() {
-      window.addEventListener('resize', () => this.check);
+      window.addEventListener('resize', this.check);
       document.addEventListener('astro:after-swap', this.check);
       document.addEventListener('click', this.outside);
 
@@ -89,29 +89,13 @@ const { class: className, custom, links = {} } = Astro.props;
       }
     }
 
-    transition() {
+    check = () => {
       this.style.transitionDuration = '';
-      setTimeout(() => (this.style.transitionDuration = '300ms'), 300);
-    }
-
-    check = (/*force = false*/) => {
-      // if (window.innerWidth < 1024) status.setKey('navbar.hidden', true);
-      // else if (force) status.setKey('navbar.hidden', false);
       status.setKey('navbar.hidden', window.innerWidth < 1024);
       this.hidden = !!status.get().navbar.hidden;
-    };
-    /*
-    swap = () => {
-      this.transition();
-      this.check();
-      this.hidden = !!status.get().navbar.hidden;
+      setTimeout(() => (this.style.transitionDuration = '300ms'), 300);
     };
 
-    resize = () => {
-      this.transition();
-      this.check(true);
-    };
-*/
     outside = (ev: Event) => {
       ev?.target &&
         !ev.defaultPrevented &&
