@@ -29,7 +29,8 @@
     'transition-opacity ease-out',
     className
   )}
-  hidden>
+  hidden
+  data-duration={duration}>
   <slot>
     <svg
       class="3xl:w-[10vmin] w-[35vmin] sm:w-[30vmin] md:w-[25vmin] lg:w-[20vmin] 2xl:w-[15vmin]"

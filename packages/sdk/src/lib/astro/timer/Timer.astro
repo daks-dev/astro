@@ -27,5 +27,6 @@ const { class: className, ...props } = Astro.props;
       timer.subscribe((val) => (this.innerHTML = format(val)));
     }
   }
+
   customElements.define('app-timer', AppTimer, { extends: 'time' });
 </script>

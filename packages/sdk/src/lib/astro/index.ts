@@ -1,3 +1,4 @@
+export { default as Backstage } from './backstage/Backstage.astro';
 export { default as Figure } from './figure/Figure.astro';
 export { default as FormattedDate } from './formatted-date/FormattedDate.astro';
 export { default as Head } from './head/Head.astro';
