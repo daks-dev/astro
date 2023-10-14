@@ -12,14 +12,14 @@ declare module '*.astro' {
 
 declare type Timeout = string | number | NodeJS.Timeout | undefined;
 
-declare type ClassName = string | false | 0 | ClassName[] | null | undefined;
-
 declare type Meta = string | number | boolean | null | undefined;
 declare interface Metadata {
   [x: string]: Meta;
 }
 
-declare type ClassName = false | 0 | string[] | null | undefined;
+declare type ClassName = string | false | 0 | ClassName[] | null | undefined;
+
+declare type Attribute = string | null | undefined;
 
 declare interface ImageMetadata {
   src: string;
@@ -32,8 +32,6 @@ declare interface ImageResult {
   src: string;
   attributes: Metadata;
 }
-
-declare type Attribute = string | null | undefined;
 
 declare namespace App {
   // interface Locals {}
