@@ -1,14 +1,22 @@
 ---
-/* import type { HTMLAttributes } from 'astro/types'; */
+import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
 
-type Props = /* Omit<HTMLAttributes<'button'>, 'class'> & */ {
+type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   class?: ClassName;
-  duration?: number;
+  label?: string;
   size?: string | number;
+  duration?: number;
   speed?: number;
 };
-const { class: className, duration = 300, size = 32, speed: move, ...props } = Astro.props;
+const {
+  class: className,
+  label = 'to top',
+  size = 32,
+  duration = 300,
+  speed: move,
+  ...props
+} = Astro.props;
 
 const speed = move ?? duration * 3;
 ---
@@ -23,6 +31,7 @@ const speed = move ?? duration * 3;
     className
   )}
   style={`transition-duration: ${duration}ms`}
+  aria-label={label}
   {...props}
   data-speed={speed}>
   <slot>

@@ -4,12 +4,12 @@ import twMerge from '../../tailwind/tailwind-merge';
 
 type Props = HTMLAttributes<'time'> & {
   date: Date;
-  locale?: 'ru-ru' | 'en-us';
+  locale?: string;
   month?: 'numeric' | '2-digit' | 'long' | 'short' | 'narrow';
   class?: ClassName;
 };
 
-const { date, locale = 'ru-ru', month = 'long', class: className, ...props } = Astro.props;
+const { date, locale = 'ru-RU', month = 'long', class: className, ...props } = Astro.props;
 ---
 
 <time

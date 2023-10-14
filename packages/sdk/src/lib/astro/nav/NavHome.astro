@@ -1,20 +1,20 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
 import Link from './Link.astro';
 
-type Props = {
+type Props = Omit<HTMLAttributes<'a'>, 'class'> & {
   class?: ClassName;
-  brand?: string;
+  label?: string;
   size?: string | number;
 };
-const { class: className, brand = 'home page', size = 32 } = Astro.props;
+const { class: className, label = 'home page', size = 32 } = Astro.props;
 ---
 
 <Link
   class={twMerge(className)}
   href='/'
-  label={brand}
-  data-nav-home>
+  {label}>
   <slot>
     <svg
       class='disabled linecap-round linejoin-round vector-non-scaling-stroke'

@@ -183,3 +183,21 @@ const { title, description, app, rss, image = '/icons/logo.svg' } = Astro.props;
   name='generator'
   content={Astro.generator}
 />
+
+<script>
+  import { meta } from '../../app/stores';
+
+  const navbar = document.querySelector('[is=app-navbar]');
+
+  window.addEventListener('scroll', () => {
+    meta.setKey('scrolled', window.scrollY > (navbar ? navbar.clientHeight : 0));
+  });
+
+  meta.listen(
+    (val, key) =>
+      key === 'scrolled' &&
+      (val.scrolled
+        ? document.body.classList.add('scrolled')
+        : document.body.classList.remove('scrolled'))
+  );
+</script>

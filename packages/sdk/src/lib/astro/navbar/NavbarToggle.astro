@@ -4,21 +4,20 @@ import twMerge from '../../tailwind/tailwind-merge';
 
 type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   class?: ClassName;
-  custom?: Record<string, ClassName>;
+  label?: string;
   size?: string | number;
 };
-const { class: className, custom, size = 32, ...props } = Astro.props;
+const { class: className, label = 'menu toggle', size = 32, ...props } = Astro.props;
 ---
 
 <button
   is='app-navbar-toggle'
   id='app-navbar-toggle'
-  class={twMerge(custom?.icon, className, custom?.toggle)}
-  aria-label='menu toggle'
+  class={twMerge(className)}
+  aria-label={label}
   aria-expanded='false'
   aria-controls='app-navbar-menu'
-  {...props}
-  data-navbar-toggle>
+  {...props}>
   <slot>
     <svg
       class='disabled linecap-round linejoin-round vector-non-scaling-stroke'
@@ -61,7 +60,7 @@ const { class: className, custom, size = 32, ...props } = Astro.props;
 
       status.listen((val, key) => {
         if (key === 'navbar.hidden') {
-          console.log('hidden: ', val.navbar.hidden);
+          // console.debug('hidden ', val.navbar.hidden);
           this.setAttribute('aria-expanded', `${!val.navbar.hidden}`);
         }
       });

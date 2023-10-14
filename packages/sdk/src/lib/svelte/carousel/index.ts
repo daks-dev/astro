@@ -21,6 +21,6 @@ export type Show = number | ((x: number) => number);
 
 export type Controls = string | string[];
 
-export type Loaded = undefined | ((x?: Event | HTMLElement) => void);
+export type Loaded = ((x?: Event | HTMLElement) => void) | undefined;
 
 export { default as Carousel } from './Carousel.svelte';

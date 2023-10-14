@@ -5,12 +5,13 @@ import twMerge from '../../tailwind/tailwind-merge';
 type Props = Omit<HTMLAttributes<'a'>, 'class'> & {
   class?: ClassName;
   label?: string;
+  size?: string | number;
 };
 
 const { href, class: className, label, ...props } = Astro.props;
 
 const current =
-  href === Astro.url.pathname || href === `${Astro.url.pathname}/`
+  Astro.url.pathname === href || Astro.url.pathname === `${href}/`
     ? 'page'
     : Astro.url.pathname.indexOf(`${href}/`) >= 0
     ? 'step'
@@ -38,19 +39,24 @@ const current =
     }
 
     connectedCallback() {
-      document.addEventListener('astro:after-swap', this.current);
+      document.addEventListener('astro:after-swap', this.check);
     }
 
     disconnectedCallback() {
-      document.removeEventListener('astro:after-swap', this.current, true);
+      document.removeEventListener('astro:after-swap', this.check, true);
     }
 
-    current = () => {
-      this.pathname === location.pathname || this.pathname === `${location.pathname}/`
-        ? this.setAttribute('aria-current', 'page')
-        : location.pathname.indexOf(`${this.pathname}/`) >= 0
-        ? this.setAttribute('aria-current', 'step')
-        : this.removeAttribute('aria-current');
+    set current(val: string | null) {
+      val ? this.setAttribute('aria-current', val) : this.removeAttribute('aria-current');
+    }
+
+    check = () => {
+      this.current =
+        location.pathname === this.pathname || location.pathname === `${this.pathname}/`
+          ? 'page'
+          : location.pathname.indexOf(`${this.pathname}/`) >= 0
+          ? 'step'
+          : null;
     };
   }
 
