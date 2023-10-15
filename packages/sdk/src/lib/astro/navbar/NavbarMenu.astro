@@ -20,11 +20,12 @@ const { class: className, custom, links = {}, ...props } = Astro.props;
     'flex flex-col lg:flex-row lg:flex-nowrap lg:gap-x-3 2xl:gap-x-5',
     'ml-1 mt-1 max-w-xs sm:max-w-md lg:m-0 lg:max-w-none lg:h-full',
     'aria-hidden:disabled aria-hidden:scale-75 aria-hidden:opacity-0',
-    'origin-top-left transition duration-0 ease-in-out lg:origin-center',
+    'origin-top-left transition lg:origin-center',
     '-lg:overflow-hidden',
     className,
     custom?.menu
   )}
+  style='transition-duration: 0ms;'
   aria-owns='app-navbar-toggle'
   {...props}>
   {
@@ -41,11 +42,10 @@ const { class: className, custom, links = {}, ...props } = Astro.props;
 </nav>
 
 <script is:inline>
-  const node = document.querySelector('[is=app-navbar-menu]');
+  const node = document.getElementById('app-navbar-menu');
   if (node && window.innerWidth < 1024) {
     node.setAttribute('aria-hidden', 'true');
     node.querySelectorAll('a').forEach((el) => el.setAttribute('tabindex', '-1'));
-    setTimeout(() => node.setAttribute('style', 'transition-duration: 300ms'), 300);
   }
 </script>
 
@@ -55,22 +55,26 @@ const { class: className, custom, links = {}, ...props } = Astro.props;
   class AppNavbarMenu extends HTMLElement {
     constructor() {
       super();
-    }
-
-    connectedCallback() {
-      window.addEventListener('resize', this.check);
-      document.addEventListener('astro:after-swap', this.check);
-      document.addEventListener('click', this.outside);
 
       status.listen((val, key) => {
-        if (key === 'navbar.hidden') this.hidden = !!val.navbar.hidden;
+        if (key === 'navbar.hidden') {
+          this.hidden = !!val.navbar.hidden;
+        }
       });
     }
 
+    connectedCallback() {
+      window.addEventListener('resize', this.reset);
+      document.addEventListener('astro:page-load', this.reset);
+      // document.addEventListener('astro:after-swap', this.reset);
+      document.addEventListener('click', this.outside);
+    }
+
     disconnectedCallback() {
-      window.removeEventListener('resize', () => this.check, true);
-      document.removeEventListener('astro:after-swap', this.check, true);
-      document.removeEventListener('click', this.outside, true);
+      window.removeEventListener('resize', this.reset);
+      document.removeEventListener('astro:page-load', this.reset);
+      // document.removeEventListener('astro:after-swap', this.reset);
+      document.removeEventListener('click', this.outside);
     }
 
     links = this.querySelectorAll('a');
@@ -90,16 +94,27 @@ const { class: className, custom, links = {}, ...props } = Astro.props;
     }
 
     check = () => {
-      this.style.transitionDuration = '';
       status.setKey('navbar.hidden', window.innerWidth < 1024);
-      this.hidden = !!status.get().navbar.hidden;
-      setTimeout(() => (this.style.transitionDuration = '300ms'), 300);
     };
 
+    reset = () => {
+      this.style.transitionDuration = '0ms';
+      this.check();
+      setTimeout(() => (this.style.transitionDuration = '300ms'), 100);
+    };
+
+    get owner() {
+      const id = this.getAttribute('aria-owns');
+      return id ? document.getElementById(id) : null;
+    }
+
     outside = (ev: Event) => {
-      ev?.target &&
-        !ev.defaultPrevented &&
-        !this.parentElement?.contains(ev.target as Node) &&
+      if (
+        ev?.target &&
+        // !ev.defaultPrevented &&
+        !this.contains(ev.target as Node) &&
+        !this.owner?.contains(ev.target as Node)
+      )
         this.check();
     };
   }

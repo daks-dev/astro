@@ -187,7 +187,7 @@ const { title, description, app, rss, image = '/icons/logo.svg' } = Astro.props;
 <script>
   import { meta } from '../../app/stores';
 
-  const navbar = document.querySelector('[is=app-navbar]');
+  const navbar = document.getElementById('app-navbar');
 
   window.addEventListener('scroll', () => {
     meta.setKey('scrolled', window.scrollY > (navbar ? navbar.clientHeight : 0));

@@ -1,6 +1,7 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
+import { uuid } from '../../utils';
 
 type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   class?: ClassName;
@@ -16,6 +17,7 @@ const { class: className, label = 'menu toggle', ...props } = Astro.props;
   aria-label={label}
   aria-expanded='false'
   aria-controls='app-navbar-menu'
+  data-uuid={uuid()}
   {...props}>
   <slot>
     <svg
@@ -47,13 +49,6 @@ const { class: className, label = 'menu toggle', ...props } = Astro.props;
   class AppNavbarToggle extends HTMLButtonElement {
     constructor() {
       super();
-    }
-
-    connectedCallback() {
-      this.addEventListener('click', (ev: Event) => {
-        ev.preventDefault();
-        status.setKey('navbar.hidden', !status.get().navbar.hidden);
-      });
 
       status.listen((val, key) => {
         if (key === 'navbar.hidden') {
@@ -61,6 +56,20 @@ const { class: className, label = 'menu toggle', ...props } = Astro.props;
         }
       });
     }
+
+    connectedCallback() {
+      this.addEventListener('click', this.handle);
+    }
+
+    disconnectedCallback() {
+      this.removeEventListener('click', this.handle);
+    }
+
+    handle = (ev: Event) => {
+      ev.preventDefault();
+      // ev.stopPropagation();
+      status.setKey('navbar.hidden', !status.get().navbar.hidden);
+    };
   }
 
   customElements.define('app-navbar-toggle', AppNavbarToggle, { extends: 'button' });

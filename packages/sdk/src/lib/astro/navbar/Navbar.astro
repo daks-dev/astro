@@ -12,21 +12,17 @@ type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
   custom?: Record<string, ClassName>;
   links: Record<string, string>;
 };
+
 const { class: className, custom, links, ...props } = Astro.props;
 ---
 
 <div
-  is='app-navbar'
-  class={twMerge(
-    'fixed left-0 top-0 z-10 w-full',
-    'text-lg',
-    'origin-center transition-colors duration-0 ease-in-out',
-    className
-  )}
+  id='app-navbar'
+  class={twMerge('fixed left-0 top-0 z-10 w-full', 'text-lg', className)}
   {...props}>
   <div class:list={['wrapper h-full', 'flex items-center justify-end']}>
     <slot name='before'>
-      <NavbarHome class={[custom?.icon, 'mr-auto', custom?.home]} />
+      <NavbarHome class={[custom?.button, 'mr-auto', custom?.home]} />
     </slot>
 
     <NavbarMenu
@@ -36,34 +32,9 @@ const { class: className, custom, links, ...props } = Astro.props;
     </NavbarMenu>
 
     <slot name='after'>
-      <ColorTheme class={[custom?.icon, 'ml-auto', custom?.theme]} />
-      <NavToTop class={[custom?.icon, custom?.totop]} />
+      <ColorTheme class={[custom?.button, 'ml-auto', custom?.theme]} />
+      <NavToTop class={[custom?.button, custom?.totop]} />
     </slot>
-    <NavbarToggle class={[custom?.icon, 'order-last ml-8 lg:hidden', custom?.toggle]} />
+    <NavbarToggle class={[custom?.button, 'order-last ml-8 lg:hidden', custom?.toggle]} />
   </div>
 </div>
-
-<script>
-  class AppNavbar extends HTMLDivElement {
-    constructor() {
-      super();
-    }
-
-    connectedCallback() {
-      document.addEventListener('astro:page-load', this.transition);
-      document.addEventListener('astro:after-swap', this.transition);
-    }
-
-    disconnectedCallback() {
-      document.removeEventListener('astro:page-load', this.transition, true);
-      document.removeEventListener('astro:after-swap', this.transition, true);
-    }
-
-    transition = () => {
-      this.style.transitionDuration = '';
-      setTimeout(() => (this.style.transitionDuration = '150ms'), 300);
-    };
-  }
-
-  customElements.define('app-navbar', AppNavbar, { extends: 'div' });
-</script>

@@ -22,8 +22,6 @@ const { class: className, ...props } = Astro.props;
     constructor() {
       super();
 
-      //const node = this.children[0];
-      //timer.subscribe((val) => (node.innerHTML = format(val)));
       timer.subscribe((val) => (this.innerHTML = format(val)));
     }
   }

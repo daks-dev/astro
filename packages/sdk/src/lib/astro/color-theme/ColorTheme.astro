@@ -56,14 +56,6 @@ const { class: className, ...props } = Astro.props;
   class AppColorTheme extends HTMLButtonElement {
     constructor() {
       super();
-    }
-
-    connectedCallback() {
-      this.addEventListener('click', (ev: Event) => {
-        ev.preventDefault();
-        const dark = document.documentElement.classList.toggle('dark');
-        settings.setKey('theme', dark ? 'dark' : 'light');
-      });
 
       settings.listen((val, key) =>
         key === 'theme' && val.theme === 'dark'
@@ -71,6 +63,20 @@ const { class: className, ...props } = Astro.props;
           : document.documentElement.classList.remove('dark')
       );
     }
+
+    connectedCallback() {
+      this.addEventListener('click', this.handle);
+    }
+
+    disconnectedCallback() {
+      this.removeEventListener('click', this.handle);
+    }
+
+    handle = (ev: Event) => {
+      ev.preventDefault();
+      const dark = document.documentElement.classList.toggle('dark');
+      settings.setKey('theme', dark ? 'dark' : 'light');
+    };
   }
 
   customElements.define('app-color-theme', AppColorTheme, { extends: 'button' });

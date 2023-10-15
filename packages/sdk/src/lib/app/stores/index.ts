@@ -4,7 +4,7 @@ export const meta = map<Record<string, Meta>>({});
 
 export const status = deepMap<Record<string, Record<string, Meta>>>({});
 
-onMount(status, () => status.setKey('navbar.hidden', true));
+onMount(status, () => status.setKey('navbar.hidden', false));
 /*
 export const statusNavbaHiddenCheck = action(
   status,
