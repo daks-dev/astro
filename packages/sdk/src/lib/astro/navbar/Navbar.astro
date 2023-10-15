@@ -24,7 +24,7 @@ const { class: className, custom, links, ...props } = Astro.props;
     className
   )}
   {...props}>
-  <div class='wrapper flex items-center justify-end'>
+  <div class:list={['wrapper h-full', 'flex items-center justify-end']}>
     <slot name='before'>
       <NavbarHome class={[custom?.icon, 'mr-auto', custom?.home]} />
     </slot>

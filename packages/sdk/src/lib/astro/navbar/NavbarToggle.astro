@@ -57,7 +57,6 @@ const { class: className, label = 'menu toggle', ...props } = Astro.props;
 
       status.listen((val, key) => {
         if (key === 'navbar.hidden') {
-          // console.debug('hidden ', val.navbar.hidden);
           this.setAttribute('aria-expanded', `${!val.navbar.hidden}`);
         }
       });

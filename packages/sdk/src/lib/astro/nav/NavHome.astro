@@ -11,7 +11,7 @@ const { class: className, label = 'home page' } = Astro.props;
 ---
 
 <Link
-  class={twMerge('w-7', className)}
+  class={twMerge('page:disabled w-7', className)}
   href='/'
   {label}>
   <slot>

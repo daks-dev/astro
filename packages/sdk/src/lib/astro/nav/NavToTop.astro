@@ -8,9 +8,15 @@ type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   duration?: number;
   speed?: number;
 };
-const { class: className, label = 'to top', duration = 300, speed: move, ...props } = Astro.props;
+const {
+  class: className,
+  label = 'to top',
+  duration = 300,
+  speed: __speed,
+  ...props
+} = Astro.props;
 
-const speed = move ?? duration * 5;
+const speed = __speed ?? duration * 5;
 ---
 
 <button
