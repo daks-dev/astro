@@ -9,16 +9,13 @@
 
 <button
   on:click
-  class={twMerge(
-    'absolute bottom-1 left-1/2 z-10 -translate-x-1/2 p-3',
-    'rounded-full text-4xl',
-    className
-  )}
+  class={twMerge('absolute bottom-1 left-1/2 z-10 -translate-x-1/2 p-2', 'rounded-full', className)}
   type="button"
-  tabindex="-1">
+  tabindex="-1"
+  aria-label={auto ? 'pouse' : 'play'}>
   <svg
-    width="1em"
-    height="1em"
+    class="disabled w-12"
+    xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="currentColor">
     {#if auto}

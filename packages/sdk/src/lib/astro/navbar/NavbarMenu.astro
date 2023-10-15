@@ -1,16 +1,15 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
 import Link from '../nav/Link.astro';
 
-type Props = {
+type Props = Omit<HTMLAttributes<'nav'>, 'class'> & {
   class?: ClassName;
   custom?: Record<string, ClassName>;
   links: Record<string, string>;
 };
-const { class: className, custom, links = {} } = Astro.props;
+const { class: className, custom, links = {}, ...props } = Astro.props;
 ---
-
-<svelte:window bind:innerWidth></svelte:window>
 
 <nav
   is='app-navbar-menu'
@@ -26,7 +25,8 @@ const { class: className, custom, links = {} } = Astro.props;
     className,
     custom?.menu
   )}
-  aria-owns='app-navbar-toggle'>
+  aria-owns='app-navbar-toggle'
+  {...props}>
   {
     Object.entries(links).map(([href, label]) => (
       <Link

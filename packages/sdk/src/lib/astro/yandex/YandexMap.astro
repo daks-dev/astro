@@ -39,11 +39,11 @@ if (!strict)
   is='app-yandex-map'
   {id}
   class={twMerge('relative z-0', className)}
-  {...props}
   data-geo={JSON.stringify(geo)}
   data-apikey={apikey}
   data-lang={lang}
-  data-type={type}>
+  data-type={type}
+  {...props}>
 </div>
 
 <script>

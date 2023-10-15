@@ -5,25 +5,22 @@ import twMerge from '../../tailwind/tailwind-merge';
 type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   class?: ClassName;
   label?: string;
-  size?: string | number;
 };
-const { class: className, label = 'menu toggle', size = 32, ...props } = Astro.props;
+const { class: className, label = 'menu toggle', ...props } = Astro.props;
 ---
 
 <button
   is='app-navbar-toggle'
   id='app-navbar-toggle'
-  class={twMerge(className)}
+  class={twMerge('w-7', className)}
   aria-label={label}
   aria-expanded='false'
   aria-controls='app-navbar-menu'
   {...props}>
   <slot>
     <svg
-      class='disabled linecap-round linejoin-round vector-non-scaling-stroke'
+      class='disabled linecap-round linejoin-round vector-non-scaling-stroke w-full'
       xmlns='http://www.w3.org/2000/svg'
-      width={size}
-      height={size}
       viewBox='0 0 24 24'
       fill='currentColor'>
       <path

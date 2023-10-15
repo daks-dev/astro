@@ -4,23 +4,19 @@ import twMerge from '../../tailwind/tailwind-merge';
 
 type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   class?: ClassName;
-  custom?: Record<string, ClassName>;
-  size?: number;
 };
-const { class: className, custom, size = 28, ...props } = Astro.props;
+const { class: className, ...props } = Astro.props;
 ---
 
 <button
   is='app-color-theme'
-  class={twMerge(custom?.button, custom?.theme, className)}
+  class={twMerge('w-7', className)}
   type='button'
   aria-label='color theme'
   {...props}>
   <svg
-    class='disabled linecap-round linejoin-round vector-non-scaling-stroke'
+    class='disabled linecap-round linejoin-round vector-non-scaling-stroke w-full'
     xmlns='http://www.w3.org/2000/svg'
-    width={size}
-    height={size}
     viewBox='0 0 24 24'
     fill='currentColor'>
     <g

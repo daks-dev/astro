@@ -6,21 +6,18 @@ import Link from './Link.astro';
 type Props = Omit<HTMLAttributes<'a'>, 'class'> & {
   class?: ClassName;
   label?: string;
-  size?: string | number;
 };
-const { class: className, label = 'home page', size = 32 } = Astro.props;
+const { class: className, label = 'home page' } = Astro.props;
 ---
 
 <Link
-  class={twMerge(className)}
+  class={twMerge('w-7', className)}
   href='/'
   {label}>
   <slot>
     <svg
-      class='disabled linecap-round linejoin-round vector-non-scaling-stroke'
+      class='disabled linecap-round linejoin-round vector-non-scaling-stroke w-full'
       xmlns='http://www.w3.org/2000/svg'
-      width={size}
-      height={size}
       viewBox='0 0 256 256'
       fill='currentColor'>
       <path

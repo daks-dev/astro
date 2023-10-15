@@ -46,8 +46,8 @@
     {
       "files": ["**/*.astro/*.{js,jsx,ts,tsx}"],
       "rules": {
-        "no-undef": "off",
-        "@typescript-eslint/no-explicit-any": "off"
+        "no-undef": "off"
+        // "@typescript-eslint/no-explicit-any": "off"
         // "prettier/prettier": "off"
       }
     },

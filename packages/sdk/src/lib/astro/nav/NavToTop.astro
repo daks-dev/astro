@@ -5,26 +5,18 @@ import twMerge from '../../tailwind/tailwind-merge';
 type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   class?: ClassName;
   label?: string;
-  size?: string | number;
   duration?: number;
   speed?: number;
 };
-const {
-  class: className,
-  label = 'to top',
-  size = 32,
-  duration = 300,
-  speed: move,
-  ...props
-} = Astro.props;
+const { class: className, label = 'to top', duration = 300, speed: move, ...props } = Astro.props;
 
-const speed = move ?? duration * 3;
+const speed = move ?? duration * 5;
 ---
 
 <button
   is='app-to-top'
   class={twMerge(
-    'flex absolute top-full z-10',
+    'flex absolute top-full z-10 w-10',
     'disabled scale-0 origin-center opacity-50 hover:opacity-100',
     'onscroll:enabled onscroll:scale-100',
     'transition-transform delay-150 ease-in-out dura',
@@ -32,14 +24,12 @@ const speed = move ?? duration * 3;
   )}
   style={`transition-duration: ${duration}ms`}
   aria-label={label}
-  {...props}
-  data-speed={speed}>
+  data-speed={speed}
+  {...props}>
   <slot>
     <svg
-      class='disabled linecap-round linejoin-round vector-non-scaling-stroke'
+      class='disabled linecap-round linejoin-round vector-non-scaling-stroke w-full'
       xmlns='http://www.w3.org/2000/svg'
-      width={size}
-      height={size}
       viewBox='0 0 24 24'
       fill='currentColor'>
       <path d='M8 21v-2h8v2H8m0-4v-2h8v2H8m0-4v-2h8v2H8m11-4H5l7-7l7 7Z'></path>

@@ -161,6 +161,7 @@
 
 <div
   class={twMerge(
+    'linecap-round linejoin-round vector-non-scaling-stroke',
     appear && (observer ? 'opacity-100' : 'opacity-0'),
     appear && 'transition-opacity ease-in',
     className
