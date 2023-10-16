@@ -1,11 +1,14 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
+// import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
+import type { NavItem as Props } from '.';
 
+/*
 type Props = Omit<HTMLAttributes<'a'>, 'class'> & {
   class?: ClassName;
   label?: string;
 };
+*/
 
 const { class: className, href, label, ...props } = Astro.props;
 
@@ -32,30 +35,32 @@ const current =
 </a>
 
 <script>
+  import { page } from '../../app/stores';
+
   class AppLink extends HTMLAnchorElement {
     constructor() {
       super();
     }
 
     connectedCallback() {
-      document.addEventListener('astro:after-swap', this.check);
+      document.addEventListener('astro:page-load', this.check, { once: true });
+      document.addEventListener('astro:after-swap', this.check, { once: true });
     }
 
-    disconnectedCallback() {
-      document.removeEventListener('astro:after-swap', this.check, true);
-    }
+    // disconnectedCallback() {  }
 
-    set current(val: string | null) {
+    set current(val: string | undefined) {
       val ? this.setAttribute('aria-current', val) : this.removeAttribute('aria-current');
     }
 
     check = () => {
+      const pathname = page.get().url.pathname;
       this.current =
-        location.pathname === this.pathname || location.pathname === `${this.pathname}/`
+        pathname === this.pathname || pathname === `${this.pathname}/`
           ? 'page'
-          : location.pathname.indexOf(`${this.pathname}/`) >= 0
+          : pathname?.indexOf(`${this.pathname}/`) >= 0
           ? 'step'
-          : null;
+          : undefined;
     };
   }
 

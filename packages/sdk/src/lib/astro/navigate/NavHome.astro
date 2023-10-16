@@ -1,16 +1,21 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
+// import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
 import Link from './Link.astro';
+import type { NavItem as Props } from '.';
 
+/*
 type Props = Omit<HTMLAttributes<'a'>, 'class'> & {
   class?: ClassName;
   label?: string;
 };
+*/
+
 const { class: className, label = 'home page' } = Astro.props;
 ---
 
 <Link
+  rel='prefetch'
   class={twMerge('page:disabled w-7', className)}
   href='/'
   {label}>

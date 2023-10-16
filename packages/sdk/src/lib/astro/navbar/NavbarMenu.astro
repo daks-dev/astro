@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
-import Link from '../nav/Link.astro';
+import Link from '../navigate/Link.astro';
 
 type Props = Omit<HTMLAttributes<'nav'>, 'class'> & {
   class?: ClassName;
@@ -56,6 +56,8 @@ const { class: className, custom, links = {}, ...props } = Astro.props;
     constructor() {
       super();
 
+      this.style.transitionDuration = '0ms';
+      this.hidden = this.check();
       status.listen((val, key) => {
         if (key === 'navbar.hidden') {
           this.hidden = !!val.navbar.hidden;
@@ -64,20 +66,18 @@ const { class: className, custom, links = {}, ...props } = Astro.props;
     }
 
     connectedCallback() {
-      window.addEventListener('resize', this.reset);
+      window.addEventListener('resize', this.check);
       document.addEventListener('astro:page-load', this.reset);
-      // document.addEventListener('astro:after-swap', this.reset);
-      document.addEventListener('click', this.outside);
+      document.addEventListener('click', this.handleOutside);
     }
 
     disconnectedCallback() {
-      window.removeEventListener('resize', this.reset);
+      window.removeEventListener('resize', this.check);
       document.removeEventListener('astro:page-load', this.reset);
-      // document.removeEventListener('astro:after-swap', this.reset);
-      document.removeEventListener('click', this.outside);
+      document.removeEventListener('click', this.handleOutside);
     }
 
-    links = this.querySelectorAll('a');
+    actives = this.querySelectorAll('a, button, [role="button"]');
 
     get hidden() {
       return this.getAttribute('aria-hidden') === 'true';
@@ -86,21 +86,22 @@ const { class: className, custom, links = {}, ...props } = Astro.props;
     set hidden(val) {
       if (val) {
         this.setAttribute('aria-hidden', 'true');
-        this.links.forEach((el) => el.setAttribute('tabindex', '-1'));
+        this.actives.forEach((el) => el.setAttribute('tabindex', '-1'));
       } else {
         this.removeAttribute('aria-hidden');
-        this.links.forEach((el) => el.removeAttribute('tabindex'));
+        this.actives.forEach((el) => el.removeAttribute('tabindex'));
       }
     }
 
     check = () => {
-      status.setKey('navbar.hidden', window.innerWidth < 1024);
+      const hidden = window.innerWidth < 1024;
+      status.setKey('navbar.hidden', hidden);
+      return hidden;
     };
 
     reset = () => {
-      this.style.transitionDuration = '0ms';
       this.check();
-      setTimeout(() => (this.style.transitionDuration = '300ms'), 100);
+      setTimeout(() => (this.style.transitionDuration = '300ms'), 150);
     };
 
     get owner() {
@@ -108,7 +109,7 @@ const { class: className, custom, links = {}, ...props } = Astro.props;
       return id ? document.getElementById(id) : null;
     }
 
-    outside = (ev: Event) => {
+    handleOutside = (ev: Event) => {
       if (
         ev?.target &&
         // !ev.defaultPrevented &&

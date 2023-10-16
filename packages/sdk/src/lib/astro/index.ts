@@ -1,12 +1,14 @@
 export { default as Backstage } from './backstage/Backstage.astro';
 export { default as ColorTheme } from './color-theme/ColorTheme.astro';
+export { default as Dropdown } from './dropdown/Dropdown.astro';
 export { default as Figure } from './figure/Figure.astro';
 export { default as FormattedDate } from './formatted-date/FormattedDate.astro';
 export { default as Head } from './head/Head.astro';
 
-export { default as Link } from './nav/Link.astro';
-export { default as NavHome } from './nav/NavHome.astro';
-export { default as NavToTop } from './nav/NavToTop.astro';
+export type { NavItem, NavSite } from './navigate';
+export { default as Link } from './navigate/Link.astro';
+export { default as NavHome } from './navigate/NavHome.astro';
+export { default as NavToTop } from './navigate/NavToTop.astro';
 
 export { default as Navbar } from './navbar/Navbar.astro';
 

@@ -1,0 +1,146 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import Link from '../navigate/Link.astro';
+import twMerge from '../../tailwind/tailwind-merge';
+import { uuid as __uuid } from '../../utils';
+
+type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
+  class?: ClassName;
+  custom?: Record<string, ClassName>;
+  href?: string;
+  label?: string;
+  duration?: number;
+};
+
+const { href, class: className, custom, label, duration = 300, ...props } = Astro.props;
+
+const uuid = __uuid();
+---
+
+<div
+  is='app-dropdown'
+  class={twMerge('relative flex flex-col justify-center', className)}
+  data-duration={duration}
+  {...props}>
+  {
+    href ? (
+      <Link
+        id={`app-dropdown-toggle${uuid}`}
+        class={twMerge('flex h-full items-center', custom?.toggle)}
+        {href}
+        {label}
+        aria-expanded='false'
+        aria-controls={`app-dropdown-target${uuid}`}>
+        <slot name='label'>{label}</slot>
+      </Link>
+    ) : (
+      <button
+        id={`app-dropdown-toggle${uuid}`}
+        class={twMerge('flex h-full items-center', custom?.toggle)}
+        tabindex='0'
+        aria-label={Astro.slots.has('label') ? label : undefined}
+        aria-expanded='false'
+        aria-controls={`app-dropdown-target${uuid}`}>
+        <slot name='label'>{label}</slot>
+      </button>
+    )
+  }
+  <div
+    id={`app-dropdown-target${uuid}`}
+    class={twMerge(
+      'static lg:absolute lg:top-full',
+      'flex flex-col w-max min-w-full overflow-hidden',
+      'aria-hidden:disabled aria-hidden:opacity-0 aria-hidden:scale-y-75',
+      '-lg:aria-hidden:h-0 -lg:aria-hidden:m-0 -lg:aria-hidden:p-0',
+      'origin-top transition-all',
+      custom?.wrapper
+    )}
+    style={`transition-duration: ${duration}ms`}
+    aria-owns={`app-dropdown-toggle${uuid}`}
+    aria-hidden='true'>
+    <slot />
+  </div>
+</div>
+
+<script>
+  import { navigate } from 'astro:transitions/client';
+  import { beep } from '../../utils/audio';
+
+  class AppDropdown extends HTMLDivElement {
+    constructor() {
+      super();
+    }
+
+    connectedCallback() {
+      window.addEventListener('resize', this.bind);
+      document.addEventListener('astro:page-load', this.bind);
+      document.addEventListener('click', this.handleOutside);
+      this.toggle.addEventListener('click', this.handleToggle);
+      this.toggle.addEventListener('dblclick', this.handleNavigate);
+    }
+
+    disconnectedCallback() {
+      window.removeEventListener('resize', this.bind);
+      document.removeEventListener('astro:page-load', this.bind);
+      document.removeEventListener('click', this.handleOutside);
+    }
+
+    toggle = this.children[0] as HTMLAnchorElement;
+
+    target = this.children[1] as HTMLDivElement;
+
+    actives = this.target.querySelectorAll('a, button, [role="button"]');
+
+    get hidden() {
+      return this.target.getAttribute('aria-hidden') === 'true';
+    }
+
+    set hidden(val) {
+      if (this.hidden !== val) {
+        if (val) {
+          this.toggle.setAttribute('aria-expanded', 'true');
+          this.target.setAttribute('aria-hidden', 'true');
+          this.actives.forEach((el) => el.setAttribute('tabindex', '-1'));
+        } else {
+          this.toggle.setAttribute('aria-expanded', 'false');
+          this.target.removeAttribute('aria-hidden');
+          this.actives.forEach((el) => el.removeAttribute('tabindex'));
+        }
+      }
+    }
+
+    handleToggle = (ev: Event) => {
+      ev.preventDefault();
+      this.hidden = !this.hidden;
+    };
+
+    handleNavigate = (ev: Event) => {
+      ev.preventDefault();
+      if (this.toggle.pathname)
+        if (this.toggle.getAttribute('aria-current') === 'page') beep(250, 150, 75);
+        else navigate(this.toggle.pathname);
+    };
+
+    bind = () => {
+      // console.log(screen.orientation.type);
+      if (this.offsetLeft + this.clientWidth / 2 < window.innerWidth / 2) {
+        this.target.style.left = '0';
+        this.target.style.right = '';
+      } else {
+        this.target.style.left = '';
+        this.target.style.right = '0';
+      }
+    };
+
+    handleOutside = (ev: Event) => {
+      if (
+        ev?.target &&
+        // ev.defaultPrevented &&
+        !this.contains(ev.target as Node)
+      )
+        this.hidden = true;
+    };
+  }
+
+  customElements.define('app-dropdown', AppDropdown, { extends: 'div' });
+</script>

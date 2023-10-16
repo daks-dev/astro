@@ -1,7 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
-import { uuid } from '../../utils';
 
 type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   class?: ClassName;
@@ -17,7 +16,6 @@ const { class: className, label = 'menu toggle', ...props } = Astro.props;
   aria-label={label}
   aria-expanded='false'
   aria-controls='app-navbar-menu'
-  data-uuid={uuid()}
   {...props}>
   <slot>
     <svg
@@ -61,9 +59,7 @@ const { class: className, label = 'menu toggle', ...props } = Astro.props;
       this.addEventListener('click', this.handle);
     }
 
-    disconnectedCallback() {
-      this.removeEventListener('click', this.handle);
-    }
+    // disconnectedCallback() { this.removeEventListener('click', this.handle); }
 
     handle = (ev: Event) => {
       ev.preventDefault();

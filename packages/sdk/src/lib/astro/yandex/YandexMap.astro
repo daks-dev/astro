@@ -70,7 +70,7 @@ if (!strict)
 
     map!: YandexMapInstance;
 
-    interval: Timeout;
+    interval?: ReturnType<typeof setTimeout>;
 
     ready = () => {
       this.interval = setInterval(() => {

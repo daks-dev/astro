@@ -10,8 +10,6 @@ declare module '*.astro' {
   export default Component;
 }
 
-declare type Timeout = string | number | NodeJS.Timeout | undefined;
-
 declare type Meta = string | number | boolean | null | undefined;
 declare interface Metadata {
   [x: string]: Meta;

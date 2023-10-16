@@ -2,10 +2,10 @@
 import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
 import ColorTheme from '../color-theme/ColorTheme.astro';
-import NavbarHome from '../nav/NavHome.astro';
+import NavbarHome from '../navigate/NavHome.astro';
+import NavToTop from '../navigate/NavToTop.astro';
 import NavbarMenu from './NavbarMenu.astro';
 import NavbarToggle from './NavbarToggle.astro';
-import NavToTop from '../nav/NavToTop.astro';
 
 type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
   class?: ClassName;
@@ -33,7 +33,7 @@ const { class: className, custom, links, ...props } = Astro.props;
 
     <slot name='after'>
       <ColorTheme class={[custom?.button, 'ml-auto', custom?.theme]} />
-      <NavToTop class={[custom?.button, custom?.totop]} />
+      <NavToTop class={custom?.totop} />
     </slot>
     <NavbarToggle class={[custom?.button, 'order-last ml-8 lg:hidden', custom?.toggle]} />
   </div>

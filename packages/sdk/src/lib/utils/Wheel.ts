@@ -19,7 +19,7 @@ class Wheel {
     this.callback = cb;
   }
 
-  timeout: Timeout;
+  timeout?: ReturnType<typeof setTimeout>;
 
   delta = {
     x: 0,

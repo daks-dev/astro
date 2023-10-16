@@ -68,9 +68,7 @@ const { class: className, ...props } = Astro.props;
       this.addEventListener('click', this.handle);
     }
 
-    disconnectedCallback() {
-      this.removeEventListener('click', this.handle);
-    }
+    // disconnectedCallback() { this.removeEventListener('click', this.handle); }
 
     handle = (ev: Event) => {
       ev.preventDefault();

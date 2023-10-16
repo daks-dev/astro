@@ -65,7 +65,7 @@
   let carousel: HTMLElement;
   $: width = carousel?.clientWidth / count;
 
-  let __timeout: Timeout;
+  let __timeout: ReturnType<typeof setTimeout>;
   function timeout(cb?: () => void, ms = pause): void {
     if (cb) ms ? (__timeout = setTimeout(cb, ms)) : cb();
     else clearTimeout(__timeout);

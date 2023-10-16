@@ -8,6 +8,7 @@ type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   duration?: number;
   speed?: number;
 };
+
 const {
   class: className,
   label = 'to top',
@@ -59,12 +60,11 @@ const speed = __speed ?? duration * 5;
       this.addEventListener('click', this.handle);
     }
 
-    disconnectedCallback() {
-      this.removeEventListener('click', this.handle);
-    }
+    // disconnectedCallback() { this.removeEventListener('click', this.handle); }
 
     handle = (ev: Event) => {
       ev.preventDefault();
+      ev.stopPropagation();
       toTop({ duration: this.speed });
     };
   }
