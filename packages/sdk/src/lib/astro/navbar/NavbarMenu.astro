@@ -2,13 +2,15 @@
 import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
 import Link from '../navigate/Link.astro';
+import NavbarDropdown from './NavbarDropdown.astro';
+import type { NavItem } from '../navigate';
 
 type Props = Omit<HTMLAttributes<'nav'>, 'class'> & {
   class?: ClassName;
   custom?: Record<string, ClassName>;
-  links: Record<string, string>;
+  items: NavItem[];
 };
-const { class: className, custom, links = {}, ...props } = Astro.props;
+const { class: className, custom, items, ...props } = Astro.props;
 ---
 
 <nav
@@ -29,14 +31,24 @@ const { class: className, custom, links = {}, ...props } = Astro.props;
   aria-owns='app-navbar-toggle'
   {...props}>
   {
-    Object.entries(links).map(([href, label]) => (
-      <Link
-        rel='prefetch'
-        class={twMerge('page:disabled flex items-center leading-none', custom?.link)}
-        {href}>
-        {label}
-      </Link>
-    ))
+    items.map(({ href, label, items }) =>
+      items ? (
+        <NavbarDropdown
+          rel='prefetch'
+          class={twMerge('page:disabled flex items-center leading-none', custom?.link)}
+          {href}
+          {label}
+          {items}
+        />
+      ) : (
+        <Link
+          rel='prefetch'
+          class={twMerge('page:disabled flex items-center leading-none', custom?.link)}
+          {href}>
+          {label}
+        </Link>
+      )
+    )
   }
   <slot />
 </nav>

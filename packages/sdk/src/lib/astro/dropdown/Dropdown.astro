@@ -1,14 +1,12 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
+// import type { HTMLAttributes } from 'astro/types';
 import Link from '../navigate/Link.astro';
 import twMerge from '../../tailwind/tailwind-merge';
 import { uuid as __uuid } from '../../utils';
+import type { NavItem } from '../navigate';
 
-type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
-  class?: ClassName;
+type Props = NavItem & {
   custom?: Record<string, ClassName>;
-  href?: string;
-  label?: string;
   duration?: number;
 };
 
@@ -51,8 +49,8 @@ const uuid = __uuid();
       'static lg:absolute lg:top-full',
       'flex flex-col w-max min-w-full overflow-hidden',
       'aria-hidden:disabled aria-hidden:opacity-0 aria-hidden:scale-y-75',
-      '-lg:aria-hidden:h-0 -lg:aria-hidden:m-0 -lg:aria-hidden:p-0',
-      'origin-top transition-all',
+      '-lg:aria-hidden:w-0 -lg:aria-hidden:h-0 -lg:aria-hidden:m-0 -lg:aria-hidden:p-0',
+      'origin-top-left lg:origin-top transition-all',
       custom?.wrapper
     )}
     style={`transition-duration: ${duration}ms`}

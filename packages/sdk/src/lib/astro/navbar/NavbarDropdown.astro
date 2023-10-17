@@ -1,0 +1,21 @@
+---
+import Dropdown from '../dropdown/Dropdown.astro';
+import type { NavItem } from '../navigate';
+
+type Props = NavItem & {
+  custom?: Record<string, ClassName>;
+  duration?: number;
+};
+
+const { rel, href, class: className, custom, label, duration = 300 } = Astro.props;
+---
+
+<Dropdown
+  class={['', className]}
+  {custom}
+  {href}
+  {label}
+  {duration}
+  {rel}>
+  <slot />
+</Dropdown>

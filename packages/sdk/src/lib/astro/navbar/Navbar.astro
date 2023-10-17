@@ -6,14 +6,15 @@ import NavbarHome from '../navigate/NavHome.astro';
 import NavToTop from '../navigate/NavToTop.astro';
 import NavbarMenu from './NavbarMenu.astro';
 import NavbarToggle from './NavbarToggle.astro';
+import type { NavItem } from '../navigate';
 
 type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
   class?: ClassName;
   custom?: Record<string, ClassName>;
-  links: Record<string, string>;
+  items: NavItem[];
 };
 
-const { class: className, custom, links, ...props } = Astro.props;
+const { class: className, custom, items, ...props } = Astro.props;
 ---
 
 <div
@@ -27,7 +28,7 @@ const { class: className, custom, links, ...props } = Astro.props;
 
     <NavbarMenu
       {custom}
-      {links}>
+      {items}>
       <slot />
     </NavbarMenu>
 

@@ -5,18 +5,18 @@ export declare interface NavItem extends Omit<HTMLAttributes<'a'>, 'class'> {
   label?: string;
   handle?: (...x: unknown[]) => unknown;
   disallow?: boolean;
-  links?: NavItem[];
+  items?: NavItem[];
 }
 
 export declare interface NavSite {
   navbar: {
-    links: NavItem[];
+    items: NavItem[];
   };
   draver?: {
-    links: NavItem[];
+    items: NavItem[];
   };
   footer?: {
-    links?: NavItem[];
+    items: NavItem[];
   };
   allow?: string[];
 }
