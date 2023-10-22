@@ -14,16 +14,17 @@ type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
   items: NavItem[];
 };
 
-const { class: className, custom, items, ...props } = Astro.props;
+const { class: className, custom = {}, items, ...props } = Astro.props;
 ---
 
-<div
+<nav
   id='app-navbar'
+  role='menubar'
   class={twMerge('fixed left-0 top-0 z-10 w-full', 'text-lg', className)}
   {...props}>
   <div class:list={['wrapper h-full', 'flex items-center justify-end']}>
     <slot name='before'>
-      <NavbarHome class={[custom?.button, 'mr-auto', custom?.home]} />
+      <NavbarHome class={[custom.button, 'mr-auto', custom.home]} />
     </slot>
 
     <NavbarMenu
@@ -33,9 +34,9 @@ const { class: className, custom, items, ...props } = Astro.props;
     </NavbarMenu>
 
     <slot name='after'>
-      <ColorTheme class={[custom?.button, 'ml-auto', custom?.theme]} />
-      <NavToTop class={custom?.totop} />
+      <ColorTheme class={[custom.button, 'ml-auto', custom.theme]} />
+      <NavToTop class={custom.totop} />
     </slot>
-    <NavbarToggle class={[custom?.button, 'order-last ml-8 lg:hidden', custom?.toggle]} />
+    <NavbarToggle class={[custom.button, 'order-last ml-8 lg:hidden', custom.toggle]} />
   </div>
-</div>
+</nav>

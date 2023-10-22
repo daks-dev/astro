@@ -1,34 +1,49 @@
 ---
-// import type { HTMLAttributes } from 'astro/types';
 import Link from '../navigate/Link.astro';
 import twMerge from '../../tailwind/tailwind-merge';
 import { uuid as __uuid } from '../../utils';
 import type { NavItem } from '../navigate';
 
-type Props = NavItem & {
+type Props = {
+  //  tag?: 'div' | 'li';
+  toggle?: NavItem;
+  role?: astroHTML.JSX.AriaRole | null;
+  class?: ClassName;
   custom?: Record<string, ClassName>;
   duration?: number;
 };
 
-const { href, class: className, custom = {}, label, duration = 300, ...props } = Astro.props;
+const {
+  //  tag = 'div',
+  toggle = {},
+  class: className,
+  custom = {},
+  role,
+  duration = 300,
+  ...props
+} = Astro.props;
+
+const { class: toogleClass, label, ...propsToggle } = toggle;
 
 const uuid = __uuid();
+
+// const Element = tag;
 ---
 
 <div
   is='app-dropdown'
-  class={twMerge('relative flex flex-col', className)}
-  data-duration={duration}
-  {...props}>
+  {role}
+  class={twMerge('relative flex flex-col align-middle', custom.item, className)}
+  {...props}
+  data-duration={duration}>
   {
-    href ? (
+    toggle.href ? (
       <Link
         id={`app-dropdown-toggle${uuid}`}
-        class={twMerge('flex h-full items-center align-middle', custom.item, custom.link)}
-        {href}
-        {label}
+        class={twMerge('flex h-full items-center', custom.link, 'page:enabled', toogleClass)}
+        {...propsToggle}
         aria-expanded='false'
-        aria-controls={`app-dropdown-target${uuid}`}>
+        aria-controls={`app-dropdown-appear${uuid}`}>
         <slot name='label'>
           <Fragment set:html={label} />
         </slot>
@@ -36,11 +51,11 @@ const uuid = __uuid();
     ) : (
       <button
         id={`app-dropdown-toggle${uuid}`}
-        class={twMerge('flex h-full items-center align-middle', custom.item)}
-        tabindex='0'
+        class={twMerge('flex h-full items-center', toogleClass)}
+        {...propsToggle}
         aria-label={Astro.slots.has('label') ? label : undefined}
         aria-expanded='false'
-        aria-controls={`app-dropdown-target${uuid}`}>
+        aria-controls={`app-dropdown-appear${uuid}`}>
         <slot name='label'>
           <Fragment set:html={label} />
         </slot>
@@ -48,14 +63,15 @@ const uuid = __uuid();
     )
   }
   <div
-    id={`app-dropdown-target${uuid}`}
+    id={`app-dropdown-appear${uuid}`}
     class={twMerge(
       'static lg:absolute lg:top-full',
       'flex flex-col w-max min-w-full overflow-hidden',
-      'aria-hidden:disabled aria-hidden:opacity-0 aria-hidden:scale-y-75',
-      '-lg:aria-hidden:w-0 -lg:aria-hidden:h-0 -lg:aria-hidden:m-0 -lg:aria-hidden:p-0',
+      'aria-hidden:disabled aria-hidden:opacity-0',
+      'aria-hidden:my-0 aria-hidden:py-0 aria-hidden:text-[0] aria-hidden:leading-[0]',
+      // '-lg:aria-hidden:max-h-0 -lg:aria-hidden:max-w-0 -lg:aria-hidden:my-0 -lg:aria-hidden:py-0',
       'origin-top-left lg:origin-top transition-all',
-      custom?.drop
+      custom.drop
     )}
     style={`transition-duration: ${duration}ms`}
     aria-owns={`app-dropdown-toggle${uuid}`}
@@ -75,7 +91,7 @@ const uuid = __uuid();
 
     connectedCallback() {
       window.addEventListener('resize', this.bind);
-      document.addEventListener('astro:page-load', this.bind);
+      document.addEventListener('astro:page-load', this.bind, { once: true });
       document.addEventListener('click', this.handleOutside);
       this.toggle.addEventListener('click', this.handleToggle);
       this.toggle.addEventListener('dblclick', this.handleNavigate);
@@ -83,33 +99,44 @@ const uuid = __uuid();
 
     disconnectedCallback() {
       window.removeEventListener('resize', this.bind);
-      document.removeEventListener('astro:page-load', this.bind);
       document.removeEventListener('click', this.handleOutside);
     }
 
     toggle = this.children[0] as HTMLAnchorElement;
 
-    target = this.children[1] as HTMLDivElement;
+    appear = this.children[1] as HTMLDivElement;
 
-    actives = this.target.querySelectorAll('a, button, [role="button"]');
+    actives = this.appear.querySelectorAll('a, button, [role="button"]');
 
     get hidden() {
-      return this.target.getAttribute('aria-hidden') === 'true';
+      return this.appear.getAttribute('aria-hidden') === 'true';
     }
 
     set hidden(val) {
       if (this.hidden !== val) {
         if (val) {
           this.toggle.setAttribute('aria-expanded', 'false');
-          this.target.setAttribute('aria-hidden', 'true');
+          this.appear.setAttribute('aria-hidden', 'true');
           this.actives.forEach((el) => el.setAttribute('tabindex', '-1'));
         } else {
           this.toggle.setAttribute('aria-expanded', 'true');
-          this.target.removeAttribute('aria-hidden');
+          this.appear.removeAttribute('aria-hidden');
           this.actives.forEach((el) => el.removeAttribute('tabindex'));
         }
       }
     }
+
+    bind = () => {
+      this.hidden = true;
+      if (window.innerWidth >= 1024)
+        if (this.offsetLeft + this.clientWidth / 2 < window.innerWidth / 2) {
+          this.appear.style.left = '0';
+          this.appear.style.right = '';
+        } else {
+          this.appear.style.left = '';
+          this.appear.style.right = '0';
+        }
+    };
 
     handleToggle = (ev: Event) => {
       ev.preventDefault();
@@ -121,19 +148,6 @@ const uuid = __uuid();
       if (this.toggle.pathname)
         if (this.toggle.getAttribute('aria-current') === 'page') beep(250, 150, 75);
         else navigate(this.toggle.pathname);
-    };
-
-    bind = () => {
-      // console.log(screen.orientation.type);
-      this.hidden = true;
-      if (window.innerWidth >= 1024)
-        if (this.offsetLeft + this.clientWidth / 2 < window.innerWidth / 2) {
-          this.target.style.left = '0';
-          this.target.style.right = '';
-        } else {
-          this.target.style.left = '';
-          this.target.style.right = '0';
-        }
     };
 
     handleOutside = (ev: Event) => {

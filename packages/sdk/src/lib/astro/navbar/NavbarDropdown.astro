@@ -3,12 +3,16 @@ import Dropdown from '../dropdown/Dropdown.astro';
 import Link from '../navigate/Link.astro';
 import type { NavItem } from '../navigate';
 
-type Props = NavItem & {
+type Props = {
+  item: NavItem;
+  class?: ClassName;
   custom?: Record<string, ClassName>;
   duration?: number;
 };
 
-const { items = [], rel, href, class: className, custom = {}, label, duration = 300 } = Astro.props;
+const { item, class: className, custom = {}, duration = 300 } = Astro.props;
+
+item.rel ??= 'perfetch';
 
 custom.drop = [
   'text-[95%] indent-2 lg:mt-1 lg:p-2 lg:text-[80%] lg:leading-loose lg:indent-0',
@@ -17,22 +21,23 @@ custom.drop = [
 ---
 
 <Dropdown
-  class={['', className]}
+  toggle={item}
+  role='menuitem'
+  class={className}
   {custom}
-  {href}
-  {label}
-  {duration}
-  {rel}>
+  {duration}>
   <slot>
     {
-      items.map(({ href, label }) => (
-        <Link
-          rel='prefetch'
-          class={['flex items-center align-middle', custom.item, custom.link]}
-          {href}
-          {label}
-        />
-      ))
+      item.items?.map((item) => {
+        const { class: className, ...link } = item;
+        link.role = 'menuitem';
+        return (
+          <Link
+            class={['flex items-center align-middle', custom.link, className]}
+            {...link}
+          />
+        );
+      })
     }
   </slot>
 </Dropdown>

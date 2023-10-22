@@ -11,14 +11,15 @@ type Props = Omit<HTMLAttributes<'a'>, 'class'> & {
 };
 */
 
-const { class: className, label = 'home page' } = Astro.props;
+const { class: className, label = 'home page', ...props } = Astro.props;
 ---
 
 <Link
   rel='prefetch'
   class={twMerge('page:disabled w-7', className)}
   href='/'
-  {label}>
+  {label}
+  {...props}>
   <slot>
     <svg
       class='disabled linecap-round linejoin-round vector-non-scaling-stroke w-full'

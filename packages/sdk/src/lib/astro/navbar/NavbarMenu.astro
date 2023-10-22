@@ -13,10 +13,12 @@ type Props = Omit<HTMLAttributes<'nav'>, 'class'> & {
 const { class: className, custom = {}, items, ...props } = Astro.props;
 ---
 
-<nav
+<div
   is='app-navbar-menu'
   id='app-navbar-menu'
+  role='menu'
   class={twMerge(
+    'not-prose',
     'absolute left-0 top-full z-0 lg:static',
     // 'grid grid-cols-1 lg:auto-cols-max lg:grid-flow-col lg:gap-x-3 2xl:gap-x-5',
     'flex flex-col lg:flex-row lg:flex-nowrap',
@@ -32,27 +34,27 @@ const { class: className, custom = {}, items, ...props } = Astro.props;
   aria-owns='app-navbar-toggle'
   {...props}>
   {
-    items.map(({ href, label, items }) =>
-      items ? (
+    items.map((item) => {
+      const { class: className, ...link } = item;
+      return item.items ? (
         <NavbarDropdown
-          rel='prefetch'
           {custom}
-          {href}
-          {label}
-          {items}
+          {item}
         />
       ) : (
-        <Link
-          rel='prefetch'
-          class={['flex items-center align-middle', custom.item, custom.link]}
-          {href}>
-          {label}
-        </Link>
-      )
-    )
+        <div
+          role='menuitem'
+          class={twMerge('align-middle', custom.item)}>
+          <Link
+            class={['flex items-center', 'h-full', custom.link, className]}
+            {...link}
+          />
+        </div>
+      );
+    })
   }
   <slot />
-</nav>
+</div>
 
 <script is:inline>
   const node = document.getElementById('app-navbar-menu');
@@ -65,7 +67,7 @@ const { class: className, custom = {}, items, ...props } = Astro.props;
 <script>
   import { status } from '../../app/stores';
 
-  class AppNavbarMenu extends HTMLElement {
+  class AppNavbarMenu extends HTMLDivElement {
     constructor() {
       super();
 
@@ -80,13 +82,12 @@ const { class: className, custom = {}, items, ...props } = Astro.props;
 
     connectedCallback() {
       window.addEventListener('resize', this.check);
-      document.addEventListener('astro:page-load', this.reset);
+      document.addEventListener('astro:page-load', this.reset, { once: true });
       document.addEventListener('click', this.handleOutside);
     }
 
     disconnectedCallback() {
       window.removeEventListener('resize', this.check);
-      document.removeEventListener('astro:page-load', this.reset);
       document.removeEventListener('click', this.handleOutside);
     }
 
@@ -133,5 +134,5 @@ const { class: className, custom = {}, items, ...props } = Astro.props;
     };
   }
 
-  customElements.define('app-navbar-menu', AppNavbarMenu, { extends: 'nav' });
+  customElements.define('app-navbar-menu', AppNavbarMenu, { extends: 'div' });
 </script>

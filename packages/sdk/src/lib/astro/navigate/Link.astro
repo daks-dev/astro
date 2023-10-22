@@ -11,6 +11,7 @@ type Props = Omit<HTMLAttributes<'a'>, 'class'> & {
 */
 
 const { class: className, href, label, ...props } = Astro.props;
+props.disallow = props.items = undefined;
 
 const current =
   Astro.url.pathname === href || Astro.url.pathname === `${href}/`
