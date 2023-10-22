@@ -29,7 +29,7 @@ const current =
   {...props}>
   <slot name='before' />
   <slot>
-    {label}
+    <Fragment set:html={label} />
   </slot>
   <slot name='after' />
 </a>

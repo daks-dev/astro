@@ -10,36 +10,40 @@ type Props = NavItem & {
   duration?: number;
 };
 
-const { href, class: className, custom, label, duration = 300, ...props } = Astro.props;
+const { href, class: className, custom = {}, label, duration = 300, ...props } = Astro.props;
 
 const uuid = __uuid();
 ---
 
 <div
   is='app-dropdown'
-  class={twMerge('relative flex flex-col justify-center', className)}
+  class={twMerge('relative flex flex-col', className)}
   data-duration={duration}
   {...props}>
   {
     href ? (
       <Link
         id={`app-dropdown-toggle${uuid}`}
-        class={twMerge('flex h-full items-center', custom?.item, custom?.link, custom?.toggle)}
+        class={twMerge('flex h-full items-center align-middle', custom.item, custom.link)}
         {href}
         {label}
         aria-expanded='false'
         aria-controls={`app-dropdown-target${uuid}`}>
-        <slot name='label'>{label}</slot>
+        <slot name='label'>
+          <Fragment set:html={label} />
+        </slot>
       </Link>
     ) : (
       <button
         id={`app-dropdown-toggle${uuid}`}
-        class={twMerge('flex h-full items-center', custom?.item, custom?.toggle)}
+        class={twMerge('flex h-full items-center align-middle', custom.item)}
         tabindex='0'
         aria-label={Astro.slots.has('label') ? label : undefined}
         aria-expanded='false'
         aria-controls={`app-dropdown-target${uuid}`}>
-        <slot name='label'>{label}</slot>
+        <slot name='label'>
+          <Fragment set:html={label} />
+        </slot>
       </button>
     )
   }
@@ -51,7 +55,7 @@ const uuid = __uuid();
       'aria-hidden:disabled aria-hidden:opacity-0 aria-hidden:scale-y-75',
       '-lg:aria-hidden:w-0 -lg:aria-hidden:h-0 -lg:aria-hidden:m-0 -lg:aria-hidden:p-0',
       'origin-top-left lg:origin-top transition-all',
-      custom?.wrapper
+      custom?.drop
     )}
     style={`transition-duration: ${duration}ms`}
     aria-owns={`app-dropdown-toggle${uuid}`}
@@ -121,13 +125,15 @@ const uuid = __uuid();
 
     bind = () => {
       // console.log(screen.orientation.type);
-      if (this.offsetLeft + this.clientWidth / 2 < window.innerWidth / 2) {
-        this.target.style.left = '0';
-        this.target.style.right = '';
-      } else {
-        this.target.style.left = '';
-        this.target.style.right = '0';
-      }
+      this.hidden = true;
+      if (window.innerWidth >= 1024)
+        if (this.offsetLeft + this.clientWidth / 2 < window.innerWidth / 2) {
+          this.target.style.left = '0';
+          this.target.style.right = '';
+        } else {
+          this.target.style.left = '';
+          this.target.style.right = '0';
+        }
     };
 
     handleOutside = (ev: Event) => {

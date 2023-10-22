@@ -10,17 +10,29 @@ type Props = NavItem & {
 
 const { items = [], rel, href, class: className, custom = {}, label, duration = 300 } = Astro.props;
 
-custom.links = ['page:disabled', custom.links];
+custom.drop = [
+  'text-[95%] indent-2 lg:mt-1 lg:p-2 lg:text-[80%] lg:leading-loose lg:indent-0',
+  custom.drop
+];
 ---
 
 <Dropdown
-  class={['leading-none', className]}
+  class={['', className]}
   {custom}
   {href}
   {label}
   {duration}
   {rel}>
   <slot>
-    {items.map(({ href, label }) => <Link {href}>{label}</Link>)}
+    {
+      items.map(({ href, label }) => (
+        <Link
+          rel='prefetch'
+          class={['flex items-center align-middle', custom.item, custom.link]}
+          {href}
+          {label}
+        />
+      ))
+    }
   </slot>
 </Dropdown>
