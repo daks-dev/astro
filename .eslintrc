@@ -30,7 +30,7 @@
   },
   "overrides": [
     {
-      "files": ["*.astro"],
+      "files": ["**/*.astro"],
       "extends": ["plugin:astro/recommended"],
       "plugins": ["astro"],
       "parser": "astro-eslint-parser",
@@ -96,7 +96,7 @@
     "tailwindcss/classnames-order": [
       "warn",
       {
-        // "removeDuplicates": true
+        "removeDuplicates": true,
         // "skipClassAttribute": <boolean>,
         // "tags": Array<string>,
         "callees": ["tailwind-merge", "classnames", "clsx", "ctl", "cva", "tv"],
@@ -106,15 +106,14 @@
   },
   "ignorePatterns": [
     "**/.astro/",
-    "**/.next/",
     "**/.svelte-kit/",
     "**/build/",
     "**/dist/",
     "**/dist-ssr/",
-    //
+
     "**/public",
     "**/static",
-    //
+
     "**/.master/",
     "**/.vscode/"
   ]

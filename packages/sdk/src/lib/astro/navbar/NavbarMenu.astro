@@ -35,7 +35,8 @@ const { class: className, custom, items, ...props } = Astro.props;
       items ? (
         <NavbarDropdown
           rel='prefetch'
-          class={twMerge('page:disabled flex items-center leading-none', custom?.link)}
+          class='flex items-center leading-none'
+          {custom}
           {href}
           {label}
           {items}
@@ -43,7 +44,11 @@ const { class: className, custom, items, ...props } = Astro.props;
       ) : (
         <Link
           rel='prefetch'
-          class={twMerge('page:disabled flex items-center leading-none', custom?.link)}
+          class={twMerge(
+            'page:disabled flex items-center leading-none',
+            custom?.item,
+            custom?.link
+          )}
           {href}>
           {label}
         </Link>

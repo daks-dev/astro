@@ -1,5 +1,6 @@
 ---
 import Dropdown from '../dropdown/Dropdown.astro';
+import Link from '../navigate/Link.astro';
 import type { NavItem } from '../navigate';
 
 type Props = NavItem & {
@@ -7,15 +8,19 @@ type Props = NavItem & {
   duration?: number;
 };
 
-const { rel, href, class: className, custom, label, duration = 300 } = Astro.props;
+const { items = [], rel, href, class: className, custom = {}, label, duration = 300 } = Astro.props;
+
+custom.links = ['page:disabled', custom.links];
 ---
 
 <Dropdown
-  class={['', className]}
+  class={['leading-none', className]}
   {custom}
   {href}
   {label}
   {duration}
   {rel}>
-  <slot />
+  <slot>
+    {items.map(({ href, label }) => <Link {href}>{label}</Link>)}
+  </slot>
 </Dropdown>
