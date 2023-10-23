@@ -11,18 +11,18 @@ type Props = Omit<HTMLAttributes<'a'>, 'class'> & {
 };
 */
 
-const { class: className, label = 'home page', ...props } = Astro.props;
+const { class: className, label, ...props } = Astro.props;
 ---
 
 <Link
   rel='prefetch'
-  class={twMerge('page:disabled w-7', className)}
+  class={twMerge('flex items-center gap-x-4 h-7', className)}
   href='/'
-  {label}
+  label={label ?? 'home page'}
   {...props}>
-  <slot>
+  <slot name='before'>
     <svg
-      class='disabled linecap-round linejoin-round vector-non-scaling-stroke w-full'
+      class='disabled linecap-round linejoin-round vector-non-scaling-stroke h-full'
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 256 256'
       fill='currentColor'>
@@ -48,4 +48,15 @@ const { class: className, label = 'home page', ...props } = Astro.props;
       </g>
     </svg>
   </slot>
+  <slot>
+    {
+      label && (
+        <span
+          class='whitespace-nowrap text-base uppercase tracking-widest'
+          set:html={label}
+        />
+      )
+    }
+  </slot>
+  <slot name='after' />
 </Link>

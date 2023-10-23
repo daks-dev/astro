@@ -10,12 +10,12 @@ const { class: className, ...props } = Astro.props;
 
 <button
   is='app-color-theme'
-  class={twMerge('w-7', className)}
+  class={twMerge('flex items-center h-7', className)}
   type='button'
   aria-label='color theme'
   {...props}>
   <svg
-    class='disabled linecap-round linejoin-round vector-non-scaling-stroke w-full'
+    class='disabled linecap-round linejoin-round vector-non-scaling-stroke h-full'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 24 24'
     fill='currentColor'>
