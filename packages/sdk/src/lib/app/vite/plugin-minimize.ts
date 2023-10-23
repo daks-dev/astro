@@ -47,15 +47,15 @@ export default (options: Options = {}): Plugin => {
   const { filter = /\.html?$/, minifierOptions = defaultOptions } = options;
 
   return {
+    name: 'vpte-plugin-minimize',
     apply: 'build',
     enforce: 'post',
-    generateBundle(_, bundle) {
+    async generateBundle(_, bundle) {
       for (const outBundle of Object.values(bundle)) {
         if (outBundle.type === 'asset' && filterFileName(outBundle.fileName, filter)) {
-          outBundle.source = minify(outBundle.source as string, minifierOptions);
+          outBundle.source = await minify(outBundle.source as string, minifierOptions);
         }
       }
-    },
-    name: 'html-minimize'
+    }
   };
 };

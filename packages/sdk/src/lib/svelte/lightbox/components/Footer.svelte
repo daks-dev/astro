@@ -19,7 +19,7 @@
     class={twMerge(
       'min-h-[3rem] p-2',
       'grid grid-cols-2 items-center gap-1',
-      'leading-none text-white/50 hover:text-white',
+      'text-white/50 hover:text-white',
       'cursor-default',
       custom.inner?.cuption
     )}>

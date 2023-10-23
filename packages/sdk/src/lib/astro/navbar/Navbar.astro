@@ -75,7 +75,6 @@ if (!blank) {
   <div class:list={['wrapper h-full', 'flex items-center justify-end']}>
     <slot name='before'>
       <NavbarHome
-        role='menuitem'
         class={[custom.button, 'mr-auto', custom.home]}
         {label}
       />
@@ -88,14 +87,8 @@ if (!blank) {
     </NavbarMenu>
 
     <slot name='after'>
-      <ColorTheme
-        role='menuitem'
-        class={[custom.button, 'ml-auto', custom.theme]}
-      />
-      <NavToTop
-        role='menuitem'
-        class={custom.totop}
-      />
+      <ColorTheme class={[custom.button, 'ml-auto', custom.theme]} />
+      <NavToTop class={custom.totop} />
     </slot>
     <NavbarToggle class={[custom.button, 'order-last ml-8 lg:hidden', custom.toggle]} />
   </div>
