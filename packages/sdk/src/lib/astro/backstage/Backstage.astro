@@ -7,7 +7,7 @@ type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
   delay?: number | string;
   duration?: number | string;
 };
-const { class: className, delay = 75, duration = 5000, ...props } = Astro.props;
+const { class: className, delay = 150, duration = 500, ...props } = Astro.props;
 ---
 
 <div
@@ -27,6 +27,53 @@ const { class: className, delay = 75, duration = 5000, ...props } = Astro.props;
       class='3xl:w-[10vmin] w-[35vmin] sm:w-[30vmin] md:w-[25vmin] lg:w-[20vmin] 2xl:w-[15vmin]'
       viewBox='0 0 24 24'
       fill='currentColor'>
+      {
+        /*
+      <rect
+        width='6'
+        height='14'
+        x='1'
+        y='4'>
+        <animate
+          id='svgSpinnersBarsFade0'
+          fill='freeze'
+          attributeName='opacity'
+          begin='0;svgSpinnersBarsFade1.end-0.25s'
+          dur='0.75s'
+          values='1;.2'>
+        </animate>
+      </rect>
+      <rect
+        width='6'
+        height='14'
+        x='9'
+        y='4'
+        opacity='.4'>
+        <animate
+          fill='freeze'
+          attributeName='opacity'
+          begin='svgSpinnersBarsFade0.begin+0.15s'
+          dur='0.75s'
+          values='1;.2'>
+        </animate>
+      </rect>
+      <rect
+        width='6'
+        height='14'
+        x='17'
+        y='4'
+        opacity='.3'>
+        <animate
+          id='svgSpinnersBarsFade1'
+          fill='freeze'
+          attributeName='opacity'
+          begin='svgSpinnersBarsFade0.begin+0.3s'
+          dur='0.75s'
+          values='1;.2'>
+        </animate>
+      </rect>
+        */
+      }
       <rect
         width='10'
         height='10'
@@ -152,14 +199,13 @@ const { class: className, delay = 75, duration = 5000, ...props } = Astro.props;
   class AppBackstage extends HTMLDivElement {
     constructor() {
       super();
-
-      setTimeout(() => {
-        this.style.transitionDuration = `${this.dataset.duration}ms`;
-        this.style.pointerEvents = this.style.touchAction = 'none';
-        this.style.opacity = '0';
-        setTimeout(() => this.remove(), Number(this.dataset.duration));
-      }, Number(this.dataset.delay));
     }
+
+    connectedCallback() {
+      document.addEventListener('astro:page-load', this.remove, { once: true });
+    }
+
+    disconnectedCallback() {}
 
     get duration() {
       return this.dataset.duration ? Number(this.dataset.duration) : 5000;
@@ -168,6 +214,15 @@ const { class: className, delay = 75, duration = 5000, ...props } = Astro.props;
     get delay() {
       return this.dataset.delay ? Number(this.dataset.delay) : 75;
     }
+
+    remove = () => {
+      setTimeout(() => {
+        this.style.transitionDuration = `${this.dataset.duration}ms`;
+        this.style.pointerEvents = this.style.touchAction = 'none';
+        this.style.opacity = '0';
+        setTimeout(() => this.remove(), Number(this.dataset.duration));
+      }, Number(this.dataset.delay));
+    };
   }
 
   customElements.define('app-backstage', AppBackstage, { extends: 'div' });

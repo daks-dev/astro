@@ -8,19 +8,69 @@ import NavbarMenu from './NavbarMenu.astro';
 import NavbarToggle from './NavbarToggle.astro';
 import type { NavItem } from '../navigate';
 
-type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
+type Props = Omit<HTMLAttributes<'nav'>, 'class'> & {
   items: NavItem[];
   class?: ClassName;
   custom?: Record<string, ClassName>;
   brand?: string;
+  blank?: true;
 };
 
-const { items, class: className, custom = {}, brand: label, ...props } = Astro.props;
+const { items, class: className, custom = {}, brand: label, blank, ...props } = Astro.props;
+
+if (!blank) {
+  custom.frame = [
+    'h-[72px]',
+    'text-1.5xl tracking-wide',
+    'bg-neutral-100 shadow-md dark:bg-gray-800', // dark:bg-transparent
+    'onscroll:bg-neutral-100/90 dark:onscroll:bg-slate-700/90',
+    'shadow-md',
+    'overflow-y-offset'
+  ];
+
+  custom.menu = twMerge(
+    [
+      'text-slate-500 dark:text-slate-400',
+      'leading-none -lg:text-base -lg:leading-loose',
+      '-lg:bg-neutral-100/95 -lg:dark:bg-gray-700/95',
+      '-lg:rounded -lg:shadow-md'
+    ],
+    custom.menu
+  );
+  custom.link = twMerge(
+    [
+      'px-8 lg:px-4',
+      'page:disabled',
+      'page:text-cyan-700 dark:page:text-gray-200 step:underline',
+      'lg:hover:text-sky-500',
+      '-lg:hover:bg-neutral-400/95 -lg:dark:hover:bg-gray-500/95'
+    ],
+    custom.link
+  );
+  custom.button = twMerge('text-slate-700 dark:text-slate-200', custom.button);
+
+  custom.drop = twMerge(
+    'lg:rounded lg:shadow-md lg:bg-neutral-100/95 lg:dark:bg-gray-700/95',
+    custom.drop
+  );
+
+  custom.home = twMerge(
+    [
+      'hover:text-sky-500 dark:hover:text-sky-500',
+      'page:disabled page:text-cyan-700 dark:page:text-cyan-500'
+    ],
+    custom.home
+  );
+  custom.totop = twMerge(
+    '-mr-2.5 lg:-mr-3 mt-8 rounded-full bg-slate-500/50 w-14 p-2',
+    custom.totop
+  );
+}
 ---
 
 <nav
   id='app-navbar'
-  class={twMerge('fixed left-0 top-0 z-10 w-full', 'text-lg', className)}
+  class={twMerge('fixed left-0 top-0 z-10 w-full', 'flex items-center', custom.frame, className)}
   {...props}>
   <div class:list={['wrapper h-full', 'flex items-center justify-end']}>
     <slot name='before'>

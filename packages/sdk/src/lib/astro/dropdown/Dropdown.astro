@@ -5,7 +5,6 @@ import { uuid as __uuid } from '../../utils';
 import type { NavItem } from '../navigate';
 
 type Props = {
-  //  tag?: 'div' | 'li';
   toggle?: NavItem;
   role?: astroHTML.JSX.AriaRole | null;
   class?: ClassName;
@@ -13,21 +12,11 @@ type Props = {
   duration?: number;
 };
 
-const {
-  //  tag = 'div',
-  toggle = {},
-  class: className,
-  custom = {},
-  role,
-  duration = 300,
-  ...props
-} = Astro.props;
+const { toggle = {}, class: className, custom = {}, role, duration = 300, ...props } = Astro.props;
 
 const { class: toogleClass, label, ...propsToggle } = toggle;
 
 const uuid = __uuid();
-
-// const Element = tag;
 ---
 
 <div
@@ -104,23 +93,23 @@ const uuid = __uuid();
 
     toggle = this.children[0] as HTMLAnchorElement;
 
-    appear = this.children[1] as HTMLDivElement;
+    drop = this.children[1] as HTMLDivElement;
 
-    actives = this.appear.querySelectorAll('a, button, [role="button"]');
+    actives = this.drop.querySelectorAll('a, button, [role="button"]');
 
     get hidden() {
-      return this.appear.getAttribute('aria-hidden') === 'true';
+      return this.drop.getAttribute('aria-hidden') === 'true';
     }
 
     set hidden(val) {
       if (this.hidden !== val) {
         if (val) {
           this.toggle.setAttribute('aria-expanded', 'false');
-          this.appear.setAttribute('aria-hidden', 'true');
+          this.drop.setAttribute('aria-hidden', 'true');
           this.actives.forEach((el) => el.setAttribute('tabindex', '-1'));
         } else {
           this.toggle.setAttribute('aria-expanded', 'true');
-          this.appear.removeAttribute('aria-hidden');
+          this.drop.removeAttribute('aria-hidden');
           this.actives.forEach((el) => el.removeAttribute('tabindex'));
         }
       }
@@ -130,11 +119,11 @@ const uuid = __uuid();
       this.hidden = true;
       if (window.innerWidth >= 1024)
         if (this.offsetLeft + this.clientWidth / 2 < window.innerWidth / 2) {
-          this.appear.style.left = '0';
-          this.appear.style.right = '';
+          this.drop.style.left = '0';
+          this.drop.style.right = '';
         } else {
-          this.appear.style.left = '';
-          this.appear.style.right = '0';
+          this.drop.style.left = '';
+          this.drop.style.right = '0';
         }
     };
 
