@@ -71,6 +71,7 @@
     'fixed left-0 top-0 z-[999] h-screen max-h-screen w-full max-w-full overflow-hidden',
     'flex items-center justify-center',
     'clear-pseudo select-none',
+    'not-prose text-base leading-none',
     'bg-black/90',
     'linecap-round linejoin-round vector-non-scaling-stroke',
     'overflow-y-offset',

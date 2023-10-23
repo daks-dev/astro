@@ -16,29 +16,32 @@
   class={twMerge('lightbox-footer', 'relative z-30', custom.footer)}
   class:fullscreen>
   <div
-    class="
-    grid min-h-[3rem]
-    cursor-default grid-cols-2 items-center gap-1
-    p-2 leading-none text-white/50 hover:text-white">
+    class={twMerge(
+      'min-h-[3rem] p-2',
+      'grid grid-cols-2 items-center gap-1',
+      'leading-none text-white/50 hover:text-white',
+      'cursor-default',
+      custom.inner?.cuption
+    )}>
     {#if title}
-      <div class="font-semibold">
+      <div class={twMerge('font-semibold', custom.inner?.title)}>
         {@html title}
       </div>
     {/if}
     {#if status}
       <div
-        class="whitespace-nowrap font-mono"
+        class={twMerge('whitespace-nowrap font-mono', custom.inner?.status)}
         class:text-right={title}>
         {status.activeItem + 1} <sup>[{status.countItems}]</sup>
       </div>
     {/if}
     {#if subtitle}
-      <span class="col-span-2">
+      <span class={twMerge('col-span-2', custom.inner?.subtitle)}>
         {@html subtitle}
       </span>
     {/if}
     {#if description}
-      <small class="col-span-2">
+      <small class={twMerge('col-span-2', custom.inner?.description)}>
         {@html description}
       </small>
     {/if}
