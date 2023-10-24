@@ -1,59 +1,63 @@
 ---
-import { Image } from 'astro:assets';
 import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
 
-type Props = HTMLAttributes<'figure'> & {
-  src: ImageMetadata;
-  width?: number;
-  height?: number;
-  alt?: string;
-  title?: string;
-  subtitle?: string;
-  description?: string;
+type Props = Omit<HTMLAttributes<'figure'>, 'class'> & {
   class?: ClassName;
   custom?: Record<string, ClassName>;
+  image: ImageResult;
+  attributes?: Metadata;
+  alt: string;
+  caption?: Record<string, string>;
 };
 
 const {
-  src,
-  width,
-  height,
-  alt,
-  title = '',
-  subtitle = '',
-  description = '',
   class: className,
-  custom,
+  custom = {},
+  image,
+  attributes,
+  alt: __alt,
+  caption = {},
   ...props
 } = Astro.props;
 
-const caption = title || subtitle || description;
+const attrs = Object.assign(image.attributes, attributes);
+attrs.itemprop ??= 'image';
+attrs.loading ??= 'lazy';
+attrs.decoding ??= 'async';
+
+const alt = __alt ?? attrs.alt ?? (caption.title?.toLowerCase() || '');
+delete attrs.alt;
+
+const entries = Object.entries(caption);
 ---
 
 <figure
   class={twMerge('flex flex-col', className)}
   {...props}>
   <slot name='before' />
+  <img
+    class={twMerge('bg-neutral-300', custom.image)}
+    src={image.src}
+    {...attrs}
+    {alt}
+  />
   <slot>
-    <Image
-      class={twMerge('bg-neutral-300', custom?.image)}
-      {src}
-      {width}
-      {height}
-      alt={(alt || caption).toLowerCase()}
-      itemprop='image'
-    />
+    {
+      entries.length && (
+        <figcaption class={twMerge('flex flex-col', custom?.caption)}>
+          {entries.map(([key, val]) =>
+            key === 'title' ? (
+              <span class={twMerge('font-semibold', custom[key])}>{val}</span>
+            ) : key === 'description' ? (
+              <small class={twMerge(custom[key])}>{val}</small>
+            ) : (
+              <span class={twMerge(custom[key])}>{val}</span>
+            )
+          )}
+        </figcaption>
+      )
+    }
   </slot>
-  {
-    (caption || Astro.slots.has('default')) && (
-      <figcaption class={twMerge('flex flex-col', custom?.caption)}>
-        {title && <span class={twMerge('font-semibold', custom?.title)}>{title}</span>}
-        {subtitle && <span class={twMerge(custom?.subtitle)}>{subtitle}</span>}
-        {description && <small class={twMerge(custom?.description)}>{description}</small>}
-        <slot />
-      </figcaption>
-    )
-  }
   <slot name='after' />
 </figure>

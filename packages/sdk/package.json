@@ -1,6 +1,6 @@
 {
   "name": "@daks.dev/astro.sdk",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "DAKS.DEV Astro software development kit",
   "type": "module",
   "scripts": {
@@ -24,7 +24,7 @@
     "@nanostores/react": "^0.7.1",
     "@sveltejs/package": "^2.2.2",
     "@tailwindcss/typography": "^0.5.10",
-    "@types/node": "^20.8.7",
+    "@types/node": "^20.8.8",
     "@types/react": "^18.2.31",
     "@types/react-dom": "^18.2.14",
     "@vitest/ui": "^0.34.6",

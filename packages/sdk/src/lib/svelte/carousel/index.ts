@@ -1,5 +1,5 @@
 export type Image = ImageResult & {
-  [x in 'title' | 'subtitle' | 'description']?: string;
+  caption: Record<string, string>;
 };
 
 export type Custom = {

@@ -192,9 +192,9 @@
         {#each images as image}
           <Figure
             class={twMerge('not-prose', custom.item)}
+            style="width:{width}px"
             custom={custom.inner}
             {image}
-            {width}
             {native}
             {loaded} />
         {/each}
