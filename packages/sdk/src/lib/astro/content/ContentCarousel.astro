@@ -7,9 +7,10 @@ type Props = {
   data: ImageCollection | ImageCollection[];
   transform: ImageTransform;
   filter?: string[];
+  client?: 'load' | 'idle' | 'visible'; // | (string & NonNullable<unknown>)
 } & Record<string, unknown>;
 
-const { data: __data, transform, filter, ...props } = Astro.props;
+const { data: __data, transform, filter, client = 'visible', ...props } = Astro.props;
 
 const data: (ImageResult & {
   caption: Record<string, string>;
@@ -37,8 +38,24 @@ const load = async (x: ImageCollection | ImageCollection[]) => {
 await load(__data);
 ---
 
-<Carousel
-  {data}
-  {...props}
-  client:load
-/>
+{
+  client === 'visible' ? (
+    <Carousel
+      {data}
+      {...props}
+      client:visible
+    />
+  ) : client === 'idle' ? (
+    <Carousel
+      {data}
+      {...props}
+      client:idle
+    />
+  ) : (
+    <Carousel
+      {data}
+      {...props}
+      client:load
+    />
+  )
+}

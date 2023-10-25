@@ -31,6 +31,10 @@ declare type Attribute = string | null | undefined;
 
 declare namespace App {
   interface Locals {
-    // lazyload: boolean;
+    user: {
+      uuid: ReturnType<typeof crypto.randomUUID>; // string;
+      name: string;
+      surname: string;
+    };
   }
 }

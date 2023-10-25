@@ -66,7 +66,6 @@
   }
 
   onMount(() => {
-    //loader && loader();
     loader?.call(null);
     //window.getComputedStyle(document.body).overflowY
     //window.innerWidth - document.documentElement.clientWidth

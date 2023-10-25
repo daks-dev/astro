@@ -1,10 +1,10 @@
 import { atom, deepMap, map, onMount } from 'nanostores';
 
-type Meta = string | number | boolean | null | undefined;
+export type Metanano = string | number | boolean | null | undefined;
 
-export const meta = map<Record<string, Meta>>({});
+export const meta = map<Record<string, Metanano>>({});
 
-export const status = deepMap<Record<string, Record<string, Meta>>>({});
+export const status = deepMap<Record<string, Record<string, Metanano>>>({});
 
 export const twmerge = atom<Record<string, Record<string, string[]>[]>>({});
 
