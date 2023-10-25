@@ -1,0 +1,44 @@
+---
+import { getImage } from 'astro:assets';
+import Carousel from '../../svelte/carousel/Carousel.svelte';
+import type { ImageCollection } from '.';
+
+type Props = {
+  data: ImageCollection | ImageCollection[];
+  transform: ImageTransform;
+  filter?: string[];
+} & Record<string, unknown>;
+
+const { data: __data, transform, filter, ...props } = Astro.props;
+
+const data: (ImageResult & {
+  caption: Record<string, string>;
+})[] = [];
+
+const load = async (x: ImageCollection | ImageCollection[]) => {
+  if (x instanceof Array) for (const y of x) await load(y);
+  else
+    for (const { image, caption: c } of x.data) {
+      const r = await getImage({
+        src: image,
+        ...transform
+      });
+      const caption: Record<string, string> = {};
+      Object.entries(c).forEach(([key, val]) => {
+        if (filter === undefined || filter.includes(key)) caption[key] = val;
+      });
+      data.push({
+        src: r.src,
+        attributes: r.attributes,
+        caption
+      });
+    }
+};
+await load(__data);
+---
+
+<Carousel
+  {data}
+  {...props}
+  client:load
+/>

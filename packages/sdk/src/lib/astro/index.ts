@@ -1,5 +1,9 @@
 export { default as Backstage } from './backstage/Backstage.astro';
 export { default as ColorTheme } from './color-theme/ColorTheme.astro';
+
+export { default as ContentCarousel } from './content/ContentCarousel.astro';
+export { default as ContentLightbox } from './content/ContentLightbox.astro';
+
 export { default as Dropdown } from './dropdown/Dropdown.astro';
 export { default as Figure } from './figure/Figure.astro';
 export { default as FormattedDate } from './formatted-date/FormattedDate.astro';

@@ -1,5 +1,7 @@
 import { atom, deepMap, map, onMount } from 'nanostores';
 
+type Meta = string | number | boolean | null | undefined;
+
 export const meta = map<Record<string, Meta>>({});
 
 export const status = deepMap<Record<string, Record<string, Meta>>>({});

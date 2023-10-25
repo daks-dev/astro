@@ -1,7 +1,3 @@
-export type Image = ImageResult & {
-  caption: Record<string, string>;
-};
-
 export type Custom = {
   button: ClassName;
   progress: ClassName;

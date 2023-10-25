@@ -2,15 +2,13 @@
   import { getContext } from 'svelte';
   import type { Writable } from 'svelte/store';
 
-  type Meta = string | null | undefined;
-
-  export let title: Meta = undefined;
-  export let subtitle: Meta = undefined;
-  export let description: Meta = undefined;
+  export let title: string | undefined = undefined;
+  export let subtitle: string | undefined = undefined;
+  export let description: string | undefined = undefined;
 
   const activeItemStore: Writable<number> = getContext('activeItem');
 
-  const id = getContext<(x: Record<string, Meta>) => number>('counterItems')({
+  const id = getContext<(x: Record<string, string | undefined>) => number>('counterItems')({
     title,
     subtitle,
     description

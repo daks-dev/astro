@@ -21,33 +21,37 @@
   export let alt = attributes.alt?.toString() || caption.title?.toLowerCase() || '';
   delete attributes.alt;
 
-  export let native = false;
+  export let native = true;
 
   export let loaded: ((x?: Event | HTMLElement) => void) | undefined = undefined;
   const handle = native && loaded ? (ev: Event) => loaded?.call(ev) : undefined;
 </script>
 
 <figure
-  class={twMerge('flex flex-col', className)}
+  class={twMerge('relative flex flex-col', className)}
   {...$$restProps}>
+  <slot name="before" />
   <img
     on:load={handle}
-    class={twMerge(!native && 'lazy bg-neutral-300', custom.image)}
+    class={twMerge(!native && 'lazy', custom.image)}
     src={native ? image.src : placeholder}
     data-src={native ? undefined : image.src}
     {...attributes}
     {alt} />
-  {#if entries.length}
-    <figcaption class={twMerge('flex flex-col', custom.caption)}>
-      {#each entries as [key, val]}
-        {#if key === 'title'}
-          <span class={twMerge('font-semibold', custom[key])}>{@html val}</span>
-        {:else if key === 'description'}
-          <small class={twMerge(custom[key])}>{@html val}</small>
-        {:else}
-          <span class={twMerge(custom[key])}>{@html val}</span>
-        {/if}
-      {/each}
-    </figcaption>
-  {/if}
+  <slot>
+    {#if entries.length}
+      <figcaption class={twMerge('flex flex-col', custom.caption)}>
+        {#each entries as [key, val]}
+          {#if key === 'title'}
+            <span class={twMerge('font-semibold', custom[key])}>{@html val}</span>
+          {:else if key === 'description'}
+            <small class={twMerge(custom[key])}>{@html val}</small>
+          {:else}
+            <span class={twMerge(custom[key])}>{@html val}</span>
+          {/if}
+        {/each}
+      </figcaption>
+    {/if}
+  </slot>
+  <slot name="after" />
 </figure>

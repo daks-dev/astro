@@ -7,7 +7,7 @@
   import twMerge from '../../tailwind/tailwind-merge';
   import ButtonMove from './components/ButtonMove.svelte';
   import ButtonPlay from './components/ButtonPlay.svelte';
-  import type { Image, Custom, Show, Easing, Controls, Loaded } from '.';
+  import type { Custom, Show, Easing, Controls, Loaded } from '.';
 
   let className: ClassName = undefined;
   export { className as class };
@@ -22,8 +22,10 @@
   );
   custom.inner ??= {};
 
-  export let images: Image[] = [];
-  let total = images.length;
+  export let data: (ImageResult & {
+    caption: Record<string, string>;
+  })[] = [];
+  let total = data.length;
 
   export let appear = 0;
   export let show: Show = (x: number) => (x < 480 && 1) || (x < 640 && 2) || (x < 1024 && 3) || 4;
@@ -161,6 +163,7 @@
 
 <div
   class={twMerge(
+    'not-prose text-base',
     'linecap-round linejoin-round vector-non-scaling-stroke',
     appear && (observer ? 'opacity-100' : 'opacity-0'),
     appear && 'transition-opacity ease-in',
@@ -189,12 +192,13 @@
         style:height={ratio ? `${width / ratio}px` : ''}
         style:width="{width * total}px"
         style:transform="translate3d(-{width * $tween}px, 0px, 0px)">
-        {#each images as image}
+        {#each data as { caption, ...image }}
           <Figure
-            class={twMerge('not-prose', custom.item)}
+            class={custom.item}
             style="width:{width}px"
             custom={custom.inner}
             {image}
+            {caption}
             {native}
             {loaded} />
         {/each}

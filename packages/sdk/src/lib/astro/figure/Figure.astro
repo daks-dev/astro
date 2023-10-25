@@ -1,6 +1,7 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
+import placeholder from '../../assets/images/placeholder';
 
 type Props = Omit<HTMLAttributes<'figure'>, 'class'> & {
   class?: ClassName;
@@ -9,6 +10,7 @@ type Props = Omit<HTMLAttributes<'figure'>, 'class'> & {
   attributes?: Metadata;
   alt: string;
   caption?: Record<string, string>;
+  native: boolean;
 };
 
 const {
@@ -18,6 +20,7 @@ const {
   attributes,
   alt: __alt,
   caption = {},
+  native = true,
   ...props
 } = Astro.props;
 
@@ -33,12 +36,13 @@ const entries = Object.entries(caption);
 ---
 
 <figure
-  class={twMerge('flex flex-col', className)}
+  class={twMerge('relative flex flex-col', className)}
   {...props}>
   <slot name='before' />
   <img
-    class={twMerge('bg-neutral-300', custom.image)}
-    src={image.src}
+    class={twMerge(!native && 'lazy', custom.image)}
+    src={native ? image.src : placeholder}
+    data-src={native ? undefined : image.src}
     {...attrs}
     {alt}
   />
@@ -48,11 +52,20 @@ const entries = Object.entries(caption);
         <figcaption class={twMerge('flex flex-col', custom?.caption)}>
           {entries.map(([key, val]) =>
             key === 'title' ? (
-              <span class={twMerge('font-semibold', custom[key])}>{val}</span>
+              <span
+                class={twMerge('font-semibold', custom[key])}
+                set:html={val}
+              />
             ) : key === 'description' ? (
-              <small class={twMerge(custom[key])}>{val}</small>
+              <small
+                class={twMerge(custom[key])}
+                set:html={val}
+              />
             ) : (
-              <span class={twMerge(custom[key])}>{val}</span>
+              <span
+                class={twMerge(custom[key])}
+                set:html={val}
+              />
             )
           )}
         </figcaption>
