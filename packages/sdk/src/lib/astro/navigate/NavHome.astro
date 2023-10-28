@@ -3,17 +3,17 @@
 import twMerge from '../../tailwind/tailwind-merge';
 import Icon from '../icon/Icon.astro';
 import Link from './Link.astro';
-import type { IconsKeys } from '../icon';
+import type { IconsKeysExt } from '../../app/icons';
 import type { NavItem } from '.';
 
-type Props = NavItem & {
+interface Props extends Omit<NavItem, 'icon'> {
   icon?:
-    | IconsKeys
+    | IconsKeysExt
     | {
-        home: IconsKeys;
-        page: IconsKeys;
+        home: IconsKeysExt;
+        page: IconsKeysExt;
       };
-};
+}
 
 const {
   icon = {
@@ -24,16 +24,6 @@ const {
   label,
   ...props
 } = Astro.props;
-
-/*
-const icon =
-  typeof i === 'string'
-    ? {
-        home: i,
-        page: i
-      }
-    : i;
-    */
 ---
 
 <Link

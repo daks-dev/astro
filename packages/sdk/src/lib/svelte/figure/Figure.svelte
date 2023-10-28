@@ -18,7 +18,7 @@
   export let caption: Record<string, string> = {};
   const entries = Object.entries(caption);
 
-  export let alt = attributes.alt?.toString() || caption.title?.toLowerCase() || '';
+  export let alt = attributes.alt?.toString() || '';
   delete attributes.alt;
 
   export let native = true;

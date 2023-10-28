@@ -6,17 +6,26 @@ import NavbarHome from '../navigate/NavHome.astro';
 import NavToTop from '../navigate/NavToTop.astro';
 import NavbarMenu from './NavbarMenu.astro';
 import NavbarToggle from './NavbarToggle.astro';
+import type { IconsKeysExt } from '../../app/icons';
 import type { NavItem } from '../navigate';
 
 type Props = Omit<HTMLAttributes<'nav'>, 'class'> & {
   items: NavItem[];
   class?: ClassName;
   custom?: Record<string, ClassName>;
-  brand?: string;
+  brand?: {
+    label?: string;
+    icon?:
+      | IconsKeysExt
+      | {
+          home: IconsKeysExt;
+          page: IconsKeysExt;
+        };
+  };
   blank?: true;
 };
 
-const { items, class: className, custom = {}, brand: label, blank, ...props } = Astro.props;
+const { items, class: className, custom = {}, brand = {}, blank, ...props } = Astro.props;
 
 if (!blank) {
   custom.frame = [
@@ -76,7 +85,7 @@ if (!blank) {
     <slot name='before'>
       <NavbarHome
         class={[custom.button, 'mr-auto', custom.home]}
-        {label}
+        {...brand}
       />
     </slot>
 

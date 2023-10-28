@@ -1,16 +1,4 @@
-/**
- * Icons adapted from https://phosphoricons.com/
- *
- * Want to add more?
- * 1. Find the icon you want on Phosphor Icons.
- * 2. Click “Copy SVG”.
- * 3. Paste the SVG code in your editor.
- * 4. Remove the `<svg>` wrapper so you only have elements like `<path>`, `<circle>`, `<rect>` etc.
- * 5. Remove any `stroke="#000000"` attributes
- * 6. Replace any `fill="#000000"` attributes with `stroke="none"`
- *    (or add `stroke="none"` on shapes with no `fill` or `stroke` specified).
- */
-import type { IconsBandle } from '..';
+import type { IconsBandle } from '../../astro/icon';
 
 const bundle = {
   'arrow-fat-lines-up-duotone': {
@@ -56,8 +44,5 @@ const bundle = {
   }
 } satisfies IconsBandle;
 
-type IconsKeys = keyof typeof bundle;
-
-export type { IconsKeys };
-
+export type IconsKeys = keyof typeof bundle;
 export default bundle;

@@ -2,15 +2,15 @@
 import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
 import Icon from '../icon/Icon.astro';
-import type { IconsKeys } from '../icon';
+import type { IconsKeysExt } from '../../app/icons';
 
 type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   class?: ClassName;
   icon?:
-    | IconsKeys
+    | IconsKeysExt
     | {
-        open: IconsKeys;
-        close: IconsKeys;
+        open: IconsKeysExt;
+        close: IconsKeysExt;
       };
   label?: string;
 };

@@ -8,4 +8,4 @@ export interface IconsBandle {
 
 
 export { default as Icon } from './Icon.astro';
-export { default as bundle, type IconsKeys } from './bundles';
+export { default as bundle, type IconsKeys } from '../../app/icons';

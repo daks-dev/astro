@@ -1,11 +1,10 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
-import defaultBundle from './bundles';
+import bundle from '../../app/icons';
 import type { IconsBandle } from '.';
 
 type Props = Omit<HTMLAttributes<'svg'>, 'class'> & {
-  bundle?: IconsBandle;
   icon: keyof typeof bundle | (string & NonNullable<unknown>);
   class?: ClassName;
   color?: string;
@@ -14,7 +13,6 @@ type Props = Omit<HTMLAttributes<'svg'>, 'class'> & {
 };
 
 const {
-  bundle = defaultBundle,
   icon,
   class: className,
   color = 'currentcolor',

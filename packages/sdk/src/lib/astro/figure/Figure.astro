@@ -18,7 +18,7 @@ const {
   custom = {},
   image,
   attributes,
-  alt: __alt,
+  alt: a,
   caption = {},
   native = true,
   ...props
@@ -29,7 +29,7 @@ attrs.itemprop ??= 'image';
 attrs.loading ??= 'lazy';
 attrs.decoding ??= 'async';
 
-const alt = __alt ?? attrs.alt ?? (caption.title?.toLowerCase() || '');
+const alt = a ?? attrs.alt ?? '';
 delete attrs.alt;
 
 const entries = Object.entries(caption);

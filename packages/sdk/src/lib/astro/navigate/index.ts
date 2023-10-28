@@ -1,18 +1,6 @@
-/*
-import type { HTMLAttributes } from 'astro/types';
+import type { IconsKeysExt } from '../../app/icons';
 
-export declare interface NavItem extends Omit<HTMLAttributes<'a'>, 'class'> {
-  class?: ClassName;
-  label?: string;
-  handle?: (...x: unknown[]) => unknown;
-  disallow?: boolean;
-  items?: NavItem[];
-}
-*/
-
-import type { IconsKeys } from '../icon';
-
-export declare interface NavLink {
+export interface NavLink {
   id?: string;
   rel?: string;
   role?: astroHTML.JSX.AriaRole | null;
@@ -24,14 +12,14 @@ export declare interface NavLink {
   itemporp?: string;
 }
 
-export declare interface NavItem extends NavLink {
+export interface NavItem extends NavLink {
   label?: string;
-  icon?: IconsKeys | (string & NonNullable<unknown>);
+  icon?: IconsKeysExt;
   disallow?: true;
   items?: NavItem[];
 }
 
-export declare interface NavSite {
+export interface NavSite {
   navbar: {
     items: NavItem[];
   };
