@@ -1,6 +1,6 @@
 {
   "name": "@daks.dev/astro.sdk",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "DAKS.DEV Astro software development kit",
   "type": "module",
   "scripts": {

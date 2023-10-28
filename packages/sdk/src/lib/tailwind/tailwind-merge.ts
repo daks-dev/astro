@@ -11,7 +11,10 @@ const local = {
   'bg-size': [{ bg: ['75%', '50%', '33%', '25%', '20%', '10%', '5%'] }],
   content: [{ content: ['null'] }],
   'font-size': [{ text: ['3xs', '2xs', '1.5xl', '2.5xl', '3.5xl', '4.5xl'] }],
-  'list-style-type': [{ list: ['circle', 'square'] }]
+  'list-style-type': [{ list: ['circle', 'square'] }],
+  'min-h': [{ 'min-h': ['auto'] }],
+  'min-w': [{ 'min-w': ['auto'] }],
+  'stroke-w': [{ stroke: ['8', '16', '32'] }]
 };
 
 export const getTwMerge = () =>

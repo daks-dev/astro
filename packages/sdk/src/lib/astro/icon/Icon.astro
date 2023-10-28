@@ -1,0 +1,68 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import twMerge from '../../tailwind/tailwind-merge';
+import defaultBundle from './bundles';
+import type { IconsBandle } from '.';
+
+type Props = Omit<HTMLAttributes<'svg'>, 'class'> & {
+  class?: ClassName;
+  bundle?: IconsBandle;
+  icon: keyof typeof bundle | (string & NonNullable<unknown>);
+  color?: string;
+  size?: number | string;
+  gradient?: number | string | true;
+};
+
+const {
+  bundle = defaultBundle,
+  icon,
+  class: className,
+  color = 'currentcolor',
+  gradient: g,
+  size,
+  width = size,
+  height = size,
+  ...props
+} = Astro.props;
+
+const gradient =
+  g || g === 0
+    ? {
+        id: `_${Math.floor((1 + Math.random()) * 0x1000)
+          .toString(16)
+          .substring(1)}`,
+        gradientTransform: g === true || g === 0 || g === '0' ? undefined : `rotate(${g})`
+      }
+    : undefined;
+
+const data = (bundle as IconsBandle)[icon];
+data.box ??= 24;
+data.size ??= 32;
+---
+
+<svg
+  xmlns='http://www.w3.org/2000/svg'
+  class={twMerge('align-middle', className)}
+  {width /*?? data.size*/}
+  {height /*?? data.size*/}
+  viewBox={`0 0 ${data.box} ${data.box}`}
+  stroke={gradient ? `url(#${gradient.id})` : color}
+  fill={gradient ? `url(#${gradient.id})` : color}
+  aria-hidden='true'
+  {...props}>
+  <Fragment set:html={data.body} />
+  {
+    gradient && (
+      <linearGradient {...gradient}>
+        <stop
+          offset='0'
+          stop-color='var(--tw-gradient-from)'
+        />
+        <stop
+          offset='1'
+          stop-color='var(--tw-gradient-to)'
+        />
+      </linearGradient>
+    )
+  }
+</svg>

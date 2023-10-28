@@ -67,12 +67,12 @@ export default {
       container: {
         center: true
       },
+      content: {
+        null: '""'
+      },
       listStyleType: {
         circle: 'circle',
         square: 'square'
-      },
-      spacing: {
-        inherit: 'inherit'
       },
       minWidth: {
         auto: 'auto'
@@ -80,8 +80,13 @@ export default {
       minHeight: {
         auto: 'auto'
       },
-      content: {
-        null: '""'
+      spacing: {
+        inherit: 'inherit'
+      },
+      strokeWidth: {
+        '8': '8px',
+        '16': '16px',
+        '32': '32px'
       }
     }
   },

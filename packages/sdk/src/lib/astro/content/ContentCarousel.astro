@@ -10,7 +10,7 @@ type Props = {
   client?: 'load' | 'idle' | 'visible'; // | (string & NonNullable<unknown>)
 } & Record<string, unknown>;
 
-const { data: __data, transform, filter, client = 'visible', ...props } = Astro.props;
+const { data: d, transform, filter, client = 'visible', ...props } = Astro.props;
 
 const data: (ImageResult & {
   caption: Record<string, string>;
@@ -35,7 +35,7 @@ const load = async (x: ImageCollection | ImageCollection[]) => {
       });
     }
 };
-await load(__data);
+await load(d);
 ---
 
 {

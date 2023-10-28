@@ -1,6 +1,6 @@
 <script lang="ts">
   import twMerge from '../../tailwind/tailwind-merge';
-  import placeholder from '../../assets/images/placeholder';
+  import placeholder from '../../assets/images/data:image';
 
   let className: ClassName = undefined;
   export { className as class };

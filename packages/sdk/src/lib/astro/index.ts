@@ -7,6 +7,7 @@ export { default as ContentLightbox } from './content/ContentLightbox.astro';
 export { default as Dropdown } from './dropdown/Dropdown.astro';
 export { default as Figure } from './figure/Figure.astro';
 export { default as FormattedDate } from './formatted-date/FormattedDate.astro';
+export { default as Icon } from './icon/Icon.astro';
 export { default as Head } from './head/Head.astro';
 
 export type { NavItem, NavSite } from './navigate';
