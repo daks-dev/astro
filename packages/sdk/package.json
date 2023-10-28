@@ -28,10 +28,10 @@
     "@tailwindcss/typography": "^0.5.10",
     "@types/html-minifier-terser": "^7.0.1",
     "@types/node": "^20.8.9",
-    "@types/react": "^18.2.32",
+    "@types/react": "^18.2.33",
     "@types/react-dom": "^18.2.14",
     "@vitest/ui": "^0.34.6",
-    "astro": "^3.3.4",
+    "astro": "^3.4.0",
     "html-minifier-terser": "^7.2.0",
     "nanostores": "^0.9.4",
     "publint": "^0.2.5",
@@ -47,7 +47,7 @@
     "vitest": "^0.34.6"
   },
   "peerDependencies": {
-    "astro": "^3.3.4",
+    "astro": "^3.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "svelte": "^4.2.2",

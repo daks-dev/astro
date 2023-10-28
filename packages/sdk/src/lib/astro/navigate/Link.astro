@@ -1,6 +1,7 @@
 ---
 // import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
+import Icon from '../icon/Icon.astro';
 import type { NavItem as Props } from '.';
 
 /*
@@ -10,7 +11,7 @@ type Props = Omit<HTMLAttributes<'a'>, 'class'> & {
 };
 */
 
-const { class: className, href, label, ...props } = Astro.props;
+const { class: className, href, label, icon, ...props } = Astro.props;
 props.disallow = props.items = undefined;
 
 const current =
@@ -25,12 +26,22 @@ const current =
   is='app-link'
   class={twMerge(className)}
   {href}
-  aria-label={Astro.slots.has('default') ? label : undefined}
+  aria-label={Astro.slots.has('default') || icon ? label : undefined}
   aria-current={current}
   {...props}>
   <slot name='before' />
   <slot>
-    <Fragment set:html={label} />
+    {
+      icon ? (
+        <Icon
+          {icon}
+          class='disabled'
+          size='1em'
+        />
+      ) : (
+        <Fragment set:html={label} />
+      )
+    }
   </slot>
   <slot name='after' />
 </a>

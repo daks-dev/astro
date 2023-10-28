@@ -1,7 +1,8 @@
 ---
 import Link from '../navigate/Link.astro';
 import twMerge from '../../tailwind/tailwind-merge';
-import { uuid as __uuid } from '../../utils';
+import Icon from '../icon/Icon.astro';
+import { uuid as u } from '../../utils';
 import type { NavItem } from '../navigate';
 
 type Props = {
@@ -14,9 +15,9 @@ type Props = {
 
 const { toggle = {}, class: className, custom = {}, role, duration = 300, ...props } = Astro.props;
 
-const { class: toogleClass, label, ...propsToggle } = toggle;
+const { class: toogleClass, label, icon, ...propsToggle } = toggle;
 
-const uuid = __uuid();
+const uuid = u();
 ---
 
 <div
@@ -29,25 +30,52 @@ const uuid = __uuid();
     toggle.href ? (
       <Link
         id={`app-dropdown-toggle${uuid}`}
-        class={twMerge('flex h-full items-center', custom.link, 'page:enabled', toogleClass)}
+        class={twMerge('group flex h-full items-center', custom.link, 'page:enabled', toogleClass)}
         {...propsToggle}
+        aria-label={Astro.slots.has('label') || icon ? label : undefined}
         aria-expanded='false'
         aria-controls={`app-dropdown-appear${uuid}`}>
         <slot name='label'>
-          <Fragment set:html={label} />
+          {icon ? (
+            <Icon
+              {icon}
+              class='disabled'
+              size='1em'
+            />
+          ) : (
+            <Fragment set:html={label} />
+          )}
         </slot>
+        <Icon
+          icon='caret-down'
+          class='disabled group-aria-expanded:rotate-180'
+          size='.75em'
+        />
       </Link>
     ) : (
       <button
         id={`app-dropdown-toggle${uuid}`}
-        class={twMerge('flex h-full items-center', toogleClass)}
+        class={twMerge('group flex h-full items-center', toogleClass)}
         {...propsToggle}
-        aria-label={Astro.slots.has('label') ? label : undefined}
+        aria-label={Astro.slots.has('label') || icon ? label : undefined}
         aria-expanded='false'
         aria-controls={`app-dropdown-appear${uuid}`}>
         <slot name='label'>
-          <Fragment set:html={label} />
+          {icon ? (
+            <Icon
+              {icon}
+              class='disabled'
+              size='1em'
+            />
+          ) : (
+            <Fragment set:html={label} />
+          )}
         </slot>
+        <Icon
+          icon='caret-down'
+          class='disabled group-aria-expanded:rotate-180'
+          size='.75em'
+        />
       </button>
     )
   }

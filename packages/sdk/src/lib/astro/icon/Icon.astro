@@ -5,9 +5,9 @@ import defaultBundle from './bundles';
 import type { IconsBandle } from '.';
 
 type Props = Omit<HTMLAttributes<'svg'>, 'class'> & {
-  class?: ClassName;
   bundle?: IconsBandle;
   icon: keyof typeof bundle | (string & NonNullable<unknown>);
+  class?: ClassName;
   color?: string;
   size?: number | string;
   gradient?: number | string | true;
@@ -43,8 +43,8 @@ data.size ??= 32;
 <svg
   xmlns='http://www.w3.org/2000/svg'
   class={twMerge('align-middle', className)}
-  {width /*?? data.size*/}
-  {height /*?? data.size*/}
+  width={width ?? data.size}
+  height={height ?? data.size}
   viewBox={`0 0 ${data.box} ${data.box}`}
   stroke={gradient ? `url(#${gradient.id})` : color}
   fill={gradient ? `url(#${gradient.id})` : color}

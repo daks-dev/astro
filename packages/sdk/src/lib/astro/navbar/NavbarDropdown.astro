@@ -12,8 +12,6 @@ type Props = {
 
 const { item, class: className, custom = {}, duration = 300 } = Astro.props;
 
-item.rel ??= 'perfetch';
-
 custom.drop = [
   'text-[95%] indent-2 lg:mt-1 lg:p-2 lg:text-[80%] lg:leading-loose lg:indent-0',
   custom.drop

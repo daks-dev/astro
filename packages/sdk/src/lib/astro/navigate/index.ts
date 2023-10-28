@@ -10,6 +10,8 @@ export declare interface NavItem extends Omit<HTMLAttributes<'a'>, 'class'> {
 }
 */
 
+import type { IconsKeys } from '../icon';
+
 export declare interface NavLink {
   id?: string;
   rel?: string;
@@ -24,6 +26,7 @@ export declare interface NavLink {
 
 export declare interface NavItem extends NavLink {
   label?: string;
+  icon?: IconsKeys | (string & NonNullable<unknown>);
   disallow?: true;
   items?: NavItem[];
 }
