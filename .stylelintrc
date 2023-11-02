@@ -1,7 +1,22 @@
 {
   "extends": ["stylelint-config-standard", "stylelint-config-html"],
   "plugins": ["stylelint-order", "stylelint-scss"],
+  "ignoreFiles": ["**/*.{md,ts}"],
   "rules": {
+    "selector-class-pattern": ".+",
+    "custom-property-pattern": ".+",
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["global"]
+      }
+    ],
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["tailwind"]
+      }
+    ],
     "color-function-notation": [
       "modern",
       {
@@ -12,9 +27,10 @@
     "rule-empty-line-before": [
       "always",
       {
-        "except": ["inside-block"]
+        "except": ["inside-block", "after-single-line-comment"]
       }
     ],
+    "custom-property-empty-line-before": null,
     "comment-empty-line-before": [
       "always",
       {
@@ -23,7 +39,6 @@
       }
     ],
     "order/order": [
-      "custom-properties",
       "dollar-variables",
       {
         "type": "at-rule",
@@ -38,15 +53,11 @@
         "name": "mixin"
       },
       "declarations",
-      {
-        "type": "at-rule",
-        "name": "media"
-      },
+      "rules",
       {
         "type": "at-rule",
         "name": "supports"
-      },
-      "rules"
+      }
     ],
     "order/properties-order": [
       {

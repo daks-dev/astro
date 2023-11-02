@@ -48,6 +48,7 @@ const { class: className, custom = {}, items, ...props } = Astro.props;
           <Link
             class={['flex items-center', 'h-full', custom.link, className]}
             {...link}
+            itemprop={link.href ? 'relatedLink' : undefined}
           />
         </div>
       );

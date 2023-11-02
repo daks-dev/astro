@@ -33,6 +33,7 @@ custom.drop = [
           <Link
             class={['flex items-center align-middle', custom.link, className]}
             {...link}
+            itemprop={link.href ? 'relatedLink' : undefined}
           />
         );
       })

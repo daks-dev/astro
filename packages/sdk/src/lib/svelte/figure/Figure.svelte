@@ -42,12 +42,14 @@
     {#if entries.length}
       <figcaption class={twMerge('flex flex-col', custom.caption)}>
         {#each entries as [key, val]}
-          {#if key === 'title'}
-            <span class={twMerge('font-semibold', custom[key])}>{@html val}</span>
-          {:else if key === 'description'}
-            <small class={twMerge(custom[key])}>{@html val}</small>
-          {:else}
-            <span class={twMerge(custom[key])}>{@html val}</span>
+          {#if val}
+            {#if key === 'title'}
+              <span class={twMerge('font-semibold', custom[key])}>{@html val}</span>
+            {:else if key === 'description'}
+              <small class={twMerge(custom[key])}>{@html val}</small>
+            {:else}
+              <span class={twMerge(custom[key])}>{@html val}</span>
+            {/if}
           {/if}
         {/each}
       </figcaption>

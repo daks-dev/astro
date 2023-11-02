@@ -19,6 +19,10 @@
     "mdx/remark": true,
     "react": {
       "version": "detect"
+    },
+    "tailwindcss": {
+      "callees": ["tailwind-merge", "classnames", "clsx", "ctl"],
+      "config": "./tailwind.config"
     }
   },
   "parserOptions": {
@@ -96,10 +100,7 @@
     "tailwindcss/classnames-order": [
       "warn",
       {
-        "removeDuplicates": true,
-        // "skipClassAttribute": <boolean>,
-        // "tags": Array<string>,
-        "callees": ["tailwind-merge", "classnames", "clsx", "ctl", "cva", "tv"],
+        "callees": ["tailwind-merge", "classnames", "clsx", "ctl"],
         "config": "./tailwind.config"
       }
     ]
@@ -110,10 +111,9 @@
     "**/build/",
     "**/dist/",
     "**/dist-ssr/",
-
-    "**/public",
-    "**/static",
-
+    "**/test-results/",
+    "**/public/",
+    "**/static/",
     "**/.master/",
     "**/.vscode/"
   ]
