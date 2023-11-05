@@ -4,7 +4,6 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:mdx/recommended",
     "plugin:tailwindcss/recommended",
     "prettier"
   ],
@@ -21,8 +20,8 @@
       "version": "detect"
     },
     "tailwindcss": {
-      "callees": ["tailwind-merge", "classnames", "clsx", "ctl"],
-      "config": "./tailwind.config"
+      "callees": ["twMerge", "classnames", "clsx", "ctl"],
+      "config": "./tailwind.config.ts"
     }
   },
   "parserOptions": {
@@ -67,10 +66,28 @@
       "rules": {
         "no-undef": "off",
         "svelte/no-at-html-tags": "off"
+        // "@typescript-eslint/no-explicit-any": "off"
+        // "prettier/prettier": "off"
       }
     },
     {
-      "files": ["**/*.{js,jsx,mjs,cjs,ts,tsx}"],
+      "files": ["**/*.{md,mdx}"],
+      "extends": ["plugin:markdown/recommended"],
+      "plugins": ["markdown"],
+      "processor": "markdown/markdown"
+    },
+    {
+      "files": ["**/*.md/*.{js,jsx,ts,tsx,astro,react,svelte}"],
+      "parser": "@typescript-eslint/parser",
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off"
+        // "no-console": "off"
+        // "@typescript-eslint/no-explicit-any": "off"
+        // "prettier/prettier": "off"
+      }
+    },
+    {
+      "files": ["**/*.{js,jsx,cjs,mjs,ts,tsx}"],
       "extends": [
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
@@ -81,12 +98,6 @@
       "rules": {
         // "react/jsx-uses-react": "error",
         // "react/jsx-uses-vars": "error"
-      }
-    },
-    {
-      "files": ["**/*.{md,mdx}", "**/*.{md,mdx}/*.{js,jsx,ts,tsx,astro,react,svelte}"],
-      "rules": {
-        "@typescript-eslint/no-unused-vars": "off"
       }
     }
   ],
@@ -100,8 +111,8 @@
     "tailwindcss/classnames-order": [
       "warn",
       {
-        "callees": ["tailwind-merge", "classnames", "clsx", "ctl"],
-        "config": "./tailwind.config"
+        "callees": ["twMerge", "classnames", "clsx", "ctl"],
+        "config": "./tailwind.config.ts"
       }
     ]
   },
