@@ -17,20 +17,20 @@ const {
   icon = 'arrow-fat-lines-up-duotone',
   label = 'to top',
   duration = 300,
-  speed: __speed,
+  speed: s,
   ...props
 } = Astro.props;
 
-const speed = __speed ?? duration * 5;
+const speed = s ?? duration * 5;
 ---
 
 <button
   is='app-to-top'
   class={twMerge(
-    'flex absolute top-full z-10 w-10',
-    'disabled scale-0 origin-center opacity-50 hover:opacity-100',
-    'onscroll:enabled onscroll:scale-100',
-    'transition-transform delay-150 ease-in-out dura',
+    'absolute top-full z-10 flex w-10',
+    'origin-center scale-0 opacity-50 disabled hover:opacity-100',
+    'onscroll:scale-100 onscroll:enabled',
+    'transition-transform delay-150 ease-in-out',
     className
   )}
   style={`transition-duration: ${duration}ms`}
@@ -40,7 +40,7 @@ const speed = __speed ?? duration * 5;
   <slot>
     <Icon
       {icon}
-      class='disabled h-auto w-full'
+      class='h-auto w-full disabled'
     />
   </slot>
 </button>

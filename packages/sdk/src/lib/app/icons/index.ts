@@ -1,10 +1,10 @@
-import type { IconsBandle } from '../../astro/icon';
+// import type { IconBandle } from '../../astro/icon';
 import common from './common';
 
 const local = Object.values(import.meta.glob('$app/icons', {
   import: 'default',
   eager: true
-}))[0] as IconsBandle;
+}))[0] ?? {};
 
 const bundle = {
   ...common,

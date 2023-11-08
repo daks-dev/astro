@@ -1,11 +1,9 @@
-export interface IconsBandle {
-  [x: string]: {
+export interface IconBandle {
+  [x: string]: string | {
     body: string;
-    box?: 24 | 32 | 128 | 256 | (number & NonNullable<unknown>);
-    size?: 24 | 32 | 44 | (number & NonNullable<unknown>);
-  }
+    view?: string;
+  };
 }
-
 
 export { default as Icon } from './Icon.astro';
 export { default as bundle, type IconsKeys } from '../../app/icons';

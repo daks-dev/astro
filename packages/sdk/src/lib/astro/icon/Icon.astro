@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
 import bundle from '../../app/icons';
-import type { IconsBandle } from '.';
+import type { IconBandle } from '.';
 
 type Props = Omit<HTMLAttributes<'svg'>, 'class'> & {
   icon: keyof typeof bundle | (string & NonNullable<unknown>);
@@ -17,7 +17,7 @@ const {
   class: className,
   color = 'currentcolor',
   gradient: g,
-  size,
+  size = '1em',
   width = size,
   height = size,
   ...props
@@ -33,22 +33,23 @@ const gradient =
       }
     : undefined;
 
-const data = (bundle as IconsBandle)[icon];
-data.box ??= 24;
-data.size ??= 32;
+const data = (bundle as IconBandle)[icon];
+const { body, view: viewBox = '0 0 256 256' } = (
+  typeof data === 'string' ? { body: data } : data
+);
 ---
 
 <svg
   xmlns='http://www.w3.org/2000/svg'
   class={twMerge('align-middle', className)}
-  width={width ?? data.size}
-  height={height ?? data.size}
-  viewBox={`0 0 ${data.box} ${data.box}`}
+  width={width ?? size}
+  height={height ?? size}
+  {viewBox}
   stroke={gradient ? `url(#${gradient.id})` : color}
   fill={gradient ? `url(#${gradient.id})` : color}
   aria-hidden='true'
   {...props}>
-  <Fragment set:html={data.body} />
+  <Fragment set:html={body} />
   {
     gradient && (
       <linearGradient {...gradient}>
