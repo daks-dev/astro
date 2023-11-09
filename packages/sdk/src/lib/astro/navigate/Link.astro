@@ -23,7 +23,6 @@ const current =
 ---
 
 <a
-  is='app-link'
   class={twMerge(className)}
   {href}
   aria-label={Astro.slots.has('default') || icon ? label : undefined}
@@ -36,7 +35,6 @@ const current =
         <Icon
           {icon}
           class='disabled'
-          size='1em'
         />
       ) : (
         <Fragment set:html={label} />
@@ -46,7 +44,9 @@ const current =
   <slot name='after' />
 </a>
 
-<script>
+{
+  /*
+<!--script>
   import { page } from '../../app/stores';
 
   class AppLink extends HTMLAnchorElement {
@@ -54,12 +54,12 @@ const current =
       super();
     }
 
-    /*connectedCallback() {
+    connectedCallback() {
       document.addEventListener('astro:page-load', this.check, { once: true });
       document.addEventListener('astro:after-swap', this.check, { once: true });
-    }*/
+    }
 
-    // disconnectedCallback() {  }
+    disconnectedCallback() {  }
 
     set current(val: string | undefined) {
       val ? this.setAttribute('aria-current', val) : this.removeAttribute('aria-current');
@@ -77,4 +77,6 @@ const current =
   }
 
   customElements.define('app-link', AppLink, { extends: 'a' });
-</script>
+</script-->
+*/
+}

@@ -154,8 +154,7 @@ const { title, description, app, rss, image = '/icons/logo.svg' } = Astro.props;
     />
   )
 }
-{
-  /*
+
 <meta
   property='twitter:card'
   content='summary_large_image'
@@ -180,8 +179,7 @@ const { title, description, app, rss, image = '/icons/logo.svg' } = Astro.props;
     />
   )
 }
-  */
-}
+
 <meta
   name='generator'
   content={Astro.generator}
@@ -189,18 +187,20 @@ const { title, description, app, rss, image = '/icons/logo.svg' } = Astro.props;
 
 <script>
   import { meta } from '../../app/stores';
+  meta.listen(
+    (val, key) =>
+      key === 'scrolled' && document.body.classList[val.scrolled ? 'add' : 'remove']('scrolled')
+  );
 
   const navbar = document.getElementById('app-navbar');
-
   window.addEventListener('scroll', () => {
     meta.setKey('scrolled', window.scrollY > (navbar ? navbar.clientHeight : 0));
   });
 
-  meta.listen(
-    (val, key) =>
-      key === 'scrolled' &&
-      (val.scrolled
-        ? document.body.classList.add('scrolled')
-        : document.body.classList.remove('scrolled'))
+  document.addEventListener('astro:page-load', () =>
+    setTimeout(() => document.documentElement.classList.add('loaded'), 75)
+  );
+  document.addEventListener('astro:after-swap', () =>
+    setTimeout(() => document.documentElement.classList.add('swapped'), 75)
   );
 </script>

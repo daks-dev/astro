@@ -2,6 +2,9 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import type { Config } from 'tailwindcss';
 
+import 'dotenv/config';
+import { breakpoint } from '../resolve';
+
 import { default as screens } from '../screens';
 
 import { default as animationPlayState } from '../plugins/animation-play-state';
@@ -15,7 +18,6 @@ import { default as onscroll } from '../plugins/onscroll';
 import { default as oversee } from '../plugins/oversee';
 import { default as ready } from '../plugins/ready';
 import { default as utilities } from '../plugins/utilities';
-
 import { default as strokeLinecap } from '../plugins/svg/stroke-linecap';
 import { default as strokeLinejoin } from '../plugins/svg/stroke-linejoin';
 import { default as vectorEffect } from '../plugins/svg/vector-effect';
@@ -33,7 +35,7 @@ export default {
   darkMode: ['class', '.theme-dark'],
 
   theme: {
-    screens: screens({ bp: 800, min: true, max: true }),
+    screens: screens({ bp: breakpoint, min: true, max: true }),
     fontSize: sort({
       '3xs': '0.5rem',
       '2xs': '0.625rem',

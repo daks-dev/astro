@@ -2,7 +2,7 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 
 export default (data: { bp?: number | string; min?: true; max?: true }) => {
   data.bp =
-    typeof data.bp === 'number'
+    typeof data.bp === 'number' || (typeof data.bp === 'string' && /^[1-9]\d{2,3}$/.test(data.bp))
       ? `${data.bp}px`
       : typeof data.bp === 'string' && /^[1-9]\d{2,3}px$/.test(data.bp)
       ? data.bp

@@ -1,3 +1,4 @@
+/*
 import resolveConfig from 'tailwindcss/resolveConfig';
 import tailwind from 'tailwind.config';
 
@@ -8,6 +9,9 @@ const {
     screens: { bp: breakpoint }
   }
 } = config;
+*/
 
-export { breakpoint };
-export default config;
+const bp = process.env?.BREAKPOINT;
+
+export const breakpoint =
+  bp && /^[1-9]\d{2,3}$/.test(bp) ? `${bp}px` : bp && /^[1-9]\d{2,3}px$/.test(bp) ? bp : '800px';

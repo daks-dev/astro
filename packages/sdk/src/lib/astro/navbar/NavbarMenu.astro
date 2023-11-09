@@ -72,8 +72,8 @@ const { class: className, custom = {}, items, ...props } = Astro.props;
 </script>
 
 <script>
-  import { status } from '../../app/stores';
   import { breakpoint } from '../../tailwind/resolve';
+  import { status } from '../../app/stores';
 
   class AppNavbarMenu extends HTMLDivElement {
     media = window.matchMedia(`(min-width: ${breakpoint})`);

@@ -1,6 +1,7 @@
 import type { IconKeys } from '../../app/icons';
 
 export interface NavLink {
+  is?: string;
   id?: string;
   rel?: string;
   role?: astroHTML.JSX.AriaRole | null;
