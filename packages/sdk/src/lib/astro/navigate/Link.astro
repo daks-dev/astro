@@ -11,7 +11,7 @@ type Props = Omit<HTMLAttributes<'a'>, 'class'> & {
 };
 */
 
-const { class: className, href, label, icon, ...props } = Astro.props;
+const { class: className, href, label, icon, size, prefetch, ...props } = Astro.props;
 props.disallow = props.items = undefined;
 
 const current =
@@ -27,6 +27,7 @@ const current =
   {href}
   aria-label={Astro.slots.has('default') || icon ? label : undefined}
   aria-current={current}
+  data-astro-prefetch={prefetch}
   {...props}>
   <slot name='before' />
   <slot>
@@ -35,6 +36,7 @@ const current =
         <Icon
           {icon}
           class='disabled'
+          {size}
         />
       ) : (
         <Fragment set:html={label} />

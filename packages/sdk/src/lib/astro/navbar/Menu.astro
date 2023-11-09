@@ -3,10 +3,10 @@ import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
 import { breakpoint } from '../../tailwind/resolve';
 import Link from '../navigate/Link.astro';
-import NavbarDropdown from './NavbarDropdown.astro';
+import Dropdown from './Dropdown.astro';
 import type { NavItem } from '../navigate';
 
-type Props = Omit<HTMLAttributes<'nav'>, 'class'> & {
+type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
   class?: ClassName;
   custom?: Record<string, ClassName>;
   items: NavItem[];
@@ -42,16 +42,16 @@ const { class: className, custom = {}, items, ...props } = Astro.props;
     items.map((item) => {
       const { class: className, ...link } = item;
       return item.items ? (
-        <NavbarDropdown
+        <Dropdown
           {custom}
           {item}
         />
       ) : (
         <div
           role='menuitem'
-          class={twMerge('align-middle', custom.item)}>
+          class='align-middle'>
           <Link
-            class={['flex items-center', 'h-full', custom.link, className]}
+            class={['flex items-center', custom.item, custom.link, className]}
             {...link}
             itemprop={link.href ? 'relatedLink' : undefined}
           />
@@ -91,14 +91,12 @@ const { class: className, custom = {}, items, ...props } = Astro.props;
     }
 
     connectedCallback() {
-      // window.addEventListener('resize', this.check);
-      // document.addEventListener('astro:page-load', this.reset, { once: true });
+      document.addEventListener('astro:page-load', this.reset, { once: true });
       document.addEventListener('click', this.handleOutside);
       this.media.addEventListener('change', this.check);
     }
 
     disconnectedCallback() {
-      // window.removeEventListener('resize', this.check);
       document.removeEventListener('click', this.handleOutside);
     }
 

@@ -21,7 +21,9 @@ export default (config: Partial<Config> = {}) => {
     try {
       const response = await next();
 
+      /* @ts-ignore */
       if (response.status > 399) {
+        /* @ts-ignore */
         return redirect(`${config.path}/${response.status}`);
       }
 

@@ -193,6 +193,9 @@ const { title, description, app, rss, image = '/icons/logo.svg' } = Astro.props;
   );
 
   const navbar = document.getElementById('app-navbar');
+  window.addEventListener('load', () => {
+    meta.setKey('scrolled', window.scrollY > (navbar ? navbar.clientHeight : 0));
+  });
   window.addEventListener('scroll', () => {
     meta.setKey('scrolled', window.scrollY > (navbar ? navbar.clientHeight : 0));
   });

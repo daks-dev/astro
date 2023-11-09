@@ -1,0 +1,74 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import twMerge from '../../tailwind/tailwind-merge';
+import Icon from '../icon/Icon.astro';
+import type { IconKeysExt } from '../../app/icons';
+
+type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
+  class?: ClassName;
+  icon?:
+    | IconKeysExt
+    | {
+        light: IconKeysExt;
+        dark: IconKeysExt;
+      };
+};
+const {
+  class: className,
+  icon = {
+    light: 'moon-stars-duotone',
+    dark: 'sun-duotone'
+  },
+  ...props
+} = Astro.props;
+---
+
+<button
+  is='app-navbar-theme'
+  class={twMerge('flex h-7 items-center', className)}
+  type='button'
+  aria-label='color theme'
+  {...props}>
+  <slot>
+    {
+      typeof icon === 'string' ? (
+        <Icon
+          {icon}
+          class='h-full w-auto disabled'
+        />
+      ) : (
+        <>
+          <Icon
+            icon={icon.light}
+            class={['h-full w-auto disabled', 'dark:hidden']}
+          />
+          <Icon
+            icon={icon.dark}
+            class={['h-full w-auto disabled', 'hidden dark:block']}
+          />
+        </>
+      )
+    }
+  </slot>
+</button>
+
+<script>
+  class AppNavbarTheme extends HTMLButtonElement {
+    readonly class = 'theme-dark';
+
+    constructor() {
+      super();
+    }
+
+    connectedCallback() {
+      this.addEventListener('click', this.handle);
+    }
+
+    handle = (ev: Event) => {
+      ev.preventDefault();
+      document.documentElement.classList.toggle(this.class);
+    };
+  }
+
+  customElements.define('app-navbar-theme', AppNavbarTheme, { extends: 'button' });
+</script>

@@ -16,6 +16,8 @@ export interface NavLink {
 export interface NavItem extends NavLink {
   label?: string;
   icon?: IconKeys | (string & NonNullable<unknown>);
+  size?: number | string;
+  prefetch?: true;
   disallow?: true;
   items?: NavItem[];
 }
@@ -34,5 +36,3 @@ export interface NavSite {
 }
 
 export { default as Link } from './Link.astro';
-export { default as NavHome } from './NavHome.astro';
-export { default as NavToTop } from './NavToTop.astro';

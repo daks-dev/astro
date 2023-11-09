@@ -1,11 +1,11 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
-import ColorTheme from '../color-theme/ColorTheme.astro';
-import NavbarHome from '../navigate/NavHome.astro';
-import NavToTop from '../navigate/NavToTop.astro';
-import NavbarMenu from './NavbarMenu.astro';
-import NavbarToggle from './NavbarToggle.astro';
+import Theme from './Theme.astro';
+import Home from './Home.astro';
+import ToTop from './ToTop.astro';
+import Menu from './Menu.astro';
+import Toggle from './Toggle.astro';
 import type { IconKeysExt } from '../../app/icons';
 import type { NavItem } from '../navigate';
 
@@ -29,7 +29,7 @@ const { items, class: className, custom = {}, brand = {}, blank, ...props } = As
 
 if (!blank) {
   custom.frame = [
-    'h-[72px] ',
+    'h-12',
     'text-1.5xl tracking-wide',
     'bg-neutral-100 shadow-md dark:bg-gray-800', // dark:bg-transparent
     'onscroll:bg-neutral-100/90 dark:onscroll:bg-slate-700/90',
@@ -40,15 +40,15 @@ if (!blank) {
   custom.menu = twMerge(
     [
       'text-slate-500 dark:text-slate-400',
-      'leading-none -bp:text-base -bp:leading-loose',
+      'leading-none -bp:text-xl',
       '-bp:bg-neutral-100/95 -bp:dark:bg-gray-700/95',
       '-bp:rounded -bp:shadow-md'
     ],
     custom.menu
   );
+  custom.item = twMerge('h-full px-8 bp:px-4', custom.item);
   custom.link = twMerge(
     [
-      'px-8 bp:px-4',
       'page:disabled',
       'step:underline page:text-cyan-700 dark:page:text-gray-200',
       'bp:hover:text-sky-500',
@@ -57,8 +57,9 @@ if (!blank) {
     custom.link
   );
   custom.button = twMerge('text-slate-700 dark:text-slate-200', custom.button);
-
   custom.drop = twMerge(
+    '-bp:aria-hidden:max-w-0',
+    'text-[95%] -bp:indent-4 bp:mt-1 bp:p-2 bp:text-[80%] bp:leading-loose',
     'bp:rounded bp:bg-neutral-100/95 bp:shadow-md bp:dark:bg-gray-700/95',
     custom.drop
   );
@@ -70,8 +71,9 @@ if (!blank) {
     ],
     custom.home
   );
+
   custom.totop = twMerge(
-    '-mr-2.5 mt-8 w-14 rounded-full bg-slate-500/50 p-3 lg:-mr-3',
+    'right-4 top-full mr-0.5 mt-8 w-14 rounded-full bg-slate-500/50 p-3',
     custom.totop
   );
 }
@@ -82,23 +84,23 @@ if (!blank) {
   class={twMerge('fixed left-0 top-0 z-10 w-full', 'flex items-center', custom.frame, className)}
   {...props}>
   <div class:list={['wrapper h-full', 'flex items-center justify-end']}>
-    <slot name='before'>
-      <NavbarHome
-        class={[custom.button, 'mr-auto', custom.home]}
-        {...brand}
-      />
-    </slot>
+    <Home
+      class={[custom.button, 'mr-auto', custom.home]}
+      {...brand}
+    />
 
-    <NavbarMenu
+    <slot name='before' />
+
+    <Menu
       {custom}
       {items}>
       <slot />
-    </NavbarMenu>
+    </Menu>
 
-    <slot name='after'>
-      <ColorTheme class={[custom.button, 'ml-auto', custom.theme]} />
-      <NavToTop class={custom.totop} />
-    </slot>
-    <NavbarToggle class={[custom.button, 'order-last ml-8 bp:hidden', custom.toggle]} />
+    <slot name='after' />
+
+    <Theme class={[custom.button, 'ml-auto', custom.theme]} />
+    <Toggle class={[custom.button, 'order-last ml-8 bp:hidden', custom.toggle]} />
   </div>
+  <ToTop class={custom.totop} />
 </nav>

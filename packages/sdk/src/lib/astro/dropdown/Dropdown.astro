@@ -10,12 +10,11 @@ type Props = {
   role?: astroHTML.JSX.AriaRole | null;
   class?: ClassName;
   custom?: Record<string, ClassName>;
-  duration?: number;
 };
 
-const { toggle = {}, class: className, custom = {}, role, duration = 300, ...props } = Astro.props;
+const { toggle = {}, role, class: className, custom = {}, ...props } = Astro.props;
 
-const { class: toogleClass, label, icon, ...propsToggle } = toggle;
+const { class: toogleClass, label, icon, size = '1em', ...propsToggle } = toggle;
 
 const uuid = u();
 ---
@@ -23,14 +22,24 @@ const uuid = u();
 <div
   is='app-dropdown'
   {role}
-  class={twMerge('relative flex flex-col align-middle', custom.item, className)}
-  {...props}
-  data-duration={duration}>
+  class={twMerge(
+    'relative flex flex-col align-middle',
+    'ready:transition-transform ready:duration-200',
+    className
+  )}
+  {...props}>
   {
     toggle.href ? (
       <Link
         id={`app-dropdown-toggle${uuid}`}
-        class={twMerge('group flex h-full items-center', custom.link, 'page:enabled', toogleClass)}
+        class={twMerge(
+          'group',
+          'flex items-center',
+          custom.item,
+          custom.link,
+          'page:enabled',
+          toogleClass
+        )}
         {...propsToggle}
         aria-label={Astro.slots.has('label') || icon ? label : undefined}
         aria-expanded='false'
@@ -40,7 +49,7 @@ const uuid = u();
             <Icon
               {icon}
               class='disabled'
-              size='1em'
+              {size}
             />
           ) : (
             <Fragment set:html={label} />
@@ -55,7 +64,7 @@ const uuid = u();
     ) : (
       <button
         id={`app-dropdown-toggle${uuid}`}
-        class={twMerge('group flex h-full items-center', toogleClass)}
+        class={twMerge('group', 'flex items-center', custom.item, custom.button, toogleClass)}
         {...propsToggle}
         aria-label={Astro.slots.has('label') || icon ? label : undefined}
         aria-expanded='false'
@@ -65,7 +74,7 @@ const uuid = u();
             <Icon
               {icon}
               class='disabled'
-              size='1em'
+              {size}
             />
           ) : (
             <Fragment set:html={label} />
@@ -83,14 +92,15 @@ const uuid = u();
     id={`app-dropdown-appear${uuid}`}
     class={twMerge(
       'static bp:absolute bp:top-full',
-      'flex w-max min-w-full flex-col overflow-hidden',
+      'w-max min-w-full overflow-hidden',
+      'flex flex-col',
       'aria-hidden:opacity-0 aria-hidden:disabled',
-      'aria-hidden:my-0 aria-hidden:py-0 aria-hidden:text-[0] aria-hidden:leading-[0]',
-      // '-bp:aria-hidden:max-h-0 -bp:aria-hidden:max-w-0 -bp:aria-hidden:my-0 -bp:aria-hidden:py-0',
-      'origin-top-left transition-all bp:origin-top',
+      'aria-hidden:my-0 aria-hidden:max-h-0 aria-hidden:py-0 aria-hidden:text-[0] aria-hidden:leading-[0]',
+      '-bp:aria-hidden:max-w-0',
+      'origin-top-left bp:origin-top',
+      'ready:transition-all ready:duration-200',
       custom.drop
     )}
-    style={`transition-duration: ${duration}ms`}
     aria-owns={`app-dropdown-toggle${uuid}`}
     aria-hidden='true'>
     <slot />

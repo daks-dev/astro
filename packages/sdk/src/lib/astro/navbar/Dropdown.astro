@@ -1,5 +1,5 @@
 ---
-import Dropdown from '../dropdown/Dropdown.astro';
+import { default as Component } from '../dropdown/Dropdown.astro';
 import Link from '../navigate/Link.astro';
 import type { NavItem } from '../navigate';
 
@@ -7,23 +7,16 @@ type Props = {
   item: NavItem;
   class?: ClassName;
   custom?: Record<string, ClassName>;
-  duration?: number;
 };
 
-const { item, class: className, custom = {}, duration = 300 } = Astro.props;
-
-custom.drop = [
-  'text-[95%] indent-2 bp:mt-1 bp:p-2 bp:text-[80%] bp:leading-loose bp:indent-0',
-  custom.drop
-];
+const { item, class: className, custom = {} } = Astro.props;
 ---
 
-<Dropdown
+<Component
   toggle={item}
   role='menuitem'
   class={className}
-  {custom}
-  {duration}>
+  {custom}>
   <slot>
     {
       item.items?.map((item) => {
@@ -31,7 +24,7 @@ custom.drop = [
         return (
           <Link
             {role}
-            class={['flex items-center align-middle', custom.link, className]}
+            class={['flex items-center', custom.item, custom.link, className]}
             {...link}
             itemprop={itemprop ?? link.href ? 'relatedLink' : undefined}
           />
@@ -39,4 +32,4 @@ custom.drop = [
       })
     }
   </slot>
-</Dropdown>
+</Component>

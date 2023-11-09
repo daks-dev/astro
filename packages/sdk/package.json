@@ -31,7 +31,7 @@
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@vitest/ui": "^0.34.6",
-    "astro": "^3.4.4",
+    "astro": "^3.5.0",
     "dotenv": "^16.3.1",
     "html-minifier-terser": "^7.2.0",
     "nanostores": "^0.9.4",
@@ -48,7 +48,7 @@
     "vitest": "^0.34.6"
   },
   "peerDependencies": {
-    "astro": "^3.4.4",
+    "astro": "^3.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "svelte": "^4.2.2",

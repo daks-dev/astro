@@ -28,8 +28,11 @@ export default (options: Options) => {
 
   return defineMiddleware(async (_, next) => {
     const response = await next();
+    /* @ts-ignore */
     if (response.headers.get('content-type') === 'text/html') {
+      /* @ts-ignore */
       const headers = response.headers;
+      /* @ts-ignore */
       const html = await response.text();
       const data = await minify(html, options);
       return new Response(data, {

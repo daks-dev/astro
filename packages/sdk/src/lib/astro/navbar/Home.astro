@@ -1,10 +1,9 @@
 ---
-// import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
 import Icon from '../icon/Icon.astro';
-import Link from './Link.astro';
+import Link from '../navigate/Link.astro';
 import type { IconKeysExt } from '../../app/icons';
-import type { NavItem } from '.';
+import type { NavItem } from '../navigate';
 
 interface Props extends Omit<NavItem, 'icon'> {
   icon?:
@@ -24,10 +23,10 @@ const {
   label,
   ...props
 } = Astro.props;
+props.prefetch = true;
 ---
 
 <Link
-  rel='prefetch'
   class={twMerge('group flex h-7 items-center gap-x-4', className)}
   href='/'
   label={label ?? 'home page'}

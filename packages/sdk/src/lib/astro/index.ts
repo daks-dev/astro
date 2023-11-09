@@ -1,5 +1,4 @@
 export { default as Backstage } from './backstage/Backstage.astro';
-export { default as ColorTheme } from './color-theme/ColorTheme.astro';
 
 export { default as ContentCarousel } from './content/ContentCarousel.astro';
 export { default as ContentLightbox } from './content/ContentLightbox.astro';
@@ -12,8 +11,6 @@ export { default as Head } from './head/Head.astro';
 
 export type { NavItem, NavSite } from './navigate';
 export { default as Link } from './navigate/Link.astro';
-export { default as NavHome } from './navigate/NavHome.astro';
-export { default as NavToTop } from './navigate/NavToTop.astro';
 
 export { default as Navbar } from './navbar/Navbar.astro';
 

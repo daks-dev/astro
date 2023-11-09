@@ -36,6 +36,7 @@ export default () =>
     } else if (context.request.url.endsWith('/api/login')) {
       const response = await next();
       // the login endpoint will return to us a JSON with username and password
+      /* @ts-ignore */
       const data = await response.json();
       // we naively check if username and password are equals to some string
       if (data.username === 'astro' && data.password === 'astro') {

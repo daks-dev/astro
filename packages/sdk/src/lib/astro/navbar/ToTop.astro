@@ -25,12 +25,13 @@ const speed = s ?? duration * 5;
 ---
 
 <button
-  is='app-to-top'
+  is='app-navbar-to-top'
   class={twMerge(
     'absolute top-full z-10 flex w-10',
-    'origin-center scale-0 opacity-50 disabled hover:opacity-100',
+    'origin-center opacity-50 oversee:opacity-100',
+    'scale-0 disabled',
     'onscroll:scale-100 onscroll:enabled',
-    'transition-transform delay-150 ease-in-out',
+    'transition-transform delay-150',
     className
   )}
   style={`transition-duration: ${duration}ms`}
@@ -48,7 +49,9 @@ const speed = s ?? duration * 5;
 <script>
   import { toTop } from '../../utils/scroll';
 
-  class AppToTop extends HTMLButtonElement {
+  class AppNavbarToTop extends HTMLButtonElement {
+    timeout?: ReturnType<typeof setTimeout>;
+
     constructor() {
       super();
     }
@@ -70,5 +73,5 @@ const speed = s ?? duration * 5;
     };
   }
 
-  customElements.define('app-to-top', AppToTop, { extends: 'button' });
+  customElements.define('app-navbar-to-top', AppNavbarToTop, { extends: 'button' });
 </script>
