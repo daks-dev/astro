@@ -82,12 +82,12 @@ const uuid = u();
   <div
     id={`app-dropdown-appear${uuid}`}
     class={twMerge(
-      'static lg:absolute lg:top-full',
-      'flex flex-col w-max min-w-full overflow-hidden',
-      'aria-hidden:disabled aria-hidden:opacity-0',
+      'static bp:absolute bp:top-full',
+      'flex w-max min-w-full flex-col overflow-hidden',
+      'aria-hidden:opacity-0 aria-hidden:disabled',
       'aria-hidden:my-0 aria-hidden:py-0 aria-hidden:text-[0] aria-hidden:leading-[0]',
-      // '-lg:aria-hidden:max-h-0 -lg:aria-hidden:max-w-0 -lg:aria-hidden:my-0 -lg:aria-hidden:py-0',
-      'origin-top-left lg:origin-top transition-all',
+      // '-bp:aria-hidden:max-h-0 -bp:aria-hidden:max-w-0 -bp:aria-hidden:my-0 -bp:aria-hidden:py-0',
+      'origin-top-left transition-all bp:origin-top',
       custom.drop
     )}
     style={`transition-duration: ${duration}ms`}
@@ -99,9 +99,12 @@ const uuid = u();
 
 <script>
   import { navigate } from 'astro:transitions/client';
+  import { breakpoint } from '../../tailwind/resolve';
   import { beep } from '../../utils/audio';
 
   class AppDropdown extends HTMLDivElement {
+    media = window.matchMedia(`(min-width: ${breakpoint})`);
+
     constructor() {
       super();
     }
@@ -145,7 +148,7 @@ const uuid = u();
 
     bind = () => {
       this.hidden = true;
-      if (window.innerWidth >= 1024)
+      if (this.media.matches)
         if (this.offsetLeft + this.clientWidth / 2 < window.innerWidth / 2) {
           this.drop.style.left = '0';
           this.drop.style.right = '';

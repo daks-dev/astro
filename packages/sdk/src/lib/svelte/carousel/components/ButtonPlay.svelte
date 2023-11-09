@@ -14,7 +14,7 @@
   tabindex="-1"
   aria-label={auto ? 'pouse' : 'play'}>
   <svg
-    class="disabled w-12"
+    class="w-12 disabled"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="currentColor">

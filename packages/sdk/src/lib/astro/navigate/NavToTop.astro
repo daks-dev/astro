@@ -2,11 +2,11 @@
 import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
 import Icon from '../icon/Icon.astro';
-import type { IconsKeysExt } from '../../app/icons';
+import type { IconKeysExt } from '../../app/icons';
 
 type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   class?: ClassName;
-  icon?: IconsKeysExt;
+  icon?: IconKeysExt;
   label?: string;
   duration?: number;
   speed?: number;

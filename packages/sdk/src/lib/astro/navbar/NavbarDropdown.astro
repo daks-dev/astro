@@ -13,7 +13,7 @@ type Props = {
 const { item, class: className, custom = {}, duration = 300 } = Astro.props;
 
 custom.drop = [
-  'text-[95%] indent-2 lg:mt-1 lg:p-2 lg:text-[80%] lg:leading-loose lg:indent-0',
+  'text-[95%] indent-2 bp:mt-1 bp:p-2 bp:text-[80%] bp:leading-loose bp:indent-0',
   custom.drop
 ];
 ---
@@ -27,13 +27,13 @@ custom.drop = [
   <slot>
     {
       item.items?.map((item) => {
-        const { class: className, ...link } = item;
-        link.role = 'menuitem';
+        const { class: className, role = 'menuitem', itemprop, ...link } = item;
         return (
           <Link
+            {role}
             class={['flex items-center align-middle', custom.link, className]}
             {...link}
-            itemprop={link.href ? 'relatedLink' : undefined}
+            itemprop={itemprop ?? link.href ? 'relatedLink' : undefined}
           />
         );
       })

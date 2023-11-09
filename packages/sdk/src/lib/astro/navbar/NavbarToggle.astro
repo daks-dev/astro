@@ -2,15 +2,15 @@
 import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
 import Icon from '../icon/Icon.astro';
-import type { IconsKeysExt } from '../../app/icons';
+import type { IconKeysExt } from '../../app/icons';
 
 type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   class?: ClassName;
   icon?:
-    | IconsKeysExt
+    | IconKeysExt
     | {
-        open: IconsKeysExt;
-        close: IconsKeysExt;
+        open: IconKeysExt;
+        close: IconKeysExt;
       };
   label?: string;
 };
@@ -28,7 +28,7 @@ const {
 <button
   is='app-navbar-toggle'
   id='app-navbar-toggle'
-  class={twMerge('group flex items-center h-7', className)}
+  class={twMerge('group flex h-7 items-center', className)}
   aria-label={label}
   aria-expanded='false'
   aria-controls='app-navbar-menu'
@@ -38,17 +38,17 @@ const {
       typeof icon === 'string' ? (
         <Icon
           {icon}
-          class='disabled h-full w-auto'
+          class='h-full w-auto disabled'
         />
       ) : (
         <>
           <Icon
             icon={icon.open}
-            class={['disabled h-full w-auto', 'group-aria-expanded:hidden']}
+            class={['h-full w-auto disabled', 'group-aria-expanded:hidden']}
           />
           <Icon
             icon={icon.close}
-            class={['disabled h-full w-auto', 'hidden group-aria-expanded:block']}
+            class={['h-full w-auto disabled', 'hidden group-aria-expanded:block']}
           />
         </>
       )

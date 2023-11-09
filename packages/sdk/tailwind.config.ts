@@ -4,7 +4,7 @@ import common from './src/lib/tailwind/presets/common';
 import { fontSans } from './src/lib/tailwind/font-family';
 
 export default {
-  content: ['./src/**/*.{html,js,jsx,ts,tsx,md,mdx,astro,svelte,vue}', ...common.content],
+  content: ['./src/**/*.{html,js,jsx,ts,tsx,md,mdx,astro,svelte}', ...common.content],
 
   presets: [common],
 

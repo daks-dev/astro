@@ -34,9 +34,7 @@ const gradient =
     : undefined;
 
 const data = (bundle as IconBandle)[icon];
-const { body, view: viewBox = '0 0 256 256' } = (
-  typeof data === 'string' ? { body: data } : data
-);
+const { body, view: viewBox = '0 0 256 256' } = typeof data === 'string' ? { body: data } : data;
 ---
 
 <svg

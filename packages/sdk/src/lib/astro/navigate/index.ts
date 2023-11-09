@@ -1,4 +1,4 @@
-import type { IconsKeysExt } from '../../app/icons';
+import type { IconKeys } from '../../app/icons';
 
 export interface NavLink {
   id?: string;
@@ -9,12 +9,12 @@ export interface NavLink {
   href?: string;
   target?: astroHTML.JSX.HTMLAttributeAnchorTarget | null;
   title?: string;
-  itemporp?: string;
+  itemprop?: string;
 }
 
 export interface NavItem extends NavLink {
   label?: string;
-  icon?: IconsKeysExt;
+  icon?: IconKeys | (string & NonNullable<unknown>);
   disallow?: true;
   items?: NavItem[];
 }

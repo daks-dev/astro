@@ -73,7 +73,7 @@
     'not-prose text-base',
     'bg-black/90',
     'linecap-round linejoin-round vector-non-scaling-stroke',
-    'clear-pseudo select-none',
+    'select-none clear-pseudo',
     'overflow-y-offset',
     custom.overlay
   )}
@@ -83,7 +83,7 @@
   <div
     on:click|preventDefault|stopPropagation={() => false}
     on:keypress
-    class={twMerge('max-h-inherit flex flex-col', fullscreen && 'w-inherit h-inherit')}
+    class={twMerge('flex max-h-inherit flex-col', fullscreen && 'h-inherit w-inherit')}
     role="button"
     tabindex="-1">
     <slot />

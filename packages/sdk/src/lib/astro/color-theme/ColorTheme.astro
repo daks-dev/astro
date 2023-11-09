@@ -2,15 +2,15 @@
 import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
 import Icon from '../icon/Icon.astro';
-import type { IconsKeys } from '../icon';
+import type { IconKeysExt } from '../../app/icons';
 
 type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   class?: ClassName;
   icon?:
-    | IconsKeys
+    | IconKeysExt
     | {
-        light: IconsKeys;
-        dark: IconsKeys;
+        light: IconKeysExt;
+        dark: IconKeysExt;
       };
 };
 const {
@@ -25,7 +25,7 @@ const {
 
 <button
   is='app-color-theme'
-  class={twMerge('flex items-center h-7', className)}
+  class={twMerge('flex h-7 items-center', className)}
   type='button'
   aria-label='color theme'
   {...props}>
@@ -34,17 +34,17 @@ const {
       typeof icon === 'string' ? (
         <Icon
           {icon}
-          class='disabled h-full w-auto'
+          class='h-full w-auto disabled'
         />
       ) : (
         <>
           <Icon
             icon={icon.light}
-            class={['disabled h-full w-auto', 'dark:hidden']}
+            class={['h-full w-auto disabled', 'dark:hidden']}
           />
           <Icon
             icon={icon.dark}
-            class={['disabled h-full w-auto', 'hidden dark:block']}
+            class={['h-full w-auto disabled', 'hidden dark:block']}
           />
         </>
       )
@@ -91,17 +91,21 @@ const {
 </button>
 
 <script>
-  import { settings } from '../../app/stores/persistent';
+  // import { settings } from '../../app/stores/persistent';
 
   class AppColorTheme extends HTMLButtonElement {
+    readonly class = 'theme-dark';
+
     constructor() {
       super();
 
+      /*
       settings.listen((val, key) =>
-        key === 'theme' && val.theme === 'dark'
-          ? document.documentElement.classList.add('dark')
-          : document.documentElement.classList.remove('dark')
+        key === 'theme' && val.theme === this.class
+          ? document.documentElement.classList.add(this.class)
+          : document.documentElement.classList.remove(this.class)
       );
+      */
     }
 
     connectedCallback() {
@@ -112,8 +116,9 @@ const {
 
     handle = (ev: Event) => {
       ev.preventDefault();
-      const dark = document.documentElement.classList.toggle('dark');
-      settings.setKey('theme', dark ? 'dark' : 'light');
+      document.documentElement.classList.toggle(this.class);
+      // const dark = document.documentElement.classList.toggle(this.class);
+      // settings.setKey('theme', dark ? 'dark' : 'light');
     };
   }
 

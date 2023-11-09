@@ -7,7 +7,7 @@
     "strictNullChecks": true,
     "checkJs": true,
     // "sourceMap": true,
-    "lib": ["esnext", "DOM", "DOM.Iterable"],
+    "lib": ["esnext", "DOM", "DOM.Iterable", "WebWorker"],
     "plugins": [
       {
         "name": "@astrojs/ts-plugin"

@@ -9,7 +9,7 @@
     "check:watch": "astro check --watch",
     "check:watch:svelte": "svelte-check --watch",
     "test": "vitest --ui",
-    "run:prettier": "prettier --plugin=prettier-plugin-astro --plugin=prettier-plugin-svelte --ignore-path=../../.prettierignore",
+    "run:prettier": "prettier --plugin=prettier-plugin-astro --plugin=prettier-plugin-svelte --plugin=prettier-plugin-tailwindcss",
     "lint": "pnpm run:prettier --check . && eslint .",
     "format": "pnpm run:prettier --write .",
     "package": "svelte-package && publint",
@@ -31,7 +31,7 @@
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@vitest/ui": "^0.34.6",
-    "astro": "^3.4.3",
+    "astro": "^3.4.4",
     "html-minifier-terser": "^7.2.0",
     "nanostores": "^0.9.4",
     "publint": "^0.2.5",
@@ -47,7 +47,7 @@
     "vitest": "^0.34.6"
   },
   "peerDependencies": {
-    "astro": "^3.4.3",
+    "astro": "^3.4.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "svelte": "^4.2.2",

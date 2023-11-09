@@ -6,7 +6,7 @@ import NavbarHome from '../navigate/NavHome.astro';
 import NavToTop from '../navigate/NavToTop.astro';
 import NavbarMenu from './NavbarMenu.astro';
 import NavbarToggle from './NavbarToggle.astro';
-import type { IconsKeysExt } from '../../app/icons';
+import type { IconKeysExt } from '../../app/icons';
 import type { NavItem } from '../navigate';
 
 type Props = Omit<HTMLAttributes<'nav'>, 'class'> & {
@@ -16,10 +16,10 @@ type Props = Omit<HTMLAttributes<'nav'>, 'class'> & {
   brand?: {
     label?: string;
     icon?:
-      | IconsKeysExt
+      | IconKeysExt
       | {
-          home: IconsKeysExt;
-          page: IconsKeysExt;
+          home: IconKeysExt;
+          page: IconKeysExt;
         };
   };
   blank?: true;
@@ -29,7 +29,7 @@ const { items, class: className, custom = {}, brand = {}, blank, ...props } = As
 
 if (!blank) {
   custom.frame = [
-    'h-[72px]',
+    'h-[72px] ',
     'text-1.5xl tracking-wide',
     'bg-neutral-100 shadow-md dark:bg-gray-800', // dark:bg-transparent
     'onscroll:bg-neutral-100/90 dark:onscroll:bg-slate-700/90',
@@ -40,38 +40,38 @@ if (!blank) {
   custom.menu = twMerge(
     [
       'text-slate-500 dark:text-slate-400',
-      'leading-none -lg:text-base -lg:leading-loose',
-      '-lg:bg-neutral-100/95 -lg:dark:bg-gray-700/95',
-      '-lg:rounded -lg:shadow-md'
+      'leading-none -bp:text-base -bp:leading-loose',
+      '-bp:bg-neutral-100/95 -bp:dark:bg-gray-700/95',
+      '-bp:rounded -bp:shadow-md'
     ],
     custom.menu
   );
   custom.link = twMerge(
     [
-      'px-8 lg:px-4',
+      'px-8 bp:px-4',
       'page:disabled',
-      'page:text-cyan-700 dark:page:text-gray-200 step:underline',
-      'lg:hover:text-sky-500',
-      '-lg:hover:bg-neutral-400/95 -lg:dark:hover:bg-gray-500/95'
+      'step:underline page:text-cyan-700 dark:page:text-gray-200',
+      'bp:hover:text-sky-500',
+      '-bp:hover:bg-neutral-400/95 -bp:dark:hover:bg-gray-500/95'
     ],
     custom.link
   );
   custom.button = twMerge('text-slate-700 dark:text-slate-200', custom.button);
 
   custom.drop = twMerge(
-    'lg:rounded lg:shadow-md lg:bg-neutral-100/95 lg:dark:bg-gray-700/95',
+    'bp:rounded bp:bg-neutral-100/95 bp:shadow-md bp:dark:bg-gray-700/95',
     custom.drop
   );
 
   custom.home = twMerge(
     [
       'hover:text-sky-500 dark:hover:text-sky-500',
-      'page:disabled page:text-cyan-700 dark:page:text-cyan-500'
+      'page:text-cyan-700 page:disabled dark:page:text-cyan-500'
     ],
     custom.home
   );
   custom.totop = twMerge(
-    '-mr-2.5 lg:-mr-3 mt-8 rounded-full bg-slate-500/50 w-14 p-3',
+    '-mr-2.5 mt-8 w-14 rounded-full bg-slate-500/50 p-3 lg:-mr-3',
     custom.totop
   );
 }
@@ -99,6 +99,6 @@ if (!blank) {
       <ColorTheme class={[custom.button, 'ml-auto', custom.theme]} />
       <NavToTop class={custom.totop} />
     </slot>
-    <NavbarToggle class={[custom.button, 'order-last ml-8 lg:hidden', custom.toggle]} />
+    <NavbarToggle class={[custom.button, 'order-last ml-8 bp:hidden', custom.toggle]} />
   </div>
 </nav>

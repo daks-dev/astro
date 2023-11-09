@@ -33,7 +33,7 @@
       class:pr-2={fullscreen && !options.buttonClose}
       aria-label="full screen">
       <svg
-        class="disabled w-9"
+        class="w-9 disabled"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor">
@@ -58,7 +58,7 @@
       class:pr-2={fullscreen}
       aria-label="close">
       <svg
-        class="disabled w-9"
+        class="w-9 disabled"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor">

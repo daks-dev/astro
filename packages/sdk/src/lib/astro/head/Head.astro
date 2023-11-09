@@ -35,13 +35,16 @@ const { title, description, app, rss, image = '/icons/logo.svg' } = Astro.props;
   content={description}
 />
 <script is:inline>
-  function set() {
-    const t = localStorage.getItem('set::theme');
-    const l = document.documentElement.classList;
-    t?.includes('dark') ? l.add('dark') : t?.includes('light') && l.remove('dark');
-  }
-  set();
-  document.addEventListener('astro:after-swap', set);
+  ((e, l, i, c) => {
+    const get = () => (l?.getItem(i) ? l.getItem(i) : e.classList.contains(c) ? 'dark' : 'light');
+    const set = () => e.classList[get() === 'dark' ? 'add' : 'remove'](c);
+    const observer = new MutationObserver(() =>
+      l.setItem(i, e.classList.contains(c) ? 'dark' : 'light')
+    );
+    observer.observe(e, { attributes: true, attributeFilter: ['class'] });
+    set();
+    document.addEventListener('astro:after-swap', set);
+  })(document.documentElement, localStorage, 'set::theme', 'theme-dark');
 </script>
 {
   rss && (

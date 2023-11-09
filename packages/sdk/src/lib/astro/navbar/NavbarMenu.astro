@@ -1,6 +1,7 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import twMerge from '../../tailwind/tailwind-merge';
+import { breakpoint } from '../../tailwind/resolve';
 import Link from '../navigate/Link.astro';
 import NavbarDropdown from './NavbarDropdown.astro';
 import type { NavItem } from '../navigate';
@@ -10,6 +11,7 @@ type Props = Omit<HTMLAttributes<'nav'>, 'class'> & {
   custom?: Record<string, ClassName>;
   items: NavItem[];
 };
+
 const { class: className, custom = {}, items, ...props } = Astro.props;
 ---
 
@@ -19,14 +21,17 @@ const { class: className, custom = {}, items, ...props } = Astro.props;
   role='menu'
   class={twMerge(
     'not-prose',
-    'absolute left-0 top-full z-0 lg:static',
-    // 'grid grid-cols-1 lg:auto-cols-max lg:grid-flow-col lg:gap-x-3 2xl:gap-x-5',
-    'flex flex-col lg:flex-row lg:flex-nowrap',
-    // 'lg:gap-x-2 2xl:gap-x-4',
-    'ml-1 mt-1 max-w-xs sm:max-w-md lg:m-0 lg:max-w-none lg:h-full',
-    'aria-hidden:disabled aria-hidden:scale-75 aria-hidden:opacity-0',
-    'origin-top-left transition lg:origin-center',
-    '-lg:overflow-hidden',
+    'absolute left-0 top-full z-0',
+    'bp:static',
+    // 'grid grid-cols-1 bp:auto-cols-max bp:grid-flow-col bp:gap-x-3 2xl:gap-x-5',
+    'flex flex-col',
+    'bp:flex-row bp:flex-nowrap',
+    // 'bp:gap-x-2 2xl:gap-x-4',
+    'ml-1 mt-1 max-w-xs sm:max-w-md',
+    'bp:m-0 bp:h-full bp:max-w-none',
+    'aria-hidden:scale-75 aria-hidden:opacity-0 aria-hidden:disabled',
+    'origin-top-left transition bp:origin-center',
+    '-bp:overflow-hidden',
     custom.menu,
     className
   )}
@@ -57,9 +62,10 @@ const { class: className, custom = {}, items, ...props } = Astro.props;
   <slot />
 </div>
 
-<script is:inline>
+<script define:vars={{ breakpoint }} is:inline>
   const node = document.getElementById('app-navbar-menu');
-  if (node && window.innerWidth < 1024) {
+  /* @ts-ignore */
+  if (node && !window.matchMedia(`(min-width: ${breakpoint})`).matches) {
     node.setAttribute('aria-hidden', 'true');
     node.querySelectorAll('a').forEach((el) => el.setAttribute('tabindex', '-1'));
   }
@@ -67,8 +73,11 @@ const { class: className, custom = {}, items, ...props } = Astro.props;
 
 <script>
   import { status } from '../../app/stores';
+  import { breakpoint } from '../../tailwind/resolve';
 
   class AppNavbarMenu extends HTMLDivElement {
+    media = window.matchMedia(`(min-width: ${breakpoint})`);
+
     constructor() {
       super();
 
@@ -82,13 +91,14 @@ const { class: className, custom = {}, items, ...props } = Astro.props;
     }
 
     connectedCallback() {
-      window.addEventListener('resize', this.check);
-      document.addEventListener('astro:page-load', this.reset, { once: true });
+      // window.addEventListener('resize', this.check);
+      // document.addEventListener('astro:page-load', this.reset, { once: true });
       document.addEventListener('click', this.handleOutside);
+      this.media.addEventListener('change', this.check);
     }
 
     disconnectedCallback() {
-      window.removeEventListener('resize', this.check);
+      // window.removeEventListener('resize', this.check);
       document.removeEventListener('click', this.handleOutside);
     }
 
@@ -109,7 +119,7 @@ const { class: className, custom = {}, items, ...props } = Astro.props;
     }
 
     check = () => {
-      const hidden = window.innerWidth < 1024;
+      const hidden = !this.media.matches;
       status.setKey('navbar.hidden', hidden);
       return hidden;
     };

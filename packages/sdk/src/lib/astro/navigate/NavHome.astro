@@ -3,15 +3,15 @@
 import twMerge from '../../tailwind/tailwind-merge';
 import Icon from '../icon/Icon.astro';
 import Link from './Link.astro';
-import type { IconsKeysExt } from '../../app/icons';
+import type { IconKeysExt } from '../../app/icons';
 import type { NavItem } from '.';
 
 interface Props extends Omit<NavItem, 'icon'> {
   icon?:
-    | IconsKeysExt
+    | IconKeysExt
     | {
-        home: IconsKeysExt;
-        page: IconsKeysExt;
+        home: IconKeysExt;
+        page: IconKeysExt;
       };
 }
 
@@ -28,7 +28,7 @@ const {
 
 <Link
   rel='prefetch'
-  class={twMerge('group flex items-center gap-x-4 h-7', className)}
+  class={twMerge('group flex h-7 items-center gap-x-4', className)}
   href='/'
   label={label ?? 'home page'}
   {...props}>
@@ -37,17 +37,17 @@ const {
       typeof icon === 'string' ? (
         <Icon
           {icon}
-          class='disabled h-full w-auto'
+          class='h-full w-auto disabled'
         />
       ) : (
         <>
           <Icon
             icon={icon.home}
-            class={['disabled h-full w-auto', 'hidden group-[[aria-current="page"]]:block']}
+            class={['h-full w-auto disabled', 'hidden group-[[aria-current="page"]]:block']}
           />
           <Icon
             icon={icon.page}
-            class={['disabled h-full w-auto', 'group-[[aria-current="page"]]:hidden']}
+            class={['h-full w-auto disabled', 'group-[[aria-current="page"]]:hidden']}
           />
         </>
       )

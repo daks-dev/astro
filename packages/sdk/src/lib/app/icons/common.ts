@@ -1,6 +1,6 @@
-// import type { IconBandle } from '../../astro/icon';
+import type { IconBandle } from '../../astro/icon';
 
-const bundle = {
+export default {
   'arrow-fat-lines-up-duotone': {
     body: '<path d="M224,120H176v32H80V120H32l96-96Z" opacity="0.2" /><path d="M229.66,114.34l-96-96a8,8,0,0,0-11.32,0l-96,96A8,8,0,0,0,32,128H72v24a8,8,0,0,0,8,8h96a8,8,0,0,0,8-8V128h40a8,8,0,0,0,5.66-13.66ZM176,112a8,8,0,0,0-8,8v24H88V120a8,8,0,0,0-8-8H51.31L128,35.31,204.69,112Zm8,104a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,216Zm0-32a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,184Z" />',
     view: '0 0 256 256'
@@ -37,7 +37,4 @@ const bundle = {
     body: '<path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z" />',
     view: '0 0 256 256'
   }
-};
-
-export type IconsKeys = keyof typeof bundle;
-export default bundle;
+} satisfies IconBandle;

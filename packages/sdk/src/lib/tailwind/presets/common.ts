@@ -2,42 +2,39 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import type { Config } from 'tailwindcss';
 
+import { default as screens } from '../screens';
+
+import { default as animationPlayState } from '../plugins/animation-play-state';
+import { default as aria } from '../plugins/aria';
 import { default as base } from '../plugins/base';
 import { default as components } from '../plugins/components';
-import { default as utilities } from '../plugins/utilities';
-import { default as aria } from '../plugins/aria';
+import { default as forcedColors } from '../plugins/forced-colors';
+import { default as gridArea } from '../plugins/grid-area';
+import { default as lazy } from '../plugins/lazy';
 import { default as onscroll } from '../plugins/onscroll';
-import { default as animationPlayState } from '../plugins/animation-play-state';
+import { default as oversee } from '../plugins/oversee';
+import { default as ready } from '../plugins/ready';
+import { default as utilities } from '../plugins/utilities';
+
 import { default as strokeLinecap } from '../plugins/svg/stroke-linecap';
 import { default as strokeLinejoin } from '../plugins/svg/stroke-linejoin';
 import { default as vectorEffect } from '../plugins/svg/vector-effect';
 
-const sort = (obj: Record<string, unknown>) =>
+const sort = (obj: Record<string, unknown>): NonNullable<unknown> =>
   Object.keys(obj)
     .sort()
-    .reduce((acc, key) => ((acc[key] = obj[key]), acc), <Record<string, unknown>>{});
+    .reduce((acc, key) => ((acc[key] = obj[key]), acc), {} as Record<string, unknown>);
 
 export default {
   content: [
-    './node_modules/@daks.dev/astro.sdk/dist/**/*.{html,js,jsx,ts,tsx,md,mdx,astro,svelte,vue}'
+    './node_modules/@daks.dev/astro.sdk/dist/**/*.{html,js,jsx,ts,tsx,md,mdx,astro,svelte}'
   ],
 
-  darkMode: 'class',
+  darkMode: ['class', '.theme-dark'],
 
   theme: {
-    screens: {
-      '-3xl': { max: '1679px' },
-      '-2xl': { max: '1535px' },
-      '-xl': { max: '1279px' },
-      '-lg': { max: '1023px' },
-      '-md': { max: '767px' },
-      '-sm': { max: '639px' },
-      '-xs': { max: '479px' },
-      xs: '480px',
-      ...defaultTheme.screens,
-      '3xl': '1680px'
-    },
-    fontSize: <Record<string, string>>sort({
+    screens: screens({ bp: 800, min: true, max: true }),
+    fontSize: sort({
       '3xs': '0.5rem',
       '2xs': '0.625rem',
       '1.5xl': '1.375rem',
@@ -46,7 +43,7 @@ export default {
       '4.5xl': '2.5rem',
       ...defaultTheme.fontSize
     }),
-    backgroundSize: <Record<string, string>>sort({
+    backgroundSize: sort({
       '75%': '75%',
       '50%': '50%',
       '33%': '33.333333%',
@@ -56,7 +53,7 @@ export default {
       '5%': '5%',
       ...defaultTheme.backgroundSize
     }),
-    aspectRatio: <Record<string, string>>sort({
+    aspectRatio: sort({
       '3/4': '3 / 4',
       '4/3': '4 / 3',
       A4: '620 / 877',
@@ -64,6 +61,16 @@ export default {
       ...defaultTheme.aspectRatio
     }),
     extend: {
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))'
+      },
+      borderRadius: {
+        '4xl': '3rem',
+        '5xl': '4.5rem'
+      },
+      boxShadow: {
+        inset: 'inset 0 0 0 1px var(--tw-shadow-color)'
+      },
       container: {
         center: true
       },
@@ -74,14 +81,9 @@ export default {
         circle: 'circle',
         square: 'square'
       },
-      minWidth: {
-        auto: 'auto'
-      },
-      minHeight: {
-        auto: 'auto'
-      },
       spacing: {
-        inherit: 'inherit'
+        inherit: 'inherit',
+        unset: 'unset'
       },
       strokeWidth: {
         '8': '8px',
@@ -92,14 +94,19 @@ export default {
   },
 
   plugins: [
-    animationPlayState,
-    aria,
     base,
     components,
+    animationPlayState,
+    aria,
+    forcedColors,
+    gridArea,
     onscroll,
+    oversee,
+    ready,
     utilities,
     strokeLinecap,
     strokeLinejoin,
-    vectorEffect
+    vectorEffect,
+    lazy
   ]
 } satisfies Config;
