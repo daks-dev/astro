@@ -13,6 +13,7 @@ import { default as base } from '../plugins/base';
 import { default as components } from '../plugins/components';
 import { default as forcedColors } from '../plugins/forced-colors';
 import { default as gridArea } from '../plugins/grid-area';
+import { default as gradient } from '../plugins/gradient';
 import { default as lazy } from '../plugins/lazy';
 import { default as onscroll } from '../plugins/onscroll';
 import { default as oversee } from '../plugins/oversee';
@@ -36,15 +37,14 @@ export default {
 
   theme: {
     screens: screens({ bp: breakpoint, min: true, max: true }),
-    fontSize: sort({
-      '3xs': '0.5rem',
-      '2xs': '0.625rem',
-      '1.5xl': '1.375rem',
-      '2.5xl': '1.6875rem',
-      '3.5xl': '2rem',
-      '4.5xl': '2.5rem',
-      ...defaultTheme.fontSize
+    aspectRatio: sort({
+      '3/4': '3 / 4',
+      '4/3': '4 / 3',
+      A4: '620 / 877',
+      A4l: '877 / 620',
+      ...defaultTheme.aspectRatio
     }),
+    backgroundImage: {},
     backgroundSize: sort({
       '75%': '75%',
       '50%': '50%',
@@ -55,17 +55,16 @@ export default {
       '5%': '5%',
       ...defaultTheme.backgroundSize
     }),
-    aspectRatio: sort({
-      '3/4': '3 / 4',
-      '4/3': '4 / 3',
-      A4: '620 / 877',
-      A4l: '877 / 620',
-      ...defaultTheme.aspectRatio
+    fontSize: sort({
+      '3xs': '0.5rem',
+      '2xs': '0.625rem',
+      '1.5xl': '1.375rem',
+      '2.5xl': '1.6875rem',
+      '3.5xl': '2rem',
+      '4.5xl': '2.5rem',
+      ...defaultTheme.fontSize
     }),
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))'
-      },
       borderRadius: {
         '4xl': '3rem',
         '5xl': '4.5rem'
@@ -98,14 +97,15 @@ export default {
   plugins: [
     base,
     components,
+    utilities,
     animationPlayState,
     aria,
     forcedColors,
+    gradient,
     gridArea,
     onscroll,
     oversee,
     ready,
-    utilities,
     strokeLinecap,
     strokeLinejoin,
     vectorEffect,
