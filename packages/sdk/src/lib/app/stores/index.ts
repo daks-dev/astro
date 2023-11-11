@@ -16,6 +16,8 @@ export const page = map<{
   request: {} as Request
 });
 
+// onMount(meta, () => { meta.setKey('breakpoint', process.env?.BREAKPOINT); });
+
 onMount(page, () => {
   page.set({
     url: new URL(location?.toString()),

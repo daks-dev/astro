@@ -1,11 +1,8 @@
-//import colors from 'tailwindcss/colors';
 import defaultTheme from 'tailwindcss/defaultTheme';
 import type { Config } from 'tailwindcss';
 
-import 'dotenv/config';
-import { breakpoint } from '../resolve';
-
 import { default as screens } from '../screens';
+const breakpoint = 800;
 
 import { default as animationPlayState } from '../plugins/animation-play-state';
 import { default as aria } from '../plugins/aria';
@@ -36,7 +33,7 @@ export default {
   darkMode: ['class', '.theme-dark'],
 
   theme: {
-    screens: screens({ bp: breakpoint, min: true, max: true }),
+    screens: screens(breakpoint),
     aspectRatio: sort({
       '3/4': '3 / 4',
       '4/3': '4 / 3',
@@ -44,7 +41,9 @@ export default {
       A4l: '877 / 620',
       ...defaultTheme.aspectRatio
     }),
-    backgroundImage: {},
+    backgroundImage: {
+      none: 'none'
+    },
     backgroundSize: sort({
       '75%': '75%',
       '50%': '50%',

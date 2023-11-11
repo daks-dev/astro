@@ -1,17 +1,19 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 
-export default (data: { bp?: number | string; min?: true; max?: true }) => {
-  data.bp =
+export default (data: number | string | { bp?: number | string; min?: boolean; max?: boolean }) => {
+  if (typeof data === 'number' || typeof data === 'string') data = { bp: data };
+  const bp =
     typeof data.bp === 'number' || (typeof data.bp === 'string' && /^[1-9]\d{2,3}$/.test(data.bp))
       ? `${data.bp}px`
       : typeof data.bp === 'string' && /^[1-9]\d{2,3}px$/.test(data.bp)
       ? data.bp
       : undefined;
+  const { min = true, max = true } = data;
 
   const strs = {
     ...defaultTheme.screens,
-    ...(data.bp ? { bp: data.bp } : {}),
-    ...(data.min
+    ...(bp ? { bp } : {}),
+    ...(min
       ? {
           xs: '480px',
           '3xl': '1680px'
@@ -28,7 +30,7 @@ export default (data: { bp?: number | string; min?: true; max?: true }) => {
   const desc = (x: string, y: string) => (nums[x] < nums[y] ? 1 : nums[x] > nums[y] ? -1 : 0);
 
   return {
-    ...(data.max
+    ...(max
       ? Object.keys(nums)
           .sort(desc)
           .reduce(
