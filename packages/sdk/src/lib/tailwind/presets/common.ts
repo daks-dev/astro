@@ -2,7 +2,9 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 import type { Config } from 'tailwindcss';
 
 import { default as screens } from '../screens';
-const breakpoint = 800;
+
+import 'dotenv/config';
+const breakpoint = process.env.PUBLIC_BREAKPOINT ?? 800;
 
 import { default as animationPlayState } from '../plugins/animation-play-state';
 import { default as aria } from '../plugins/aria';
